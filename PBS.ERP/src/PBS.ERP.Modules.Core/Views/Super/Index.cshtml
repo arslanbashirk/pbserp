@@ -1,0 +1,216 @@
+﻿@using PBS.ERP.Shared.Models
+@model List<Entity>
+@{
+    ViewBag.Title = "Index";
+    Layout = "_AdminLayout";
+    ViewBag.Menu = "Metadata";
+    var dbs = (Model != null && Model.Any())
+           ? Model.Select(x => x.Database).Where(db => !string.IsNullOrEmpty(db)).Distinct().Count()
+           : 0;
+
+    var modify = (Model != null && Model.Any())
+        ? Model.Select(x => x.CreatedBy).Distinct().Count()
+        : 0;
+
+    var lastActivity = (Model != null && Model.Any())
+        ? Model.Max(x => x.CreatedTime).ToString("dd MMM HH:mm")
+        : "No Activity";
+}
+
+<!-- CSS for DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="bg-primary text-white rounded p-3 me-3">
+                    <i class="bi bi-database fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">Databases</h6>
+                    <h4 class="fw-bold">@dbs</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="bg-success text-white rounded p-3 me-3">
+                    <i class="bi bi-ui-checks-grid fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">Total Entities</h6>
+                    <h4 class="fw-bold">@((Model != null) ? Model.Count : 0)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="bg-warning text-dark rounded p-3 me-3">
+                    <i class="bi bi-people-fill fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">Created By Users</h6>
+                    <h4 class="fw-bold">@modify</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="bg-danger text-white rounded p-3 me-3">
+                    <i class="bi bi-person-lines-fill fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-1">Last Added</h6>
+                    <h4 class="fw-bold">@lastActivity</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-3 mt-3">
+
+    <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+        <div>
+            <h5 class="mb-1 fw-semibold">
+                <i class="bi bi-table me-2 text-success"></i>
+                Create / Add New Table
+            </h5>
+            <small class="text-muted">
+                Add a new table with columns and metadata configuration
+            </small>
+        </div>
+
+        <a href="@Url.Action("Create", "Super")"
+           class="btn btn-success d-flex align-items-center gap-2">
+            <i class="bi bi-plus-circle"></i>
+            Add Table
+        </a>
+
+    </div>
+
+</div>
+<h2>List of Tables</h2>
+
+<table id="tablesList" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Added By</th>
+            <th>Modified By</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var table in Model)
+        {
+            <tr>
+                <td>@table.Type</td>
+                <td>@table.Name</td>
+                <td>@table.Description</td>
+                <td>@table.CreatedBy</td>
+                <td>@table.ModifiedBy</td>
+                <td class="text-nowrap">
+                    <a href="@Url.Action("table", "crud", new { table = table.UID })"
+                       class="btn btn-sm btn-success" title="Data">
+                        <i class="fa fa-database"></i>
+                    </a>
+                    <a href="@Url.Action("alter", "super", new { id = table.UID })"
+                       class="btn btn-sm btn-primary" title="View">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger droptable"
+                            data-id="@table.UID" title="Drop">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <!-- jQuery and DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // ----------------- INIT DATATABLE -----------------
+            var table = $('#tablesList').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                order: [[0, "asc"]], // default sort by first column
+                pageLength: 20,
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
+
+            // ----------------- DROP TABLE -----------------
+            // Assuming your table has id="myTable"
+            $("#tablesList").on("click", ".droptable", function () {
+                var table = $(this).data("id");
+                dropTable(table);
+            });
+
+            function dropTable(table) {
+                if (!confirm(`Are you sure you want to drop table?`)) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/api/super/table/drop',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify({ Table: table }),
+                    success: function (response) {
+                        alert(response.Message);
+                        if (!response.Success) {
+                            return;
+                        }
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        let msg = "Server error: ";
+
+                        try {
+                            // Parse JSON if possible
+                            const resp = JSON.parse(xhr.responseText);
+                            if (resp.message) msg = resp.message;
+                        } catch (e) {
+                            // responseText is not JSON, fallback
+                            msg = xhr.responseText;
+                        }
+
+                        alert(msg);
+                    }
+                });
+            }
+
+        });
+    </script>
+}

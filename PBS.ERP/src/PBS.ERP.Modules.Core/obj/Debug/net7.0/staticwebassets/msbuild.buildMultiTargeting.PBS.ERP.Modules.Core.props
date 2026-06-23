@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PBS.ERP.Modules.Core.props" />
+</Project>

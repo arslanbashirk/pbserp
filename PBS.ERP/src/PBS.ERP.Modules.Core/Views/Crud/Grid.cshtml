@@ -1,0 +1,278 @@
+﻿@model List<Dictionary<string, object>>
+
+@{
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    var currentUser = User?.Identity?.Name ?? "";
+
+    var isAdmin = User.IsInRole("Admin")
+               || User.IsInRole("Super")
+               || User.IsInRole("Root");
+    
+    var firstRow = Model.FirstOrDefault();
+    var textColumns = firstRow?.Keys
+        .Where(k => k.EndsWith("_Text"))
+        .ToList() ?? new List<string>();
+
+    // Key columns (actual values)
+    var keyColumns = firstRow?.Keys
+        .Where(k => !k.EndsWith("_Text")
+                    && k != "TotalRows"
+                    && k != "CreatedBy"
+                    && k != "CreatedTime")
+        .ToList() ?? new List<string>();
+
+    // =========================
+    // Dashboard Stats
+    // =========================
+    var totalCombinations = Model.Count;
+
+    var totalWithData = Model.Count(r =>
+        r.ContainsKey("TotalRows") && r["TotalRows"] != null && Convert.ToInt32(r["TotalRows"]) > 0
+    );
+
+    var totalEmpty = totalCombinations - totalWithData;
+
+    var totalRowsSum = Model.Sum(r =>
+        r.ContainsKey("TotalRows") && r["TotalRows"] != null ? Convert.ToInt32(r["TotalRows"]) : 0
+    );
+
+    var lastUpdated = Model
+        .Where(r => r.ContainsKey("CreatedTime") && r["CreatedTime"] != null)
+        .Select(r => Convert.ToDateTime(r["CreatedTime"]))
+        .DefaultIfEmpty()
+        .Max();
+}
+
+<div class="row mb-4 g-3">
+
+    <!-- Total Records -->
+    <div class="col-md-3">
+        <div class="card text-white bg-primary shadow h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="fw-semibold">Total Records</div>
+                    <div class="fs-3 fw-bold">@totalCombinations</div>
+                </div>
+                <div>
+                    <i class="bi bi-table fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Uploaded -->
+    <div class="col-md-3">
+        <div class="card text-white bg-success shadow h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="fw-semibold">Data Uploaded</div>
+                    <div class="fs-3 fw-bold">@totalWithData</div>
+                </div>
+                <div>
+                    <i class="bi bi-check-circle fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Pending -->
+    <div class="col-md-3">
+        <div class="card text-white bg-danger shadow h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="fw-semibold">Data Pending</div>
+                    <div class="fs-3 fw-bold">@totalEmpty</div>
+                </div>
+                <div>
+                    <i class="bi bi-hourglass-split fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Rows -->
+    <div class="col-md-3">
+        <div class="card text-white bg-dark shadow h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="fw-semibold">Total Rows</div>
+                    <div class="fs-3 fw-bold">@totalRowsSum</div>
+                </div>
+                <div>
+                    <i class="bi bi-bar-chart-line fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="mb-3">
+    <small class="text-muted">
+        <i class="bi bi-clock"></i>
+        Last Updated:
+        @(lastUpdated != DateTime.MinValue ? lastUpdated.ToString("yyyy-MM-dd HH:mm") : "N/A")
+    </small>
+</div>
+
+<h3>@ViewBag.Name</h3>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>Sr.</th>
+
+            @foreach (var col in textColumns)
+            {
+                <th>@col.Replace("_Text", "")</th>
+            }
+
+            <th>Row Count</th>
+            <th>Added By</th>
+            <th>Timestamp</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var row = Model[i];
+
+            int rowCount = row.ContainsKey("TotalRows") && row["TotalRows"] != null
+            ? Convert.ToInt32(row["TotalRows"])
+            : 0;
+
+            // Build query string safely
+            var paramString = string.Join("&", keyColumns.Select(k =>
+            $"{k}={Uri.EscapeDataString(row.ContainsKey(k) && row[k] != null ? row[k].ToString() : "")}"
+            ));
+            var tableParam = "id=" + Uri.EscapeDataString(ViewBag.Table?.ToString() ?? "");
+
+            var deleteUrl = "/crud/clean";
+            var importUrl = "/crud/file?" + tableParam + "&" + paramString;
+            <tr class="@(rowCount == 0 ? "table-warning" : "")">
+                <td>@(i + 1)</td>
+
+                @foreach (var col in textColumns)
+                {
+                    <td>@(row.ContainsKey(col) ? row[col] : "")</td>
+                }
+
+                <td>
+                    <span class="badge @(rowCount == 0 ? "bg-danger" : "bg-success")">
+                        @(rowCount == 0 ? "No Rows" : rowCount + " Rows")
+                    </span>
+                </td>
+
+                <td>@(row.ContainsKey("CreatedBy") ? row["CreatedBy"] : "")</td>
+
+                <td>
+                    @(row.ContainsKey("CreatedTime") && row["CreatedTime"] != null
+                        ? Convert.ToDateTime(row["CreatedTime"]).ToString("yyyy-MM-dd HH:mm")
+                        : "")
+                </td>
+
+                <td>
+                    @if (rowCount > 0)
+                    {
+                        
+                        var createdBy = row.ContainsKey("CreatedBy") ? row["CreatedBy"]?.ToString() : "";
+
+                        var canDelete = isAdmin || createdBy == currentUser;
+                        <form method="post" action="/crud/file" style="display:inline;">
+                            <input type="hidden" name="id" value="@ViewBag.Table" />
+
+                            @foreach (var k in keyColumns)
+                            {
+                                <input type="hidden" name="@k" value="@(row.ContainsKey(k) ? row[k] : "")" />
+                            }
+                            @foreach (var k in textColumns)
+                            {
+                                <input type="hidden" name="@k" value="@(row.ContainsKey(k) ? row[k] : "")" />
+                            }
+
+                            <button type="submit" class="btn btn-sm btn-success">
+                                Data
+                            </button>
+                        </form>
+
+                        if (canDelete)
+                        {
+                            <button type="button"
+                                    class="btn btn-sm btn-danger btn-clean"
+                                    data-url="/crud/clean"
+                                    data-id="@ViewBag.Table"
+                                    data-fields='@Html.Raw(Json.Serialize(keyColumns.ToDictionary(k => k, k => row.ContainsKey(k) ? row[k] : "")))'>
+                                Delete
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-secondary" disabled
+                                    title="Only creator can delete this record">
+                                <i class="bi bi-lock"></i> Delete
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        <form method="post" action="/crud/file" style="display:inline;">
+                            <input type="hidden" name="id" value="@ViewBag.Table" />
+
+                            @foreach (var k in keyColumns)
+                            {
+                                <input type="hidden" name="@k" value="@(row.ContainsKey(k) ? row[k] : "")" />
+                            }
+                            @foreach (var k in textColumns)
+                            {
+                                <input type="hidden" name="@k" value="@(row.ContainsKey(k) ? row[k] : "")" />
+                            }
+
+                            <button type="submit" class="btn btn-sm btn-success">
+                                Import
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myTable").DataTable({
+                paging: false,
+                lengthChange: false
+            });
+        });
+        $(document).on("click", ".btn-clean", function () {
+            if (!confirm("Are you sure you want to delete this record?"))
+                return;
+            $.ajax({
+                url: "/crud/clean",
+                type: "POST",
+                data: {
+                    id: $(this).data("id"),
+                    ...$(this).data("fields")
+                },
+                success: function (res) {
+                    if (res.success) {
+                        alert(res.message);
+                        location.reload();
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: function () {
+                    toastr.error("Delete failed");
+                }
+            });
+        });
+    </script>
+}

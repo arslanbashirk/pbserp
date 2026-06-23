@@ -1,0 +1,67 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PBS.ERP.Modules.Survey
+build_property.RootNamespace = PBS.ERP.Modules.Survey
+build_property.ProjectDir = C:\Users\PBS\source\repos\PBS.ERP\PBS.ERP\src\PBS.ERP.Modules.Survey\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Users\PBS\source\repos\PBS.ERP\PBS.ERP\src\PBS.ERP.Modules.Survey
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Entry/Form.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cnlcRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Entry/Grid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cnlcR3JpZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Entry/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cnlcTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Entry/Repeat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cnlcUmVwZWF0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XEFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Designer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XERlc2lnbmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Entity.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XEVudGl0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Frame.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XEZyYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Home.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XEhvbWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Mode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XE1vZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/PBS.ERP/PBS.ERP/src/PBS.ERP.Modules.Survey/Views/Survey/Questionnaire.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VydmV5XFF1ZXN0aW9ubmFpcmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

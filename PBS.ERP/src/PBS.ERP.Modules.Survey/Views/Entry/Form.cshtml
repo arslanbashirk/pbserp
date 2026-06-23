@@ -1,0 +1,1165 @@
+﻿@using PBS.ERP.Modules.Survey.Services
+@model MetadataViewModel
+
+@{
+    ViewData["Title"] = "Dynamic Form";
+
+    // Keep original field order. Only filter insertable fields.
+    var grouped = Model.Fields
+        .Where(x => x.AllowInsert == true)
+        .GroupBy(x => new { x.SectionNumber, x.SectionName });
+
+    var row = Model.Entry?.FirstOrDefault() ?? new Dictionary<string, object>();
+
+    row.TryGetValue("UID", out var uidValue);
+    var uidText = uidValue == null || uidValue == DBNull.Value ? string.Empty : uidValue.ToString();
+    var isUpdate = !string.IsNullOrWhiteSpace(uidText);
+
+    var areaCode = Model.Area?.AreaCode ?? string.Empty;
+}
+
+<style>
+    :root {
+        --erp-primary: #198754;
+        --erp-primary-dark: #146c43;
+        --erp-border: #d8dee4;
+        --erp-soft: #f8faf9;
+        --erp-muted: #6c757d;
+        --erp-danger: #dc3545;
+        --erp-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    }
+
+    .erp-wrap {
+        max-width: 100%;
+        margin: auto;
+        padding-bottom: 24px;
+    }
+
+    .erp-header {
+        background: linear-gradient(135deg, var(--erp-primary), var(--erp-primary-dark));
+        color: #fff;
+        padding: 16px 20px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: 0.95;
+        margin-bottom: 5px;
+    }
+
+    .erp-title {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .erp-section {
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-section-header {
+        background: #f2f7f4;
+        color: #17212b;
+        padding: 11px 14px;
+        border-bottom: 1px solid #dce7e0;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    .erp-section-body {
+        padding: 12px;
+    }
+
+    .erp-field {
+        min-width: 0;
+        min-height: 90px;
+        border: 1px solid #eef1f3;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fff;
+        transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+    .erp-field:hover {
+        border-color: #d9e2dc;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+        transform: translateY(-1px);
+    }
+    .erp-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+.erp-field {
+    min-width: 0;
+}
+
+.erp-field-w-1 {
+    grid-column: span 1;
+}
+
+.erp-field-w-2 {
+    grid-column: span 2;
+}
+
+.erp-field-w-3 {
+    grid-column: span 3;
+}
+.erp-field-w-4 {
+    grid-column: span 4;
+}
+
+@@media (max-width: 768px) {
+    .erp-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .erp-field-w-1,
+    .erp-field-w-2,
+    .erp-field-w-3, 
+    .erp-field-w-4{
+        grid-column: span 1;
+    }
+}
+
+    .erp-label {
+        min-width: 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: #374151;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.35;
+    }
+
+    .erp-label-text {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .erp-required {
+        color: var(--erp-danger);
+        margin-left: 4px;
+        font-weight: 800;
+    }
+
+    .erp-control {
+        margin-top: 7px;
+        min-width: 0;
+    }
+
+        .erp-control input:not([type="radio"]):not([type="checkbox"]),
+        .erp-control select,
+        .erp-control textarea {
+            width: 100%;
+            min-height: 40px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            background: #fff;
+            padding: 6px 9px;
+            font-size: 13px;
+            line-height: 1.35;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+            .erp-control input:focus,
+            .erp-control select:focus,
+            .erp-control textarea:focus {
+                border-color: var(--erp-primary);
+                box-shadow: 0 0 0 .15rem rgba(25, 135, 84, .15);
+                outline: none;
+            }
+
+        
+
+        .erp-control textarea {
+            min-height: 72px;
+            resize: vertical;
+        }
+
+    .radio-group,
+    .checkbox-group {
+        width: 100%;
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 7px;
+        padding: 5px 0;
+    }
+
+    .erp-choice-item {
+        width: 100%;
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding: 8px 10px;
+        border: 1px solid #dfe5e2;
+        border-radius: 10px;
+        background: #fff;
+        transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+    }
+
+        .erp-choice-item:hover {
+            border-color: #b8d6c6;
+            background: #f8fbf9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+        }
+
+        .erp-choice-item.is-selected {
+            border-color: var(--erp-primary);
+            background: rgba(25, 135, 84, .07);
+        }
+
+    .erp-choice-input {
+        flex: 0 0 auto;
+        margin: 0 !important;
+        cursor: pointer;
+    }
+
+    .erp-choice-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        margin: 0;
+        color: #243447;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.35;
+        cursor: pointer;
+        overflow-wrap: anywhere;
+    }
+
+    .erp-nav-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+    }
+
+        .erp-nav-buttons .btn {
+            min-width: 110px;
+        }
+
+    .erp-help-text {
+        color: var(--erp-muted);
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .erp-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(2px);
+    }
+
+    .erp-loading-card {
+        width: min(420px, calc(100% - 32px));
+        border: 1px solid var(--erp-border);
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+        padding: 22px;
+        text-align: center;
+    }
+
+    .erp-loading-title {
+        margin-top: 12px;
+        font-weight: 700;
+        color: #17212b;
+        font-size: 16px;
+    }
+
+    .erp-loading-text {
+        margin-top: 4px;
+        color: var(--erp-muted);
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .erp-form-locked {
+        pointer-events: none;
+        opacity: .72;
+    }
+
+    .erp-invalid-group {
+        border: 1px solid rgba(220, 53, 69, .45);
+        border-radius: 8px;
+        padding: 6px;
+        background: rgba(220, 53, 69, .03);
+    }
+
+    /* Responsive: keep label above input for readability because labels can be long */
+    @@media (max-width: 1199.98px) {
+        .erp-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-field {
+            min-height: auto;
+            padding: 10px;
+        }
+
+        .erp-label {
+            align-items: flex-start;
+        }
+
+        .erp-control {
+            margin-top: 7px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            padding: 5px 0;
+        }
+    }
+
+    @@media (max-width: 575.98px) {
+        .erp-header {
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .erp-title {
+            font-size: 15px;
+        }
+
+        .erp-section-body {
+            padding: 8px;
+        }
+
+        .erp-field {
+            padding: 9px;
+        }
+
+        .erp-label {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .erp-label-text {
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+
+        .erp-control input:not([type="radio"]):not([type="checkbox"]),
+        .erp-control select,
+        .erp-control textarea {
+            font-size: 12px;
+            padding: 5px 7px;
+        }
+
+        .erp-choice-label {
+            font-size: 12px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            gap: 6px;
+        }
+
+        .erp-choice-item {
+            padding: 7px 9px;
+        }
+
+        .erp-nav-buttons {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+            .erp-nav-buttons .btn {
+                width: 100%;
+            }
+    }
+</style>
+
+<div id="formLoader" class="erp-loading-overlay" role="status" aria-live="polite">
+    <div class="erp-loading-card">
+        <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+        <div class="erp-loading-title">Loading form</div>
+        <div class="erp-loading-text">Please wait while fields and options are being prepared.</div>
+    </div>
+</div>
+
+<input type="hidden" id="TTUID" value="@Model.Entity?.UID" />
+<input type="hidden" id="FormType" value="@Model.Form?.FormType" />
+<input type="hidden" id="AACODE" value="@areaCode" />
+<input type="hidden" id="UID" value="@uidText" />
+
+<form id="dynamicForm" autocomplete="off" class="erp-form-locked">
+    <div class="erp-wrap container-fluid mt-3">
+        <div class="erp-header">
+            <div class="erp-breadcrumb">
+                <span>@Model.Form?.ShortVersion</span>
+                <span>&gt;</span>
+                <span>@Model.Form?.Questionnaire</span>
+                <span>&gt;</span>
+                <span>Section @Model.Form?.SectionNo</span>
+                <span>&gt;</span>
+                <span>Form @Model.Form?.FormNo</span>
+            </div>
+
+            <div class="erp-title">@Model.Form?.Heading</div>
+        </div>
+
+        @foreach (var sec in grouped)
+        {
+            var sectionNoText = Convert.ToString(sec.Key.SectionNumber);
+            var sectionNameText = Convert.ToString(sec.Key.SectionName);
+
+            <div class="erp-section">
+                @if (!string.IsNullOrWhiteSpace(sectionNameText) || !string.IsNullOrWhiteSpace(sectionNoText))
+                {
+                    
+                    <div class="erp-section-header">
+                    @if (!string.IsNullOrWhiteSpace(sectionNoText))
+                    {
+                          //<span>Section @sectionNoText</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(sectionNameText))
+                    {
+                           //<small> - @sectionNameText</small>
+                    }
+                    </div>
+                    
+                    
+                }
+
+                <div class="erp-section-body">
+                    <div class="erp-grid">
+                        @foreach (var field in sec)
+                        {
+                            row.TryGetValue(field.ColumnName, out var val);
+                            var value = val == null || val == DBNull.Value ? string.Empty : val.ToString();
+                            var tooltip = field.Tooltip;
+                            var inputType = Convert.ToString(field.InputType)?.ToLowerInvariant() ?? "text";
+                            var isRequiredAttr = field.IsRequired == true ? "required" : string.Empty;
+
+                            var width = Convert.ToInt32(field.Width == null ? 1 : field.Width);
+                            width = width < 1 || width > 4 ? 1 : width;
+
+                            <div class="erp-field erp-field-w-@width" data-field-container="@field.ColumnName">
+                                <div class="erp-label">
+                                    <span class="erp-label-text">
+                                        @field.DisplayLabel
+                                        @if (field.IsRequired == true)
+                                        {
+                                            <span class="erp-required">*</span>
+                                        }
+                                    </span>
+
+                                    @if (!string.IsNullOrWhiteSpace(tooltip))
+                                    {
+                                        <i class="bi bi-info-circle text-muted"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="@tooltip"></i>
+                                    }
+                                </div>
+
+                                <div class="erp-control">
+                                    @switch (inputType)
+                                    {
+                                        case "text":
+                                        case "email":
+                                        case "url":
+                                            <input type="@inputType"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   maxlength="@field.MaxLength"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "number":
+                                            <input type="number"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "date":
+                                            <input type="date"
+                                                   name="@field.ColumnName"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "datetime-local":
+                                            <input type="datetime-local"
+                                                   name="@field.ColumnName"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "textarea":
+                                            <textarea name="@field.ColumnName"
+                                                      placeholder="@field.Placeholder"
+                                            @Html.Raw(isRequiredAttr)>@value</textarea>
+                                            break;
+
+                                        case "select":
+                                            <select class="form-select"
+                                                    name="@field.ColumnName"
+                                                    id="@field.ColumnName"
+                                                    data-selected="@value"
+                                                    data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                    data-table="@field.DropdownSourceTable"
+                                                    data-value="@field.DropdownValueColumn"
+                                                    data-text="@field.DropdownTextColumn"
+                                                    data-where="@field.DropdownWhere"
+                                                    data-order="@field.DropdownOrderBy"
+                                            @Html.Raw(isRequiredAttr)>
+                                            </select>
+                                            break;
+
+                                        case "radio":
+                                            <div class="radio-group"
+                                                 id="@field.ColumnName"
+                                                 data-selected="@value"
+                                                 data-name="@field.ColumnName"
+                                                 data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                 data-table="@field.DropdownSourceTable"
+                                                 data-value="@field.DropdownValueColumn"
+                                                 data-text="@field.DropdownTextColumn"
+                                                 data-where="@field.DropdownWhere"
+                                                 data-order="@field.DropdownOrderBy">
+                                            </div>
+                                            break;
+
+                                        case "checkbox":
+                                            <div class="checkbox-group"
+                                                 data-selected="@value"
+                                                 data-name="@field.ColumnName"
+                                                 data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                 data-table="@field.DropdownSourceTable"
+                                                 data-value="@field.DropdownValueColumn"
+                                                 data-text="@field.DropdownTextColumn"
+                                                 data-where="@field.DropdownWhere"
+                                                 data-order="@field.DropdownOrderBy">
+                                            </div>
+                                            break;
+
+                                        case "boolean":
+                                            var isTrue = value == "1" || value.Equals("true", StringComparison.OrdinalIgnoreCase);
+                                            var isFalse = value == "0" || value.Equals("false", StringComparison.OrdinalIgnoreCase);
+
+                                            <div class="btn-group" role="group" aria-label="@field.DisplayLabel">
+                                                <input type="radio"
+                                                       class="btn-check"
+                                                       name="@field.ColumnName"
+                                                       id="@(field.ColumnName)_true"
+                                                       value="true"
+                                                       autocomplete="off"
+                                                @(isTrue ? "checked" : null)
+                                                @Html.Raw(isRequiredAttr) />
+
+                                                <label class="btn btn-outline-success btn-sm"
+                                                       for="@(field.ColumnName)_true">
+                                                    Yes
+                                                </label>
+
+                                                <input type="radio"
+                                                       class="btn-check"
+                                                       name="@field.ColumnName"
+                                                       id="@(field.ColumnName)_false"
+                                                       value="false"
+                                                       autocomplete="off"
+                                                @(isFalse ? "checked" : null)
+                                                @Html.Raw(isRequiredAttr) />
+
+                                                <label class="btn btn-outline-danger btn-sm"
+                                                       for="@(field.ColumnName)_false">
+                                                    No
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        default:
+                                            <input type="text"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div id="errorContainer"
+             class="alert alert-danger d-none position-relative pe-5"
+             role="alert">
+            <button type="button"
+                    class="btn-close position-absolute top-0 end-0 m-3"
+                    id="btnCloseErrors"
+                    aria-label="Close"></button>
+
+            <h6 class="alert-heading mb-2" id="errorMsg">Error While Saving</h6>
+            <ul id="errorList" class="mb-0"></ul>
+        </div>
+
+        <div class="erp-nav-buttons">
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    id="btnPrevious"
+                    data-next-url="@(Model.NextPrevious?.PreviousFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.PreviousFormUID}" : $"/Survey/Questionnaire?id={Model.Form?.SurveyUID}")">
+                <i class="bi bi-arrow-left"></i>
+                Previous Form
+            </button>
+
+            <button type="button"
+                    class="btn btn-primary"
+                    id="btnSave"
+                    disabled>
+                @(isUpdate ? "Update Form" : "Save Form")
+            </button>
+
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    id="btnNext"
+                    data-next-url="@(Model.NextPrevious?.NextFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.NextFormUID}" : $"/Survey/Questionnaire?id={Model.Form?.SurveyUID}")">
+                Next Form
+                <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+
+    <script>
+        let isFormReady = false;
+        let isSaving = false;
+        let formLoadingFailed = false;
+
+        window.addEventListener("error", function (event) {
+            if (!isFormReady && !formLoadingFailed) {
+                formLoadingFailed = true;
+                console.error("Form initialization error:", event.error || event.message);
+                isFormReady = false;
+                lockForm(false);
+                hideLoader();
+                $("#btnSave").prop("disabled", true);
+                showErrors("Form Loading Error", ["A script error occurred while preparing the form. Please check browser console/server data. The loader has been closed so you can see the form."]);
+            }
+        });
+
+        $(document).ready(function () {
+            initializeTooltips();
+            initializeFixedValues();
+            lockForm(true);
+
+            loadAllLookups()
+                .done(function () {
+                    isFormReady = true;
+                    lockForm(false);
+                    hideLoader();
+                })
+                .fail(function () {
+                    isFormReady = false;
+                    lockForm(false);
+                    hideLoader();
+                    showErrors("Form Loading Error", ["Some field options could not be loaded. Please refresh the page or contact the administrator."]);
+                });
+
+            $(document).on("click", "#btnSave", saveForm);
+            $(document).on("click", "#btnNext, #btnPrevious", function () {
+                window.location.replace($(this).data("next-url"));
+            });
+            $(document).on("click", "#btnCloseErrors", hideErrors);
+            $(document).on("change", ".checkbox-group input[type='checkbox']", function () {
+                $(this).closest(".checkbox-group").removeClass("erp-invalid-group");
+                $(this).closest(".erp-choice-item").toggleClass("is-selected", this.checked);
+            });
+            $(document).on("change", ".radio-group input[type='radio']", function () {
+                const $group = $(this).closest(".radio-group");
+                $group.removeClass("erp-invalid-group");
+                $group.find(".erp-choice-item").removeClass("is-selected");
+                $(this).closest(".erp-choice-item").addClass("is-selected");
+            });
+        });
+
+        function initializeTooltips() {
+            if (typeof bootstrap === "undefined" || !bootstrap.Tooltip) {
+                console.warn("Bootstrap Tooltip is not available. Please ensure bootstrap.bundle.min.js is loaded.");
+                return;
+            }
+
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+
+            tooltipTriggerList.forEach(function (el) {
+                const existingTooltip = bootstrap.Tooltip.getInstance(el);
+
+                if (existingTooltip) {
+                    existingTooltip.dispose();
+                }
+
+                new bootstrap.Tooltip(el);
+            });
+        }
+
+        function initializeFixedValues() {
+            const areaCode = $("#AACODE").val();
+
+            $('[name="AreaCode"]')
+                .val(areaCode)
+                .prop("readonly", true);
+        }
+
+        function loadAllLookups() {
+            const lookupTasks = [];
+
+            $("select[data-table]").each(function () {
+                lookupTasks.push(loadSelectOptions($(this)));
+            });
+
+            $(".radio-group[data-table]").each(function () {
+                lookupTasks.push(loadRadioOptions($(this)));
+            });
+
+            $(".checkbox-group[data-table]").each(function () {
+                lookupTasks.push(loadCheckboxOptions($(this)));
+            });
+
+            if (lookupTasks.length === 0) {
+                return $.Deferred().resolve().promise();
+            }
+
+            return $.when.apply($, lookupTasks);
+        }
+
+        function loadSelectOptions($ddl) {
+            const deferred = $.Deferred();
+
+            loadLookupFromElement($ddl)
+                .done(function (items) {
+                    $ddl.empty();
+                    $("<option>").val("").text("-- Select --").appendTo($ddl);
+
+                    items.forEach(function (item) {
+                        $("<option>")
+                            .val(toSafeString(item.value))
+                            .text(toSafeString(item.text))
+                            .appendTo($ddl);
+                    });
+
+                    const selected = $ddl.data("selected");
+
+                    if (selected !== null && selected !== undefined && selected !== "") {
+                        $ddl.val(String(selected));
+                    }
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        function loadRadioOptions($container) {
+            const deferred = $.Deferred();
+            const name = toSafeString($container.data("name") || $container.attr("id"));
+            const selected = toSafeString($container.data("selected"));
+            const isRequired = String($container.data("required")).toLowerCase() === "true";
+
+            loadLookupFromElement($container)
+                .done(function (items) {
+                    $container.empty();
+
+                    items.forEach(function (item, index) {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(name, index, value, "radio");
+
+                        const isSelected = selected.trim() === value.trim();
+                        const $check = $("<div>").addClass("erp-choice-item").toggleClass("is-selected", isSelected);
+
+                        $("<input>")
+                            .addClass("form-check-input erp-choice-input")
+                            .attr({
+                                type: "radio",
+                                name: name,
+                                id: id
+                            })
+                            .prop("required", isRequired)
+                            .val(value)
+                            .prop("checked", isSelected)
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("erp-choice-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        function loadCheckboxOptions($container) {
+            const deferred = $.Deferred();
+            const name = toSafeString($container.data("name"));
+            const selected = toSafeString($container.data("selected"))
+                .split(",")
+                .map(function (x) { return x.trim(); })
+                .filter(Boolean);
+
+            loadLookupFromElement($container)
+                .done(function (items) {
+                    $container.empty();
+
+                    items.forEach(function (item, index) {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(name, index, value, "checkbox");
+
+                        const isSelected = selected.includes(value.trim());
+                        const $check = $("<div>").addClass("erp-choice-item").toggleClass("is-selected", isSelected);
+
+                        $("<input>")
+                            .addClass("form-check-input erp-choice-input")
+                            .attr({
+                                type: "checkbox",
+                                name: name,
+                                id: id
+                            })
+                            .val(value)
+                            .prop("checked", isSelected)
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("erp-choice-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        function saveForm() {
+            if (!isFormReady) {
+                showErrors("Form Not Ready", ["Please wait until the form and all field options are fully loaded."]);
+                return;
+            }
+
+            if (isSaving) return;
+
+            hideErrors();
+
+            const form = $("#dynamicForm")[0];
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!validateRequiredCheckboxGroups()) return;
+
+            const table = $("#TTUID").val();
+
+            const data = {};
+
+            $('#dynamicForm').find('input, select, textarea').each(function () {
+
+                const name = this.name;
+                if (!name) return;
+
+                if (this.type === 'checkbox') {
+
+                    if (this.checked) {
+                        if (data[name]) {
+                            data[name] += "," + this.value;
+                        } else {
+                            data[name] = this.value;
+                        }
+                    }
+
+                }
+                else if (this.type === 'radio') {
+                    if (this.checked) {
+                        data[name] = this.value;
+                    }
+                }
+                else {
+                    const val = $(this).val();
+                    if (val != "") {
+                        data[name] = val;
+                    }
+                }
+            });
+
+            let uid = $("#UID").val()?.trim();
+
+            isSaving = true;
+            setSaveButtonState(true);
+
+            $.ajax({
+                url: `/api/crud/save?table=${encodeURIComponent(table)}`,
+                method: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    ID: uid || null,
+                    fields: data
+                }),
+                success: function (response) {
+
+                    if (response.Success) {
+                        alert("Saved Successfully");
+
+                        const formType = ($("#FormType").val() || "").toUpperCase();
+
+                        if (formType === "SINGLE") {
+                            window.location.replace($("#btnNext").data("next-url"));
+                        }
+                        return;
+                    }
+
+                    showErrors(
+                        response?.Message ?? "Unable to save form.",
+                        response?.Errors
+                    );
+                },
+                error: function (xhr) {
+                    console.error("Save failed:", xhr);
+                    showErrors("Server Error", ["Unable to save the form. Please check the server logs and try again."]);
+                },
+                complete: function () {
+                    isSaving = false;
+                    setSaveButtonState(false);
+                }
+            });
+        }
+
+        function validateRequiredCheckboxGroups() {
+            let isValid = true;
+            let firstInvalid = null;
+
+            $(".checkbox-group[data-required='true']").each(function () {
+                const $group = $(this);
+                const hasCheckedValue = $group.find("input[type='checkbox']:checked").length > 0;
+
+                $group.toggleClass("erp-invalid-group", !hasCheckedValue);
+
+                if (!hasCheckedValue) {
+                    isValid = false;
+                    firstInvalid = firstInvalid || $group;
+                }
+            });
+
+            if (!isValid) {
+                showErrors("Validation Error", ["Please select at least one option for all required checkbox fields."]);
+
+                if (firstInvalid && firstInvalid.length) {
+                    $("html, body").animate({
+                        scrollTop: firstInvalid.closest(".erp-field").offset().top - 20
+                    }, 300);
+                }
+            }
+
+            return isValid;
+        }
+
+        function removeEmptyValues(formData) {
+            const emptyKeys = [];
+
+            for (const pair of formData.entries()) {
+                const key = pair[0];
+                const value = pair[1];
+
+                if (
+                    value === null ||
+                    value === undefined ||
+                    (typeof value === "string" && value.trim() === "")
+                ) {
+                    emptyKeys.push(key);
+                }
+            }
+
+            emptyKeys.forEach(function (key) {
+                formData.delete(key);
+            });
+        }
+
+        function setSaveButtonState(disabled) {
+            const $btn = $("#btnSave");
+            const defaultText = ($("#UID").val() || "").trim() ? "Update Form" : "Save Form";
+
+            $btn.prop("disabled", disabled || !isFormReady);
+            $btn.text(disabled ? "Saving..." : defaultText);
+        }
+
+        function lockForm(locked) {
+            $("#dynamicForm").toggleClass("erp-form-locked", locked);
+            $("#dynamicForm")
+                .find("input, select, textarea, button")
+                .not("#btnCloseErrors")
+                .prop("disabled", locked);
+
+            $("#btnSave").prop("disabled", locked || !isFormReady);
+        }
+
+        function hideLoader() {
+            $("#formLoader").fadeOut(150);
+        }
+
+        function showErrors(message, errors) {
+            const $container = $("#errorContainer");
+            const $list = $("#errorList");
+
+            $list.empty();
+
+            let errorItems = [];
+
+            if (Array.isArray(errors)) {
+                errorItems = errors;
+            }
+            else if (typeof errors === "string") {
+                errorItems = [errors];
+            }
+            else if (errors && typeof errors === "object") {
+
+                Object.entries(errors).forEach(([key, value]) => {
+
+                    if (Array.isArray(value)) {
+                        value.forEach(v => errorItems.push(v));
+                    }
+                    else {
+                        errorItems.push(value);
+                    }
+
+                });
+
+            }
+            else {
+                errorItems = ["An unknown error occurred."];
+            }
+
+            errorItems.forEach(error => {
+                $("<li>")
+                    .text(toSafeString(error))
+                    .appendTo($list);
+            });
+
+            $("#errorMsg").text(message || "Error While Saving");
+
+            $container.removeClass("d-none");
+
+            const offsetTop = $container.offset()?.top ?? 0;
+
+            $("html, body").animate({
+                scrollTop: offsetTop - 20
+            }, 300);
+        }
+
+        function hideErrors() {
+            $("#errorList").empty();
+            $("#errorContainer").addClass("d-none");
+            $(".erp-invalid-group").removeClass("erp-invalid-group");
+        }
+
+        function loadLookupFromElement($element) {
+            return loadLookup(
+                $element.data("table"),
+                $element.data("value"),
+                $element.data("text"),
+                $element.data("where"),
+                $element.data("order")
+            );
+        }
+
+        function loadLookup(table, valueCol, textCol, whereClause, orderBy) {
+            const deferred = $.Deferred();
+
+            if (!table || !valueCol || !textCol) {
+                deferred.resolve([]);
+                return deferred.promise();
+            }
+
+            $.get('/api/lookup/get', {
+                table: table,
+                valueCol: valueCol,
+                textCol: textCol,
+                where: whereClause,
+                order: orderBy
+            })
+            .done(function (response) {
+                if(response && response.Success){
+                    deferred.resolve(Array.isArray(response.Data) ? response.Data : []);
+                }
+                else{
+                    deferred.reject(response.Message);
+                }
+            });
+            return deferred.promise();
+        }
+
+        function buildControlId(name, index, value, type) {
+            return `${type}_${sanitizeId(name)}_${index}_${sanitizeId(value)}`;
+        }
+
+        function sanitizeId(value) {
+            return String(value ?? "")
+                .replace(/[^a-zA-Z0-9_-]/g, "_")
+                .replace(/_+/g, "_");
+        }
+
+        function toSafeString(value) {
+            return value === null || value === undefined ? "" : String(value);
+        }
+    </script>
+}

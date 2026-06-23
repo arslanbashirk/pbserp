@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Change Password";
+}
+
+<div class="container py-2">
+
+    <!-- Page Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">Change Password</h2>
+        <p class="text-muted">
+            ERP Survey Solution | Pakistan Bureau of Statistics
+        </p>
+        <hr class="w-50 mx-auto" />
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+
+                    <h5 class="card-title text-center mb-4 fw-bold">
+                        Update Your Password
+                    </h5>
+
+                    <form method="post" asp-controller="Account" asp-action="ChangePassword">
+
+                        <!-- Old Password -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                Current Password
+                            </label>
+                            <input type="password"
+                                   name="OldPassword"
+                                   class="form-control"
+                                   placeholder="Enter current password"
+                                   required />
+                        </div>
+
+                        <!-- New Password -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                New Password
+                            </label>
+                            <input type="password"
+                                   name="NewPassword"
+                                   class="form-control"
+                                   placeholder="Enter new password"
+                                   required />
+                            <div class="form-text">
+                                Must be at least 8 characters.
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                Confirm New Password
+                            </label>
+                            <input type="password"
+                                   name="ConfirmPassword"
+                                   class="form-control"
+                                   placeholder="Re-enter new password"
+                                   required />
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-shield-lock-fill"></i> Change Password
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Validation Errors -->
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger mt-4">
+                            <ul class="mb-0">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <!-- Back Link -->
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Index", "Staff")"
+                           class="text-decoration-none text-success fw-semibold">
+                            <i class="bi bi-arrow-left"></i> Back to Dashboard
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+﻿@model List<string>
+
+<h3>Database Backup Utility</h3>
+
+<div class="card p-3" style="max-width:500px;">
+    <label class="form-label">Select Database</label>
+
+    <select id="database" class="form-select">
+        <option value="">-- Select Database --</option>
+        @foreach (var db in Model)
+        {
+            <option value="@db">@db</option>
+        }
+    </select>
+
+    <button type="button"
+            class="btn btn-success mt-3"
+            onclick="createBackup()">
+        Create Backup
+    </button>
+
+    <div id="backupMessage" class="mt-3"></div>
+</div>
+
+<script>
+    function createBackup() {
+        const db = document.getElementById('database').value;
+        const msg = document.getElementById('backupMessage');
+
+        if (!db) {
+            msg.innerHTML = `<div class="alert alert-warning">Please select database.</div>`;
+            return;
+        }
+
+        msg.innerHTML = `<div class="alert alert-info">Creating backup, please wait...</div>`;
+
+        fetch('/Database/Create?database=' + encodeURIComponent(db), {
+            method: 'POST'
+        })
+        .then(r => r.json())
+        .then(res => {
+            if (res.success) {
+                msg.innerHTML = `
+                    <div class="alert alert-success">
+                        ${res.message}<br>
+                        File: ${res.fileName}<br>
+                        <a class="btn btn-sm btn-primary mt-2"
+                           href="/Database/Files">
+                           View Backup Files
+                        </a>
+                    </div>`;
+            } else {
+                msg.innerHTML = `<div class="alert alert-danger">${res.message}</div>`;
+            }
+        })
+        .catch(() => {
+            msg.innerHTML = `<div class="alert alert-danger">Backup request failed.</div>`;
+        });
+    }
+</script>

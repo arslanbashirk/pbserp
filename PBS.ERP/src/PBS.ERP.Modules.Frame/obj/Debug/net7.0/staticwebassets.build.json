@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "bii4punxsPTpF7FDVkgEPYUtJNgX2N/WDWSNyfkhnQk=",
+  "Source": "PBS.ERP.Modules.Frame",
+  "BasePath": "_content/PBS.ERP.Modules.Frame",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

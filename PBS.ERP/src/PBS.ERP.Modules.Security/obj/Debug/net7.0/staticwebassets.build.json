@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "VSKTbSPdDqMgGIdONbPzh+3LvUMc1V4gUUKEVA0XoBM=",
+  "Source": "PBS.ERP.Modules.Security",
+  "BasePath": "_content/PBS.ERP.Modules.Security",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

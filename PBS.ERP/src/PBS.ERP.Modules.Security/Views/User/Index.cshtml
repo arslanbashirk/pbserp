@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PBS.ERP.Modules.Security.Models.UserWithRolesViewModel>
+
+@{
+    ViewData["Title"] = "User Accounts";
+    Layout = "_AdminLayout";
+    ViewBag.Menu = "Accounts";
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+}
+<div class="row">
+    <div class="col-sm-12">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+        <h1>Users</h1>
+
+        <table class="table table-bordered table-hover" id="tablesList">
+            <thead class="table-success">
+                <tr>
+                    <th>CNIC</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Created On</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var userWithRoles in Model)
+                {
+                    <tr>
+                        <td>@userWithRoles.User.CNIC</td>
+                        <td>@userWithRoles.User.Email</td>
+                        <td>@userWithRoles.User.Name</td>
+                        <td>@userWithRoles.User.CreatedTime</td>
+                        <td>
+                            @string.Join(", ", userWithRoles.Roles)
+                        </td>
+                        <td>
+                            <form asp-action="Reset" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="userId" value="@userWithRoles.User.Id" />
+                                <button type="submit" class="btn btn-sm btn-info">Reset Password</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@section scripts {
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // ----------------- INIT DATATABLE -----------------
+            var table = $('#tablesList').DataTable({
+                dom: 'frtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                order: [[0, "asc"]], // default sort by first column
+                pageLength: 20,
+                lengthMenu: [5, 10, 25, 50, 100]
+            });
+
+
+        });
+    </script>
+}
+

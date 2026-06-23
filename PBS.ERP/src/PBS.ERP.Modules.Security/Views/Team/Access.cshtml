@@ -1,0 +1,779 @@
+﻿@using PBS.ERP.Modules.Security.Controllers;
+@using System.Text.Json;
+@model UserStatisticsVm;
+
+@{
+    ViewData["Title"] = "User & Security Dashboard";
+
+    var accountLabels = Model.AccountCreationTrend.Select(x => x.Date.ToString("dd-MMM")).ToList();
+    var accountValues = Model.AccountCreationTrend.Select(x => x.Total).ToList();
+
+    var loginLabels = Model.LoginTrend.Select(x => x.Date.ToString("dd-MMM")).ToList();
+    var loginSuccess = Model.LoginTrend.Select(x => x.SuccessCount).ToList();
+    var loginFailed = Model.LoginTrend.Select(x => x.FailedCount).ToList();
+
+    var roleLabels = Model.RoleDistribution.Select(x => x.RoleName).ToList();
+    var roleValues = Model.RoleDistribution.Select(x => x.UserCount).ToList();
+
+    var deviceLabels = Model.DeviceStats.Select(x => x.Name).ToList();
+    var deviceValues = Model.DeviceStats.Select(x => x.Total).ToList();
+
+    var osLabels = Model.OsStats.Select(x => x.Name).ToList();
+    var osValues = Model.OsStats.Select(x => x.Total).ToList();
+
+    var browserLabels = Model.BrowserStats.Select(x => x.Name).ToList();
+    var browserValues = Model.BrowserStats.Select(x => x.Total).ToList();
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" />
+
+<style>
+    body {
+        background: #f4f7fb;
+    }
+
+    .erp-header {
+        background: radial-gradient(circle at top right, rgba(255,255,255,.20), transparent 28%), linear-gradient(135deg, #064e3b 0%, #047857 45%, #10b981 100%);
+        color: #fff;
+        border-radius: 24px;
+        padding: 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 18px 40px rgba(4,120,87,.28);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .erp-header::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            left: -80px;
+            bottom: -110px;
+            background: rgba(255,255,255,.10);
+            border-radius: 50%;
+        }
+
+    .erp-header-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .erp-header-badge {
+        display: inline-block;
+        background: rgba(255,255,255,.16);
+        border: 1px solid rgba(255,255,255,.25);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .erp-header h2 {
+        font-weight: 900;
+        margin: 0 0 6px 0;
+        letter-spacing: -.4px;
+    }
+
+    .erp-header-subtitle {
+        opacity: .92;
+        font-size: 15px;
+    }
+
+    .erp-login-box {
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 18px;
+        padding: 16px 18px;
+        min-width: 260px;
+        text-align: right;
+        backdrop-filter: blur(8px);
+    }
+
+    .login-label {
+        opacity: .85;
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .erp-login-box strong {
+        font-size: 16px;
+    }
+
+    .kpi-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 12px 15px;
+        height: 100%;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, .06);
+    }
+
+    .kpi-main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+    }
+
+    .kpi-label {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        margin-bottom: 6px;
+    }
+
+    .kpi-value {
+        color: #064e3b;
+        font-size: 24px;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .kpi-icon {
+        font-size: 34px;
+        line-height: 1;
+        opacity: .85;
+        min-width: 42px;
+        text-align: right;
+    }
+
+    .kpi-help {
+        margin-top: 10px;
+        color: #6b7280;
+        font-size: 13px;
+    }
+
+    .panel {
+        background: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 26px rgba(0,0,0,.07);
+    }
+
+    .panel-title {
+        color: #102542;
+        font-weight: 850;
+        font-size: 17px;
+        margin-bottom: 16px;
+    }
+
+    .status-active {
+        background: #e7f8ef;
+        color: #137a3d;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .status-inactive {
+        background: #fff1e6;
+        color: #b45309;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .event-success {
+        background: #e7f8ef;
+        color: #137a3d;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .event-failed {
+        background: #fdecec;
+        color: #b91c1c;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .event-other {
+        background: #eef2ff;
+        color: #3730a3;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .table thead th {
+        background: #f8fafc;
+        color: #102542;
+        font-size: 13px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .table td {
+        vertical-align: middle;
+        font-size: 13px;
+    }
+
+    .mini-table td {
+        padding: 9px 5px;
+    }
+
+    .risk-box {
+        border-left: 5px solid #b91c1c;
+        background: #fff7f7;
+        border-radius: 14px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+        .risk-box strong {
+            color: #991b1b;
+        }
+
+    .text-soft {
+        color: #6b7280;
+    }
+
+    canvas {
+        max-height: 320px;
+    }
+</style>
+
+<div class="erp-header">
+    <div class="erp-header-content">
+        <div class="erp-title-area">
+            <div class="erp-header-badge">ERP Security Dashboard</div>
+            <h2>ERP User & Security Command Center</h2>
+            <div class="erp-header-subtitle">
+                Accounts, roles, login activity, devices, browsers, failed attempts and security events
+            </div>
+        </div>
+
+        <div class="erp-login-box">
+            <div class="login-label">Last Successful Login</div>
+            <strong>@(Model.Summary.LastLoginTime?.ToString("dd-MMM-yyyy hh:mm tt") ?? "Not Available")</strong>
+        </div>
+    </div>
+</div>
+<div class="row g-3 mb-4 kpi-grid">
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Total Accounts</div>
+                    <div class="kpi-value">@Model.Summary.TotalUsers</div>
+                </div>
+                <div class="kpi-icon">👥</div>
+            </div>
+            <div class="kpi-help">Active + inactive non-deleted users</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Active Accounts</div>
+                    <div class="kpi-value">@Model.Summary.ActiveUsers</div>
+                </div>
+                <div class="kpi-icon">✅</div>
+            </div>
+            <div class="kpi-help">Currently enabled portal users</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Successful Logins</div>
+                    <div class="kpi-value">@Model.Summary.TotalSuccessfulLogins</div>
+                </div>
+                <div class="kpi-icon">🔐</div>
+            </div>
+            <div class="kpi-help">All LoginSuccess events</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Failed Login Attempts</div>
+                    <div class="kpi-value">@Model.Summary.TotalFailedLogins</div>
+                </div>
+                <div class="kpi-icon">⚠️</div>
+            </div>
+            <div class="kpi-help">All LoginFailed events</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Total Roles</div>
+                    <div class="kpi-value">@Model.Summary.TotalRoles</div>
+                </div>
+                <div class="kpi-icon">🧩</div>
+            </div>
+            <div class="kpi-help">Active role definitions</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Role Assignments</div>
+                    <div class="kpi-value">@Model.Summary.ActiveRoleMappings</div>
+                </div>
+                <div class="kpi-icon">🛡️</div>
+            </div>
+            <div class="kpi-help">Active SYS_USER_ROLE mappings</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Never Logged In</div>
+                    <div class="kpi-value">@Model.Summary.NeverLoggedInUsers</div>
+                </div>
+                <div class="kpi-icon">🕓</div>
+            </div>
+            <div class="kpi-help">Accounts with no successful login</div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-main">
+                <div>
+                    <div class="kpi-label">Login Success Rate</div>
+                    <div class="kpi-value">@Model.Summary.LoginSuccessRate%</div>
+                </div>
+                <div class="kpi-icon">📈</div>
+            </div>
+            <div class="kpi-help">Success / total security events</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row g-3">
+    <div class="col-xl-8">
+        <div class="panel">
+            <div class="panel-title">Login Success vs Failed Attempts - Last 30 Days</div>
+            <canvas id="loginTrendChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="panel">
+            <div class="panel-title">Device Usage</div>
+            <canvas id="deviceChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="panel">
+            <div class="panel-title">Accounts Created - Last 30 Days</div>
+            <canvas id="accountChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="panel">
+            <div class="panel-title">Role Distribution</div>
+            <canvas id="roleChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="panel">
+            <div class="panel-title">Operating System Usage</div>
+            <canvas id="osChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="panel">
+            <div class="panel-title">Browser Usage</div>
+            <canvas id="browserChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-xl-4">
+        <div class="panel">
+            <div class="panel-title">Top Active Users</div>
+            <table class="table mini-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th class="text-end">Logins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TopActiveUsers)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@item.Name</strong><br />
+                                <span class="text-soft">@item.UserName</span>
+                            </td>
+                            <td class="text-end">@item.LoginCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="panel">
+            <div class="panel-title">Repeated Failed Usernames</div>
+            <table class="table mini-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th class="text-end">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TopFailedUsernames)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@item.UsernameAttempted</strong><br />
+                                <span class="text-soft">@item.LastAttempt?.ToString("dd-MMM hh:mm tt")</span>
+                            </td>
+                            <td class="text-end text-danger">@item.FailedCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="panel">
+            <div class="panel-title">Suspicious / Failed IPs</div>
+            <table class="table mini-table">
+                <thead>
+                    <tr>
+                        <th>IP Address</th>
+                        <th class="text-end">Failed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TopFailedIps)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@item.IpAddress</strong><br />
+                                <span class="text-soft">@item.LastAttempt?.ToString("dd-MMM hh:mm tt")</span>
+                            </td>
+                            <td class="text-end text-danger">@item.FailedCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-title">Recent Security Events</div>
+
+    <div class="table-responsive">
+        <table id="securityEventsTable" class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Date Time</th>
+                    <th>User</th>
+                    <th>Event</th>
+                    <th>IP</th>
+                    <th>Device</th>
+                    <th>OS</th>
+                    <th>Browser</th>
+                    <th>Origin</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.RecentSecurityEvents)
+                {
+                    <tr>
+                        <td>@item.CreatedAt.ToString("dd-MMM-yyyy hh:mm tt")</td>
+                        <td>
+                            <strong>@item.Name</strong><br />
+                            <span class="text-soft">@item.UserName</span>
+                        </td>
+                        <td>
+                            @if (item.EventType == "LoginSuccess")
+                            {
+                                <span class="event-success">Login Success</span>
+                            }
+                            else if (item.EventType == "LoginFailed")
+                            {
+                                <span class="event-failed">Login Failed</span>
+                            }
+                            else
+                            {
+                                <span class="event-other">@item.EventType</span>
+                            }
+                        </td>
+                        <td>@item.IpAddress</td>
+                        <td>@item.Device</td>
+                        <td>@item.OS</td>
+                        <td>@item.Browser</td>
+                        <td>@item.Origin</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-title">User Account Directory</div>
+
+    <div class="table-responsive">
+        <table id="usersTable" class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>CNIC / PNO</th>
+                    <th>Contact</th>
+                    <th>Roles</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th class="text-end">Logins</th>
+                    <th class="text-end">Failed</th>
+                    <th>Last Login</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            <strong>@u.Name</strong><br />
+                            <span class="text-soft">@u.UserName</span>
+                        </td>
+                        <td>
+                            CNIC: @u.CNIC<br />
+                            <span class="text-soft">PNO: @u.PNO</span>
+                        </td>
+                        <td>
+                            @u.Mobile<br />
+                            <span class="text-soft">@u.Email</span>
+                        </td>
+                        <td>
+                            @(string.IsNullOrWhiteSpace(u.Roles) ? "No Role" : u.Roles)
+                        </td>
+                        <td>
+                            @if (u.IsActive)
+                            {
+                                <span class="status-active">Active</span>
+                            }
+                            else
+                            {
+                                <span class="status-inactive">Inactive</span>
+                            }
+                        </td>
+                        <td>
+                            @u.CreatedTime.ToString("dd-MMM-yyyy")<br />
+                            <span class="text-soft">@u.CreatedBy</span>
+                        </td>
+                        <td class="text-end">@u.TotalLogins</td>
+                        <td class="text-end text-danger">@u.FailedLogins</td>
+                        <td>@(u.LastLogin?.ToString("dd-MMM-yyyy hh:mm tt") ?? "Never")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" />
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        if (typeof Chart === "undefined") {
+            console.error("Chart.js not loaded.");
+            return;
+        }
+
+        const accountLabels = @Html.Raw(JsonSerializer.Serialize(accountLabels));
+        const accountValues = @Html.Raw(JsonSerializer.Serialize(accountValues));
+
+        const loginLabels = @Html.Raw(JsonSerializer.Serialize(loginLabels));
+        const loginSuccess = @Html.Raw(JsonSerializer.Serialize(loginSuccess));
+        const loginFailed = @Html.Raw(JsonSerializer.Serialize(loginFailed));
+
+        const roleLabels = @Html.Raw(JsonSerializer.Serialize(roleLabels));
+        const roleValues = @Html.Raw(JsonSerializer.Serialize(roleValues));
+
+        const deviceLabels = @Html.Raw(JsonSerializer.Serialize(deviceLabels));
+        const deviceValues = @Html.Raw(JsonSerializer.Serialize(deviceValues));
+
+        const osLabels = @Html.Raw(JsonSerializer.Serialize(osLabels));
+        const osValues = @Html.Raw(JsonSerializer.Serialize(osValues));
+
+        const browserLabels = @Html.Raw(JsonSerializer.Serialize(browserLabels));
+        const browserValues = @Html.Raw(JsonSerializer.Serialize(browserValues));
+
+        function hasCanvas(id) {
+            const el = document.getElementById(id);
+            if (!el) {
+                console.warn("Missing canvas:", id);
+                return null;
+            }
+            return el;
+        }
+
+        function lineChart(id, labels, success, failed) {
+            const canvas = hasCanvas(id);
+            if (!canvas) return;
+
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Successful Logins',
+                            data: success,
+                            borderWidth: 2,
+                            tension: .35
+                        },
+                        {
+                            label: 'Failed Attempts',
+                            data: failed,
+                            borderWidth: 2,
+                            tension: .35
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function barChart(id, labels, values, label) {
+            const canvas = hasCanvas(id);
+            if (!canvas) return;
+
+            new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: values,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function doughnutChart(id, labels, values) {
+            const canvas = hasCanvas(id);
+            if (!canvas) return;
+
+            new Chart(canvas, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        lineChart('loginTrendChart', loginLabels, loginSuccess, loginFailed);
+        barChart('accountChart', accountLabels, accountValues, 'Accounts Created');
+        doughnutChart('roleChart', roleLabels, roleValues);
+        doughnutChart('deviceChart', deviceLabels, deviceValues);
+        barChart('osChart', osLabels, osValues, 'Events');
+        barChart('browserChart', browserLabels, browserValues, 'Events');
+
+        new DataTable('#securityEventsTable', {
+            pageLength: 25,
+            order: [[0, 'desc']],
+            scrollX: true,
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'excel', 'print']
+                }
+            }
+        });
+
+        new DataTable('#usersTable', {
+            pageLength: 25,
+            order: [[5, 'desc']],
+            scrollX: true,
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'excel', 'print']
+                }
+            }
+        });
+    });
+</script>

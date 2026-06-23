@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "PBS ERP Login";
+}
+
+<div class="container-fluid d-flex align-items-center justify-content-center" style="background-color:#f4f6f9; min-height:100vh;">
+
+    <div class="card shadow-lg" style="width:420px; border-radius:10px;">
+
+        <!-- Header -->
+        <div class="text-center bg-success text-white p-3" style="border-top-left-radius:10px; border-top-right-radius:10px;">
+            <img src="~/images/pbslogo.png" alt="PBS Logo" style="height:70px;" />
+            <h5 class="mt-2 mb-0">Census & Surveys ERP</h5>
+            <small>Pakistan Bureau of Statistics</small>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body p-4">
+
+            <h4 class="text-center mb-4 fw-bold text-success">System Login</h4>
+
+            <div id="loginMessage" class="alert d-none"></div>
+
+            <form id="loginForm">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-semibold">Email or CNIC</label>
+                    <input type="text"
+                           name="username"
+                           class="form-control"
+                           id="username"
+                           placeholder="Enter your username"
+                           required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           id="password"
+                           placeholder="Enter your password"
+                           required />
+                </div>
+
+                <div class="form-check mb-3">
+                    <input type="checkbox"
+                           name="rememberMe"
+                           class="form-check-input"
+                           id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe">Remember Me</label>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn btn-success w-100 fw-bold">
+                    Login to System
+                </button>
+
+            </form>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <a href="/Account/Register"
+                   class="text-decoration-none medium">
+                    <i class="fas fa-user-plus me-1"></i>
+                    Register?
+                </a>
+
+                <a href="/Account/Forgot"
+                   class="text-decoration-none medium">
+                    <i class="fas fa-key me-1"></i>
+                    Forgot Password?
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center bg-success p-2">
+            <small class="text-white">
+                Copyrights: © @DateTime.Now.Year <br />
+                Pakistan Bureau of Statistics<br />
+                Government of Pakistan
+            </small>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        let loginInProgress = false;
+
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            if (loginInProgress) {
+                return;
+            }
+
+            loginInProgress = true;
+
+            const form = this;
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const rememberMe = document.getElementById("rememberMe").checked;
+
+            const loginBtn = document.getElementById("loginBtn");
+            const loginMessage = document.getElementById("loginMessage");
+
+            const originalButtonHtml = loginBtn.innerHTML;
+
+            let redirecting = false;
+
+            loginMessage.classList.add("d-none");
+            loginMessage.classList.remove("alert-danger", "alert-success");
+            loginMessage.innerHTML = "";
+
+            if (!username || !password) {
+                loginInProgress = false;
+                showLoginMessage("Login ID and password are required.", "danger");
+                return;
+            }
+
+            setLoginLoading(loginBtn, form, "Authenticating...");
+
+            try {
+                const response = await fetch("/api/authenticate", {
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        Username: username,
+                        Password: password
+                    })
+                });
+
+                let data = null;
+
+                try {
+                    data = await response.json();
+                } catch {
+                    data = null;
+                }
+
+                if (!response.ok) {
+                    let message = "Invalid login attempt.";
+
+                    if (typeof data === "string") {
+                        message = data;
+                    } else if (data && data.message) {
+                        message = data.message;
+                    }
+
+                    showLoginMessage(message, "danger");
+                    return;
+                }
+
+                if (!data || !data.token) {
+                    showLoginMessage("Login successful, but token was not received from API.", "danger");
+                    return;
+                }
+
+                localStorage.removeItem("pbs_erp_token");
+                localStorage.removeItem("pbs_erp_user");
+                localStorage.removeItem("pbs_erp_token_expires");
+
+                sessionStorage.removeItem("pbs_erp_token");
+                sessionStorage.removeItem("pbs_erp_user");
+                sessionStorage.removeItem("pbs_erp_token_expires");
+
+                if (rememberMe) {
+                    localStorage.setItem("pbs_erp_token", data.token);
+                    localStorage.setItem("pbs_erp_user", JSON.stringify(data.user || null));
+                    localStorage.setItem("pbs_erp_token_expires", data.accessTokenExpiresAtUtc || "");
+                } else {
+                    sessionStorage.setItem("pbs_erp_token", data.token);
+                    sessionStorage.setItem("pbs_erp_user", JSON.stringify(data.user || null));
+                    sessionStorage.setItem("pbs_erp_token_expires", data.accessTokenExpiresAtUtc || "");
+                }
+
+                if (!data.redirectUrl) {
+                    showLoginMessage("Login successful, but redirect URL was not received.", "danger");
+                    return;
+                }
+
+                redirecting = true;
+
+                showLoginMessage("Login successful. Redirecting...", "success");
+                setLoginLoading(loginBtn, form, "Redirecting...");
+
+                window.location.href = data.redirectUrl;
+            }
+            catch (error) {
+                showLoginMessage("Server error while logging in. Please try again.", "danger");
+            }
+            finally {
+                if (!redirecting) {
+                    loginInProgress = false;
+                    resetLoginButton(loginBtn, form, originalButtonHtml);
+                }
+            }
+        });
+
+        function setLoginLoading(button, form, text) {
+            button.disabled = true;
+            button.setAttribute("aria-disabled", "true");
+
+            form.setAttribute("aria-busy", "true");
+
+            button.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' +
+                text;
+        }
+
+        function resetLoginButton(button, form, originalHtml) {
+            button.disabled = false;
+            button.removeAttribute("aria-disabled");
+
+            form.removeAttribute("aria-busy");
+
+            button.innerHTML = originalHtml || "Login to System";
+        }
+
+        function showLoginMessage(message, type) {
+            const loginMessage = document.getElementById("loginMessage");
+
+            loginMessage.classList.remove("d-none", "alert-danger", "alert-success");
+            loginMessage.classList.add("alert-" + type);
+            loginMessage.innerHTML = message;
+        }
+    </script>
+}

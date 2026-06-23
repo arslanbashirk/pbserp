@@ -1,0 +1,46 @@
+﻿@model List<string>
+
+<h3>Backup Files</h3>
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+<a href="/DatabaseBackup/Index" class="btn btn-secondary mb-3">
+    Back to Backup
+</a>
+
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>Backup File</th>
+            <th style="width:160px;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="2" class="text-center text-muted">
+                    No backup files found.
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var file in Model)
+            {
+                <tr>
+                    <td>@file</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary"
+                           href="/DatabaseBackup/Download?file=@Uri.EscapeDataString(file)">
+                            Download
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

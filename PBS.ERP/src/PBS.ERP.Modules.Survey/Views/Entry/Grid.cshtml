@@ -1,0 +1,1058 @@
+﻿@using System.Text.Json
+@using PBS.ERP.Modules.Survey.Services
+@model MetadataViewModel
+
+@{
+    ViewData["Title"] = "Grid Data Entry";
+
+    var gridField = Model.Fields.FirstOrDefault(x =>
+        string.Equals(Convert.ToString(x.InputType), "grid", StringComparison.OrdinalIgnoreCase));
+
+    var formFields = Model.Fields
+        .Where(x => x.AllowInsert == true &&
+                    !string.Equals(Convert.ToString(x.InputType), "grid", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(Convert.ToString(x.ColumnName), "AreaCode", StringComparison.OrdinalIgnoreCase))
+        .ToList();
+
+    var entryJson = JsonSerializer.Serialize(Model.Entry ?? new List<Dictionary<string, object>>());
+    var areaCode = Model.Area?.AreaCode ?? string.Empty;
+    var gridColumnName = gridField?.ColumnName ?? "Grid";
+}
+
+<style>
+    :root {
+        --erp-primary: #198754;
+        --erp-primary-dark: #146c43;
+        --erp-border: #d8dee4;
+        --erp-soft: #f8faf9;
+        --erp-muted: #6c757d;
+        --erp-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    }
+
+    .erp-page {
+        padding-bottom: 24px;
+    }
+
+    .erp-header {
+        background: linear-gradient(135deg, var(--erp-primary), var(--erp-primary-dark));
+        color: #fff;
+        padding: 16px 20px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: 0.95;
+        margin-bottom: 5px;
+    }
+
+    .erp-title {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .grid-wrapper {
+        width: 100%;
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        background: #fff;
+        padding: 12px;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .grid-columns,
+    .record-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 6px;
+        width: 100%;
+    }
+
+    .grid-columns {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #fff;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eef1f3;
+    }
+
+    .grid-col-header {
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 7px 8px;
+        border-radius: 8px;
+        background: var(--erp-primary);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.25;
+    }
+
+    .record-block {
+        width: 100%;
+        margin-bottom: 14px;
+        overflow: hidden;
+        border: 1px solid #d9e2dc;
+        border-radius: 12px;
+        background: var(--erp-soft);
+        transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+        .record-block:hover {
+            border-color: #c5d8cc;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+
+    .record-title {
+        padding: 9px 12px;
+        border-bottom: 1px solid #dce7e0;
+        color: #17212b;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.35;
+        background: #f2f7f4;
+    }
+
+    .record-row {
+        padding: 8px;
+    }
+
+    .grid-cell {
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-field-label {
+        display: none;
+    }
+
+    .mobile-field-control {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .grid-cell input,
+    .grid-cell select,
+    .grid-cell textarea {
+        width: 100%;
+        min-height: 40px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        background: #fff;
+        padding: 5px 8px;
+        font-size: 12px;
+        line-height: 1.3;
+        transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+        .grid-cell input:focus,
+        .grid-cell select:focus,
+        .grid-cell textarea:focus {
+            border-color: var(--erp-primary);
+            box-shadow: 0 0 0 .15rem rgba(25, 135, 84, .15);
+            outline: none;
+        }
+
+        .grid-cell input[type="number"] {
+            text-align: center;
+        }
+
+    .grid-cell textarea {
+        min-height: 40px;
+        resize: vertical;
+    }
+
+    .radio-wrap,
+    .checkbox-wrap {
+        width: 100%;
+        min-height: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 4px;
+    }
+
+    .form-check-inline {
+        margin-right: 4px;
+    }
+
+    .form-check-input {
+        margin-top: 0 !important;
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        font-size: 12px;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .erp-nav-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid #edf0f2;
+    }
+
+        .erp-nav-buttons .btn {
+            min-width: 110px;
+        }
+
+    .empty-grid-message {
+        border: 1px dashed #ced4da;
+        border-radius: 12px;
+        padding: 18px;
+        color: var(--erp-muted);
+        text-align: center;
+        background: #fbfbfb;
+    }
+
+
+    .form-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(2px);
+    }
+
+    .form-loading-card {
+        width: min(360px, calc(100% - 32px));
+        border: 1px solid var(--erp-border);
+        border-radius: 16px;
+        background: #fff;
+        padding: 22px 20px;
+        text-align: center;
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.14);
+    }
+
+        .form-loading-card .spinner-border {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+    .form-loading-title {
+        margin-top: 14px;
+        color: #17212b;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .form-loading-subtitle {
+        margin-top: 4px;
+        color: var(--erp-muted);
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .form-is-loading .grid-wrapper,
+    .form-is-loading .erp-nav-buttons {
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .form-is-loading #gridBody {
+        opacity: .55;
+    }
+
+    /* Tablet / mobile data-entry layout
+           Desktop keeps the normal grid headers.
+           Smaller screens show each field as: label left + control right. */
+    @@media (max-width: 1199.98px) {
+        .grid-columns {
+            display: none;
+        }
+
+        .record-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+            padding: 6px 8px;
+        }
+
+        .grid-cell {
+            display: grid;
+            grid-template-columns: minmax(130px, 36%) minmax(0, 64%);
+            gap: 8px;
+            align-items: center;
+            padding: 7px 2px;
+            border-bottom: 1px solid #e9eef0;
+        }
+
+            .grid-cell:last-child {
+                border-bottom: 0;
+            }
+
+        .mobile-field-label {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            min-width: 0;
+            color: #25352d;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+            .mobile-field-label span:first-child {
+                overflow-wrap: anywhere;
+            }
+
+        .mobile-field-control {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .radio-wrap,
+        .checkbox-wrap {
+            min-height: 38px;
+            padding: 4px 0;
+            gap: 6px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .erp-header {
+            padding: 14px;
+        }
+
+        .record-title {
+            font-size: 13px;
+        }
+
+        .erp-nav-buttons {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+            .erp-nav-buttons .btn {
+                width: 100%;
+            }
+    }
+
+    @@media (max-width: 576px) {
+        .container-fluid.erp-page {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .grid-wrapper {
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        .grid-cell {
+            grid-template-columns: minmax(105px, 40%) minmax(0, 60%);
+            gap: 6px;
+        }
+
+        .mobile-field-label {
+            font-size: 11.5px;
+        }
+
+        .grid-cell input,
+        .grid-cell select,
+        .grid-cell textarea {
+            min-height: 38px;
+            font-size: 12px;
+            padding: 5px 7px;
+        }
+
+        .form-check-label {
+            white-space: normal;
+            line-height: 1.2;
+        }
+    }
+</style>
+
+<input type="hidden" id="TTUID" value="@Model.Entity?.UID" />
+<input type="hidden" id="FormType" value="@Model.Form?.FormType" />
+<input type="hidden" id="AACODE" value="@areaCode" />
+
+@if (gridField != null)
+{
+    <div id="formLoadingOverlay" class="form-loading-overlay" role="status" aria-live="polite">
+        <div class="form-loading-card">
+            <div class="spinner-border text-success" aria-hidden="true"></div>
+            <div class="form-loading-title">Loading form</div>
+            <div class="form-loading-subtitle">Please wait while rows and field options are being prepared.</div>
+        </div>
+    </div>
+}
+
+<form id="dynamicForm" autocomplete="off">
+    <div class="container-fluid mt-3 erp-page">
+        <div class="erp-header">
+            <div class="erp-breadcrumb">
+                <span>@Model.Form?.ShortVersion</span>
+                <span>&gt;</span>
+                <span>@Model.Form?.Questionnaire</span>
+                <span>&gt;</span>
+                <span>Section @Model.Form?.SectionNo</span>
+                <span>&gt;</span>
+                <span>Form @Model.Form?.FormNo</span>
+            </div>
+
+            <div class="erp-title">@Model.Form?.Heading</div>
+        </div>
+
+        <div class="grid-wrapper">
+            @if (gridField == null)
+            {
+                <div class="empty-grid-message">
+                    Grid configuration is missing for this form.
+                </div>
+            }
+            else
+            {
+                <div class="grid-columns" aria-label="Grid column headers">
+                    @foreach (var field in formFields)
+                    {
+                        <div class="grid-col-header">
+                            <span>@field.DisplayLabel</span>
+                            @if (field.IsRequired == true)
+                            {
+                                <span class="text-warning">*</span>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div id="gridBody"></div>
+            }
+
+            <div id="errorContainer"
+                 class="alert alert-danger d-none position-relative pe-5 mt-3"
+                 role="alert">
+                <button type="button"
+                        class="btn-close position-absolute top-0 end-0 m-3"
+                        id="btnCloseErrors"
+                        aria-label="Close"></button>
+
+                <h6 class="alert-heading mb-2" id="errorMsg">Error While Saving</h6>
+                <ul id="errorList" class="mb-0"></ul>
+            </div>
+
+            <div class="erp-nav-buttons">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        id="btnPrevious"
+                        data-next-url="@(Model.NextPrevious?.PreviousFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.PreviousFormUID}" : $"/Survey/Index?id={Model.Form?.SurveyUID}")">
+                    <i class="bi bi-arrow-left"></i>
+                    Previous Form
+                </button>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        id="btnSave"
+                        disabled>
+                    Save Form
+                </button>
+
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        id="btnNext"
+                        data-next-url="@(Model.NextPrevious?.NextFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.NextFormUID}" : $"/Survey/Index?id={Model.Form?.SurveyUID}")">
+                    Next Form
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (gridField != null)
+{
+    <script type="text/template" id="gridRowTemplate">
+        <div class="record-block grid-row" data-index="{{INDEX}}">
+            <div class="record-title">
+                <span class="record-key-text">{{VALUE}}. {{TEXT}}</span>
+
+                <input type="hidden" data-field="UID" class="grid-input" />
+                <input type="hidden" data-field="@gridColumnName" class="grid-key" value="{{VALUE}}" />
+                <input type="hidden" data-field="AreaCode" class="grid-input" value="@areaCode" />
+            </div>
+
+            <div class="record-row">
+        @foreach (var field in formFields)
+        {
+            var inputType = Convert.ToString(field.InputType)?.ToLowerInvariant() ?? "text";
+            var displayLabel = System.Net.WebUtility.HtmlEncode(Convert.ToString(field.DisplayLabel) ?? Convert.ToString(field.ColumnName) ?? string.Empty);
+            var requiredMark = field.IsRequired == true ? "<span class=\"text-danger\">*</span>" : string.Empty;
+
+            @Html.Raw($"<div class=\"grid-cell\"><div class=\"mobile-field-label\"><span>{displayLabel}</span>{requiredMark}</div><div class=\"mobile-field-control\">")
+            switch (inputType)
+            {
+                case "text":
+                                                                <input type="text"
+                                                                       class="grid-input"
+                                                                       data-field="@field.ColumnName"
+                                                                       placeholder="@field.Placeholder" />
+                    break;
+
+                case "number":
+                                                                <input type="number"
+                                                                       class="grid-input"
+                                                                       data-field="@field.ColumnName"
+                                                                       placeholder="@field.Placeholder" />
+                    break;
+
+                case "textarea":
+                                                                <textarea class="grid-input"
+                                                                          data-field="@field.ColumnName"
+                                                                          rows="1"
+                                                                          placeholder="@field.Placeholder"></textarea>
+                    break;
+
+                case "select":
+                                                                <select class="grid-input dynamic-select"
+                                                                        data-field="@field.ColumnName"
+                                                                        data-table="@field.DropdownSourceTable"
+                                                                        data-value="@field.DropdownValueColumn"
+                                                                        data-text="@field.DropdownTextColumn"
+                                                                        data-where="@field.DropdownWhere"
+                                                                        data-order="@field.DropdownOrderBy">
+                                                                </select>
+                    break;
+
+                case "radio":
+                                                                <div class="radio-wrap dynamic-radio"
+                                                                     data-field="@field.ColumnName"
+                                                                     data-table="@field.DropdownSourceTable"
+                                                                     data-value="@field.DropdownValueColumn"
+                                                                     data-text="@field.DropdownTextColumn"
+                                                                     data-where="@field.DropdownWhere"
+                                                                     data-order="@field.DropdownOrderBy">
+                                                                </div>
+                    break;
+
+                case "checkbox":
+                                                                <div class="checkbox-wrap dynamic-checkbox"
+                                                                     data-field="@field.ColumnName"
+                                                                     data-table="@field.DropdownSourceTable"
+                                                                     data-value="@field.DropdownValueColumn"
+                                                                     data-text="@field.DropdownTextColumn"
+                                                                     data-where="@field.DropdownWhere"
+                                                                     data-order="@field.DropdownOrderBy">
+                                                                </div>
+                    break;
+
+                case "boolean":
+                                                                <select class="grid-input" data-field="@field.ColumnName">
+                                                                    <option value="">Select</option>
+                                                                    <option value="true">Yes</option>
+                                                                    <option value="false">No</option>
+                                                                </select>
+                    break;
+
+                default:
+                                                                <input type="text"
+                                                                       class="grid-input"
+                                                                       data-field="@field.ColumnName"
+                                                                       placeholder="@field.Placeholder" />
+                    break;
+            }
+            @Html.Raw("</div></div>")
+
+        }
+            </div>
+        </div>
+    </script>
+}
+
+@section scripts {
+
+    <script>
+        const rawEntry = @Html.Raw(entryJson);
+        const gridColumnName = @Html.Raw(JsonSerializer.Serialize(gridColumnName));
+        const gridConfig = {
+            table: @Html.Raw(JsonSerializer.Serialize(gridField?.DropdownSourceTable ?? string.Empty)),
+            valueCol: @Html.Raw(JsonSerializer.Serialize(gridField?.DropdownValueColumn ?? string.Empty)),
+            textCol: @Html.Raw(JsonSerializer.Serialize(gridField?.DropdownTextColumn ?? string.Empty)),
+            whereClause: @Html.Raw(JsonSerializer.Serialize(gridField?.DropdownWhere ?? string.Empty)),
+            orderBy: @Html.Raw(JsonSerializer.Serialize(gridField?.DropdownOrderBy ?? string.Empty))
+                        };
+
+        const entryData = normalizeEntry(rawEntry);
+        let gridItems = [];
+        let isSaving = false;
+        let isFormReady = false;
+
+        $(document).ready(function () {
+            $(document).on("click", "#btnSave", saveGridData);
+            $(document).on("click", "#btnNext, #btnPrevious", function () {
+                window.location.replace($(this).data("next-url"));
+            });
+            $(document).on("click", "#btnCloseErrors", hideErrors);
+
+            lockFormUntilReady(true);
+
+            if (!gridConfig.table || !gridColumnName) {
+                finishFormLoading(false, "Grid configuration is missing for this form.");
+                return;
+            }
+
+            loadGridSource();
+        });
+
+        function normalizeEntry(data) {
+            if (!Array.isArray(data)) {
+                return [];
+            }
+
+            return data.map(item => ({ ...item }));
+        }
+
+        function loadGridSource() {
+            loadLookup(
+                gridConfig.table,
+                gridConfig.valueCol,
+                gridConfig.textCol,
+                gridConfig.whereClause,
+                gridConfig.orderBy,
+                function (response) {
+                    if (response.Success){
+                        gridItems = Array.isArray(response.Data) ? response.Data : [];
+                        renderGridRows(gridItems);
+                    }
+                        
+                }
+            );
+        }
+
+        function renderGridRows(items) {
+            const $gridBody = $("#gridBody");
+            const template = $("#gridRowTemplate").html();
+
+            $gridBody.empty();
+
+            if (!template) {
+                finishFormLoading(false, "Unable to prepare form template.");
+                return;
+            }
+
+            if (!Array.isArray(items) || items.length === 0) {
+                $gridBody.html(`<div class="empty-grid-message">No grid rows found for this form.</div>`);
+                finishFormLoading(true);
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const value = toSafeString(item.value);
+                const text = toSafeString(item.text);
+
+                let html = replaceToken(template, "{{INDEX}}", index);
+                html = replaceToken(html, "{{VALUE}}", escapeHtml(value));
+                html = replaceToken(html, "{{TEXT}}", escapeHtml(text));
+
+                const $row = $(html);
+                const existing = findExistingRow(value);
+
+                if (existing) {
+                    $row.data("existing", existing);
+                    applyExistingInputValues($row, existing);
+                }
+
+                $gridBody.append($row);
+            });
+
+            loadDynamicControls()
+                .then(function () {
+                    finishFormLoading(true);
+                })
+                .catch(function (error) {
+                    console.error("Form loading failed:", error);
+                    finishFormLoading(false, "Some field options could not be loaded. Please refresh and try again.");
+                });
+        }
+
+        function findExistingRow(gridValue) {
+            return entryData.find(row => String(row[gridColumnName] ?? "") === String(gridValue ?? ""));
+        }
+
+        function applyExistingInputValues($row, existing) {
+            $row.find(".grid-input").each(function () {
+                const field = $(this).data("field");
+
+                if (field && existing[field] !== null && existing[field] !== undefined) {
+                    $(this).val(String(existing[field]));
+                }
+            });
+        }
+
+        function loadDynamicControls() {
+            return Promise.all([
+                loadSelects(),
+                loadRadios(),
+                loadCheckboxes()
+            ]);
+        }
+
+        function loadSelects() {
+            const tasks = [];
+
+            $(".dynamic-select").each(function () {
+                const $ddl = $(this);
+                const field = $ddl.data("field");
+                const existing = $ddl.closest(".grid-row").data("existing");
+
+                const task = loadLookupFromElementAsync($ddl).then(function (items) {
+                    $ddl.empty().append(`<option value="">-- Select --</option>`);
+
+                    items.forEach(item => {
+                        $("<option>")
+                            .val(toSafeString(item.value))
+                            .text(toSafeString(item.text))
+                            .appendTo($ddl);
+                    });
+
+                    if (existing && existing[field] !== null && existing[field] !== undefined) {
+                        $ddl.val(String(existing[field]));
+                    }
+                });
+
+                tasks.push(task);
+            });
+
+            return Promise.all(tasks);
+        }
+
+        function loadRadios() {
+            const tasks = [];
+
+            $(".dynamic-radio").each(function () {
+                const $container = $(this);
+                const field = $container.data("field");
+                const $row = $container.closest(".grid-row");
+                const rowIndex = $row.data("index");
+                const existing = $row.data("existing");
+                const selected = existing ? String(existing[field] ?? "") : "";
+
+                const task = loadLookupFromElementAsync($container).then(function (items) {
+                    $container.empty();
+
+                    items.forEach((item, index) => {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(field, rowIndex, index, value, "radio");
+
+                        const $check = $("<div>").addClass("form-check form-check-inline");
+
+                        $("<input>")
+                            .addClass("form-check-input")
+                            .attr({
+                                type: "radio",
+                                name: `${field}_${rowIndex}`,
+                                id: id
+                            })
+                            .val(value)
+                            .prop("checked", String(value) === selected)
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("form-check-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+                });
+
+                tasks.push(task);
+            });
+
+            return Promise.all(tasks);
+        }
+
+        function loadCheckboxes() {
+            const tasks = [];
+
+            $(".dynamic-checkbox").each(function () {
+                const $container = $(this);
+                const field = $container.data("field");
+                const $row = $container.closest(".grid-row");
+                const rowIndex = $row.data("index");
+                const existing = $row.data("existing");
+                const selected = existing && existing[field]
+                    ? String(existing[field]).split(",").map(x => x.trim())
+                    : [];
+
+                const task = loadLookupFromElementAsync($container).then(function (items) {
+                    $container.empty();
+
+                    items.forEach((item, index) => {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(field, rowIndex, index, value, "checkbox");
+
+                        const $check = $("<div>").addClass("form-check form-check-inline");
+
+                        $("<input>")
+                            .addClass("form-check-input")
+                            .attr({
+                                type: "checkbox",
+                                id: id
+                            })
+                            .val(value)
+                            .prop("checked", selected.includes(String(value)))
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("form-check-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+                });
+
+                tasks.push(task);
+            });
+
+            return Promise.all(tasks);
+        }
+
+        function saveGridData() {
+            if (isSaving) {
+                return;
+            }
+
+            if (!isFormReady) {
+                showErrors("Form is still loading", ["Please wait until all rows and field options are fully loaded."]);
+                return;
+            }
+
+            hideErrors();
+
+            const rows = collectGridRows();
+
+            isSaving = true;
+            setSaveButtonState(true);
+
+            $.ajax({
+                url: "/Crud/SaveBulk",
+                type: "POST",
+                data: {
+                    table: $("#TTUID").val(),
+                    rows: JSON.stringify(rows)
+                },
+                success: function (response) {
+                    const isSuccess = response && (response.Success === true || response.success === true);
+
+                    if (isSuccess) {
+                        alert("Successfully Saved");
+                        window.location.replace($("#btnNext").data("next-url"));
+                        return;
+                    }
+
+                    showErrors(
+                        response?.Message ?? response?.message ?? "Unable to save form.",
+                        response?.Errors ?? response?.errors ?? response?.Error ?? response?.error
+                    );
+                },
+                error: function (xhr) {
+                    console.error("Save failed:", xhr);
+                    showErrors("Server Error", ["Unable to save the form. Please check the server logs and try again."]);
+                },
+                complete: function () {
+                    isSaving = false;
+                    setSaveButtonState(false);
+                }
+            });
+        }
+
+        function collectGridRows() {
+            const rows = [];
+
+            $(".grid-row").each(function () {
+                const $rowElement = $(this);
+                const row = {};
+
+                row[gridColumnName] = $rowElement.find(".grid-key").val() ?? "";
+
+                $rowElement.find(".grid-input").each(function () {
+                    const field = $(this).data("field");
+
+                    if (field) {
+                        row[field] = $(this).val() ?? "";
+                    }
+                });
+
+                $rowElement.find(".dynamic-radio").each(function () {
+                    const field = $(this).data("field");
+
+                    if (field) {
+                        row[field] = $(this).find("input:checked").val() ?? "";
+                    }
+                });
+
+                $rowElement.find(".dynamic-checkbox").each(function () {
+                    const field = $(this).data("field");
+
+                    if (field) {
+                        const values = $(this).find("input:checked").map(function () {
+                            return $(this).val();
+                        }).get();
+
+                        row[field] = values.join(",");
+                    }
+                });
+
+                rows.push(row);
+            });
+
+            return rows;
+        }
+
+        function setSaveButtonState(disabled) {
+            const $btn = $("#btnSave");
+            $btn.prop("disabled", disabled || !isFormReady);
+            $btn.text(disabled ? "Saving..." : "Save Form");
+        }
+
+        function lockFormUntilReady(isLocked) {
+            $(document.body).toggleClass("form-is-loading", isLocked);
+            $("#dynamicForm").find("input, select, textarea, button").prop("disabled", isLocked);
+            $("#btnSave").prop("disabled", true);
+        }
+
+        function finishFormLoading(isReady, errorMessage) {
+            isFormReady = isReady === true;
+            $(document.body).removeClass("form-is-loading");
+            $("#formLoadingOverlay").fadeOut(150, function () {
+                $(this).remove();
+            });
+
+            $("#dynamicForm").find("input, select, textarea, button").prop("disabled", false);
+            $("#btnSave").prop("disabled", !isFormReady);
+
+            if (!isFormReady && errorMessage) {
+                showErrors("Form loading issue", [errorMessage]);
+            }
+        }
+
+        function showErrors(message, errors) {
+            const $container = $("#errorContainer");
+            const $list = $("#errorList");
+
+            $list.empty();
+
+            const errorItems = Array.isArray(errors)
+                ? errors
+                : (errors ? [errors] : ["An unknown error occurred."]);
+
+            errorItems.forEach(error => {
+                $("<li>").text(toSafeString(JSON.stringify(error))).appendTo($list);
+            });
+
+            $("#errorMsg").text(message || "Error While Saving");
+            $container.removeClass("d-none");
+
+            const offsetTop = $container.offset()?.top ?? 0;
+            $("html, body").animate({ scrollTop: offsetTop - 20 }, 300);
+        }
+
+        function hideErrors() {
+            $("#errorList").empty();
+            $("#errorContainer").addClass("d-none");
+        }
+
+        function loadLookupFromElement($element, callback) {
+            loadLookup(
+                $element.data("table"),
+                $element.data("value"),
+                $element.data("text"),
+                $element.data("where"),
+                $element.data("order"),
+                callback
+            );
+        }
+
+        function loadLookupFromElementAsync($element) {
+            return new Promise(function (resolve) {
+                loadLookupFromElement($element, resolve);
+            });
+        }
+
+        function loadLookup(table, valueCol, textCol, whereClause, orderBy, callback) {
+            if (!table || !valueCol || !textCol) {
+                callback([]);
+                return;
+            }
+
+            const params = {
+                table,
+                valueCol,
+                textCol
+            };
+
+            if (whereClause) params.where = whereClause;
+            if (orderBy) params.order = orderBy;
+
+            $.get('/api/lookup/get', params)
+            .done(function (response) {
+                if (response && response.Success) {
+                    callback(Array.isArray(response.Data) ? response.Data : []);
+                } else {
+                    callback([]);
+                }
+            })
+            .fail(function (xhr) {
+                console.error("Lookup load failed:", xhr);
+                callback([]);
+            });
+        }
+
+        function buildControlId(field, rowIndex, itemIndex, value, type) {
+            return `${type}_${sanitizeId(field)}_${rowIndex}_${itemIndex}_${sanitizeId(value)}`;
+        }
+
+        function sanitizeId(value) {
+            return String(value ?? "")
+                .replace(/[^a-zA-Z0-9_-]/g, "_")
+                .replace(/_+/g, "_");
+        }
+
+        function replaceToken(text, token, value) {
+            return String(text).split(token).join(value);
+        }
+
+        function toSafeString(value) {
+            return value === null || value === undefined ? "" : String(value);
+        }
+
+        function escapeHtml(value) {
+            return toSafeString(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+}

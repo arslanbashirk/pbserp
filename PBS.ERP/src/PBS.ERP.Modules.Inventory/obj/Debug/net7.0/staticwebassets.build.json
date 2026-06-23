@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "hGLyLYciRyLT3vl3eBoaLoYjzyM5YIt0Kz8FzfiOnmo=",
+  "Source": "PBS.ERP.Modules.Inventory",
+  "BasePath": "_content/PBS.ERP.Modules.Inventory",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

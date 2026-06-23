@@ -1,0 +1,866 @@
+﻿@using PBS.ERP.Shared
+@model FileTableView;
+@{
+    ViewBag.Title = "Dynamic CRUD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .dt-buttons {
+            display: none !important;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        thead {
+            background-color: blue !important;
+            color: white;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 36px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 36px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+
+        #form-container {
+            display: none;
+        }
+    </style>
+
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h2 class="mb-0 text-capitalize" id="table-title">@Model.Title</h2>
+
+    <button class="btn btn-info text-white" onclick="goBackAndRefresh()">
+        <i class="bi bi-arrow-left"></i> Go Back
+    </button>
+
+
+</div>
+
+<script>
+    function goBackAndRefresh() {
+        window.history.back();
+    }
+</script>
+<input type="hidden" id="uid" value="@Model.Entity.UID" />
+<input type="hidden" id="path" value="@ViewBag.Path" />
+@foreach (var field in Model.fields)
+{
+    <input type="hidden"
+           class="dynamic-field"
+           name="@field.Key"
+           value="@field.Value" />
+}
+
+<input type="hidden" id="ForColumns" value="@Model.Columns" />
+<input type="hidden" id="FormatTable" value="@Model.FormatTable" />
+<input type="hidden" id="FormatColumns" value="@Model.FormatColumns" />
+<input type="hidden" id="FormatFilter" value="@Model.FormatFilter" />
+<hr />
+<div class="mb-3">
+    <label class="form-label">Import CSV / Excel</label>
+    <input type="file" id="importFile" class="form-control" accept=".csv,.xlsx,.xls" />
+    <button type="button" class="btn btn-success mt-2" onclick="uploadFile()">
+        <i class="bi bi-upload"></i> Upload & Import
+    </button>
+</div>
+<hr />
+
+<div class="col-md-8">
+    @if (Model.Reference.Count > 0)
+    {
+        <p>
+            <b>Excluded Columns: </b>
+            @foreach (var field in Model.Reference)
+            {
+                <span>@field.Key.Replace("_Text", ""): <b>@field.Value</b></span>
+            }
+        </p>
+    }
+    @if (Model.Grid?.FormatColumns != null)
+    {
+        <p><b>Fixed Columns: </b>@Model.Grid?.FormatColumns</p>
+    }
+    @if (Model.Columns != null)
+    {
+        <p><b>Editable Columns: </b>@Model.Columns</p>
+    }
+</div>
+<div class="col-md-4">
+    <button class="btn btn-info text-white" id="btnDownloadFormat" style="display:none">
+        <i class="bi bi-arrow-down"></i> Download Format
+    </button>
+    <table id="hiddenTable" style="display:none !important;"></table>
+</div>
+
+
+<!-- ===================== FORM ===================== -->
+<div id="form-container">
+    <form id="dynamicForm" class="row">
+    </form>
+    <div class="mt-3" style="margin-top:10px">
+        <button type="button" class="btn btn-primary" onclick="save()">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+    </div>
+</div>
+
+<hr />
+<!-- ===================== GRID ===================== -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="grid">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div id="uploadOverlay" style=" display:none; position:fixed;top:0; left:0;
+    width:100%; height:100%; background:rgba(0,0,0,0.5);
+z-index:9999;justify-content:center;align-items:center;">
+    <div class="bg-white p-4 rounded shadow text-center" style="width:300px;">
+        <h5>Uploading...</h5>
+
+        <div class="progress mt-3">
+            <div id="uploadProgressBar"
+                 class="progress-bar progress-bar-striped progress-bar-animated"
+                 style="width: 0%">
+                0%
+            </div>
+        </div>
+
+        <small class="text-muted mt-2 d-block">Please wait</small>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+            let gridData = [];
+            let formatData = [];
+            let formatColumns = [];
+            const uid = $("#uid").val();
+            const PATH = $("#path").val();
+            const table = $("#table").text();
+            let metadata = [];
+            loadMetadata();
+            function loadMetadata() {
+                $.ajax({
+                    url: '/Api/Metadata/Get',
+                    type: 'GET',
+                    data: { table: uid },
+                    success: function (response) {
+                        if (response.error) {
+                            alert(response.message || 'Failed to load metadata.');
+                            return;
+                        }
+
+                        metadata = response.data;
+                        buildForm(metadata);
+                        loadGrid();
+                        GetFormat();
+
+                    },
+                    error: function () {
+                        alert('Server error while loading metadata.');
+                    }
+                });
+            }
+
+            function buildForm(fields) {
+                const $form = $('#dynamicForm');
+                $form.empty();
+                $form.append('<input type="hidden" id="UID" name="UID"/>');
+
+                let currentSection = null;
+
+                fields.forEach(f => {
+
+                    if (f.IsReadonly) return;
+
+                    // ---------- SECTION HEADER ----------
+                    if (f.SectionNumber != null && f.SectionNumber !== currentSection) {
+                        currentSection = f.SectionNumber;
+                        if (f.SectionName) {
+                            $form.append(`<div class="col-md-12 mt-3"><h3>${f.SectionName}</h3><hr/></div>`);
+                        } else {
+                            $form.append(`<div class="col-md-12 mt-3"></div>`);
+                        }
+                    }
+
+                    // ---------- INPUT HTML ----------
+                    let inputHtml = '';
+                    const required = f.IsRequired ? 'required' : '';
+                    const readonly = f.IsReadonly ? 'readonly' : '';
+                    const placeholder = f.Placeholder ?? '';
+                    // --- HANDLE BOOLEAN INPUTS ---
+                    if (f.InputType === 'boolean') {
+                        inputHtml = `<div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input"
+                                            type="radio"
+                                            name="${f.ColumnName}"
+                                            id="${f.ColumnName}_true"
+                                            value=true
+                                            ${required}
+                                            ${readonly} checked>
+
+                                    <label class="form-check-label" for="${f.ColumnName}_true">
+                                        ${f.TrueLabel ?? 'True'}
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline ms-3">
+                                    <input class="form-check-input"
+                                            type="radio"
+                                            name="${f.ColumnName}"
+                                            id="${f.ColumnName}_false"
+                                            value=false
+                                            ${readonly}>
+
+                                    <label class="form-check-label" for="${f.ColumnName}_false">
+                                        ${f.FalseLabel ?? 'False'}
+                                    </label>
+                                </div>
+
+                                ${f.Tooltip ? `<div><small class="text-muted">${f.Tooltip}</small></div>` : ''}
+
+                            </div>`;
+                    }
+                    else {
+                        switch (f.InputType) {
+                            case 'text':
+                            case 'number':
+                            case 'email':
+                            case 'url':
+                            case 'tel':
+                            case 'password':
+                            case 'color':
+                            case 'range':
+                            case 'month':
+                            case 'week':
+                            case 'search':
+                            case 'time':
+                            case 'datetime-local':
+                                inputHtml = `<input type="${f.InputType}" class="form-control" name="${f.ColumnName}" placeholder="${placeholder}" ${required} ${readonly} />`;
+                                break;
+
+                            case 'date':
+                                inputHtml = `<input type="date" class="form-control" name="${f.ColumnName}" ${required} ${readonly} />`;
+                                break;
+
+                            case 'textarea':
+                                inputHtml = `<textarea class="form-control" name="${f.ColumnName}" placeholder="${placeholder}" ${required} ${readonly}></textarea>`;
+                                break;
+
+                            case 'checkbox':
+                                inputHtml = `<div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="${f.ColumnName}" value="1" ${readonly} />
+                                                <label class="form-check-label">${f.DisplayLabel ?? f.ColumnName}</label>
+                                                </div>`;
+                                break;
+
+                            case 'radio':
+                                // placeholder container; will populate options later
+                                inputHtml = `<div id="radioContainer_${f.ColumnName}"></div>`;
+                                break;
+
+                            case 'select':
+                                inputHtml = `<select class="form-select" name="${f.ColumnName}" id="${f.ColumnName}" ${required} ${readonly}>
+                                                <option value="">-- Select --</option>
+                                                </select>`;
+                                break;
+
+                            case 'file':
+                                inputHtml = `<input type="file" class="form-control" name="${f.ColumnName}" ${required} ${readonly} />`;
+                                break;
+
+                            default:
+                                // fallback to text input
+                                inputHtml = `<input type="text" class="form-control" name="${f.ColumnName}" placeholder="${placeholder}" ${required} ${readonly} />`;
+                                break;
+                        }
+                    }
+
+
+                    // ---------- APPEND FIELD ----------
+                    if (f.InputType !== 'checkbox' && f.InputType !== 'radio') {
+                        // Label outside for non-checkbox/radio
+                        $form.append(`
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">${f.DisplayLabel ?? f.ColumnName} ${f.IsRequired ? '<span class="text-danger">*</span>' : ''}</label>
+                                ${inputHtml}
+                                ${f.Tooltip ? `<small class="text-muted">${f.Tooltip}</small>` : ''}
+                            </div>
+                        `);
+                    } else {
+                        // Checkbox or radio container
+                        $form.append(`
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">${f.InputType === 'radio' ? f.DisplayLabel ?? f.ColumnName : ''} ${f.IsRequired ? '<span class="text-danger">*</span>' : ''}</label>
+                                ${inputHtml}
+                                ${f.Tooltip ? `<small class="text-muted">${f.Tooltip}</small>` : ''}
+                            </div>
+                        `);
+                    }
+
+                    // ---------- LOAD DROPDOWN / RADIO DATA ----------
+                    if ((f.InputType === 'select' || f.InputType === 'radio') && f.DropdownSourceTable) {
+                        $.get('/Api/Lookup/Get', {
+                            table: f.DropdownSourceTable,
+                            valueCol: f.DropdownValueColumn,
+                            textCol: f.DropdownTextColumn,
+                            where: f.DropdownWhere,
+                            order: f.DropdownOrderBy
+                        }, function (rows) {
+                            if (f.InputType === 'select') {
+                                rows.forEach(r => {
+                                    $('#' + f.ColumnName).append(`<option value="${r.value}">${r.text}</option>`);
+                                });
+                            } else if (f.InputType === 'radio') {
+                                const $container = $(`#radioContainer_${f.ColumnName}`);
+                                rows.forEach(r => {
+                                    const radioHtml = `
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="${f.ColumnName}" value="${r.value}" id="${f.ColumnName}_${r.value}" />
+                                            <label class="form-check-label" for="${f.ColumnName}_${r.value}">${r.text}</label>
+                                        </div>
+                                    `;
+                                    $container.append(radioHtml);
+                                });
+                            }
+                        });
+                    }
+                });
+                $('#dynamicForm select').select2({
+                    width: '100%',
+                    placeholder: 'Select an option',
+                    allowClear: true
+                });
+            }
+
+            window.save = function () {
+
+                var id = $('#UID').val();
+                var data = {};
+                const isUpdate = id && id != '';
+
+
+                $('#dynamicForm').find('input, select, textarea').each(function () {
+                    if (this.type === 'checkbox') {
+                        data[this.name] = this.checked ? 1 : 0;
+
+                    }
+                    else if (this.type === 'radio') {
+                        // Only set value if this radio button is checked
+                        if (this.checked) {
+                            data[this.name] = this.value;
+                        }
+                    } else if ($(this).val() != "") {
+                        data[this.name] = $(this).val();
+                    }
+                });
+
+                const url = isUpdate ? '/' + PATH + '/Update' : '/' + PATH + '/Insert';
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: { table: uid, ...data },
+                    success: function (res) {
+                        if (res.success) {
+                            alert(isUpdate ? 'Updated successfully' : 'Saved successfully');
+                            resetForm();
+                            loadGrid();
+
+                        }
+                        else {
+                            alert(res.message);
+                        }
+                    }
+                });
+            }
+
+
+            window.resetForm = function () {
+                $('#dynamicForm')[0].reset();
+                $('#UID').val('');
+            }
+
+            function loadGrid() {
+                var filter = "";
+                $('.dynamic-field').each(function () {
+
+                    var key = $(this).attr('name');
+                    var value = $(this).val();
+
+                    if (key && value) {
+
+                        if (filter !== "") {
+                            filter += " AND ";
+                        }
+
+                        filter += `${key}='${value}'`;
+                    }
+                });
+                $.get('/Crud/List', { table: uid, filter }, function (rows) {
+                    const $grid = $('#grid');
+
+                    // Destroy DataTable first if it exists
+                    if ($.fn.DataTable.isDataTable($grid)) {
+                        $grid.DataTable().destroy();
+                    }
+
+                    // Clear previous content
+                    $grid.find('thead').empty();
+                    $grid.find('tbody').empty();
+
+                    if (!rows || rows.length === 0) {
+                        $grid.find('thead').html('<tr><th>No data</th></tr>');
+                        return;
+                    }
+
+                    const convertedRows = rows; // already an array of objects
+
+
+                    // Build header
+                    let headerHtml = '<tr>';
+                    metadata.filter(f => f.ShowInList).forEach(f => {
+                        headerHtml += `<th>${f.DisplayName ?? f.ColumnName}</th>`;
+                    });
+                    headerHtml += '<th>Actions</th></tr>';
+                    $grid.find('thead').html(headerHtml);
+
+                    // Build body
+                    let bodyHtml = '';
+                    convertedRows.forEach(r => {
+                        bodyHtml += '<tr>';
+                        metadata.filter(f => f.ShowInList).forEach(f => {
+                            let val = r[f.ColumnName] ?? '';
+                            // Parse .NET date format
+                            if (typeof val === 'string' && val.startsWith('/Date(')) {
+                                val = formatDotNetDate(val);
+                            } else if (typeof val === 'object') {
+                                val = JSON.stringify(val);
+                            }
+                            bodyHtml += `<td>${val}</td>`;
+                        });
+
+                        bodyHtml += `<td>`;
+                        bodyHtml += `<button class="btn btn-sm btn-info edit-btn" data-id="${r.UID}" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>`;
+
+
+                        bodyHtml += '</td>';
+                        bodyHtml += '</tr>';
+                    });
+                    $grid.find('tbody').html(bodyHtml);
+                    var button = [
+                        { extend: 'excelHtml5', title: table },
+                        { extend: 'csvHtml5', title: table },
+                        { extend: 'pdfHtml5', title: table },
+                        {
+                            text: 'JSON',
+                            action: function (e, dt, node, config) {
+                                const data = dt.rows({ search: 'applied' }).data().toArray();
+                                const jsonStr = JSON.stringify(data, null, 2);
+                                const blob = new Blob([jsonStr], { type: "application/json" });
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = 'data.json';
+                                a.click();
+                                URL.revokeObjectURL(url);
+                            }
+                        }
+                    ];
+                    $grid.DataTable({
+                        dom: button ? 'Blfrtip' : 'flrtip',
+                        buttons: button || [],
+                        order: [[0, "asc"]],
+                        pageLength: 20,
+                        lengthMenu: [5, 10, 20, 50, 100]
+                    });
+                });
+            }
+
+
+
+            // Event delegation for dynamically generated buttons
+            $('#grid tbody').on('click', '.edit-btn', function () {
+                editRecord($(this).data('id'));
+            });
+
+            $('#grid tbody').on('click', '.delete-btn', function () {
+                deleteRecord($(this).data('id'));
+            });
+
+
+            function setDateInput(name, val) {
+                if (!val) {
+                    $(`[name='${name}']`).val('');
+                    return;
+                }
+
+                let dateStr = '';
+
+                // Handle /Date(1532400000000)/ format
+                if (val.startsWith('/Date(')) {
+                    const timestamp = parseInt(val.replace(/\/Date\((\d+)\)\//, '$1'));
+                    const dateObj = new Date(timestamp);
+                    const yyyy = dateObj.getFullYear();
+                    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                    const dd = String(dateObj.getDate()).padStart(2, '0');
+                    dateStr = `${yyyy}-${mm}-${dd}`;
+                }
+                // Handle yyyy-MM-dd or ISO string
+                else {
+                    const dateObj = new Date(val);
+                    if (isNaN(dateObj)) {
+                        dateStr = '';
+                    } else {
+                        const yyyy = dateObj.getFullYear();
+                        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const dd = String(dateObj.getDate()).padStart(2, '0');
+                        dateStr = `${yyyy}-${mm}-${dd}`;
+                    }
+                }
+
+                $(`[name='${name}']`).val(dateStr);
+            }
+
+
+            function parseDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const match = /\/Date\((\d+)\)\//.exec(dotNetDateStr);
+                if (match) {
+                    const timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            function formatDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const timestamp = parseInt(dotNetDateStr.replace(/\/Date\((\d+)\)\//, '$1'), 10);
+                const date = new Date(timestamp);
+
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const dd = String(date.getDate()).padStart(2, '0');
+                const yyyy = date.getFullYear();
+
+                return `${mm}/${dd}/${yyyy}`;
+            }
+
+
+            // ----------------- EDIT RECORD -----------------
+            function editRecord(id) {
+                $("#form-container").show();
+                $.get('/Crud/Get', { table: uid, UID: id }, function (recordArr) {
+                    const record = {};
+
+                    Object.keys(recordArr).forEach(key => {
+                        record[key] = recordArr[key];
+                    })
+                    $('#UID').val(record.UID);
+
+                    metadata.forEach(f => {
+                        let val = record[f.ColumnName];
+                        let $el = $(`[name='${f.ColumnName}']`);
+
+
+                        if (!$el.length) return; // safety check
+
+                        if (f.InputType === 'checkbox') {
+                            $el.prop('checked', val == 1 || val === true);
+                        }
+                        else if (f.InputType === 'boolean') {
+                            const name = f.ColumnName;
+
+                            let boolValue = null;
+                            if (val === true) {
+                                boolValue = "true";
+                            }
+                            else if (val === false) {
+                                boolValue = "false";
+                            }
+
+                            // Clear all first, then check the correct radio
+                            $(`input[name='${name}']`).prop("checked", false);
+
+                            if (boolValue !== null) {
+                                $(`input[name='${name}'][value='${boolValue}']`).prop("checked", true);
+                            }
+                        }
+                        else if (f.InputType === 'date') {
+                            setDateInput(f.ColumnName, val);
+                        }
+                        else if (f.InputType === 'select') {
+                            if (typeof val === 'boolean') {
+                                val = val ? 'True' : 'False';
+                            }
+                            $el.val(val).trigger('change');
+                        }
+                        else {
+                            $el.val(val);
+                        }
+                    });
+                    $('#dynamicForm').find('input,select,textarea')
+                        .filter(':visible:not([readonly]):not([disabled])')
+                        .first()
+                        .focus();
+                });
+            }
+
+            // ----------------- DELETE -----------------
+            function deleteRecord(id) {
+                if (!confirm('Are you sure?')) return;
+                $.post('/' + PATH + '/Delete', { table: uid, uid: id }, function (res) {
+                    if (res.error) alert(res.message || 'Error');
+                    else {
+                        alert('Deleted successfully');
+                        if ($("#path").val() == "form") {
+                            dropTable(id);
+                        }
+                        else {
+                            loadGrid();
+                        }
+                    }
+                });
+            }
+            window.uploadFile = function () {
+
+                const fileInput = document.getElementById('importFile');
+                if (fileInput.files.length === 0) {
+                    alert("Please select a file.");
+                    return;
+                }
+
+                // Show loader
+                $("#uploadOverlay").css("display", "flex");
+                $("#uploadProgressBar").css("width", "0%").text("0%");
+
+                const formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+                formData.append("table", $("#uid").val());
+
+                $('.dynamic-field').each(function () {
+                    var key = $(this).attr('name');
+                    var value = $(this).val();
+
+                    if (key && value) {
+                        formData.append(`fields[${key}]`, value);
+                    }
+                });
+
+                $.ajax({
+                    url: '/Crud/Upload',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+
+                        xhr.upload.addEventListener("progress", function (evt) {
+                            if (evt.lengthComputable) {
+                                var percent = Math.round((evt.loaded / evt.total) * 100);
+
+                                $("#uploadProgressBar")
+                                    .css("width", percent + "%")
+                                    .text(percent + "%");
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    success: function (res) {
+                        $("#uploadOverlay").hide();
+                        if (res.success) {
+                            alert(res.message);
+                            loadGrid();
+                        } else {
+                            let msg = res.message || "Validation failed.";
+
+                            if (res.errors?.length) {
+                                res.errors.forEach((e, i) => {
+                                    msg += `\n\nError ${i + 1}: ${e.Errors || "Unknown error"}`;
+
+                                    if (e.Row) {
+                                        msg += `\nRow: ${JSON.stringify(e.Row)}`;
+                                    }
+                                });
+                            }
+
+                            alert(msg);
+                        }
+                    },
+                    error: function () {
+                        $("#uploadOverlay").hide();
+                        alert("Upload error");
+                    }
+                });
+            };
+
+            function GetFormat() {
+                var table = $("#FormatTable").val();
+                var columns = $("#FormatColumns").val();
+                var filter = $("#FormatFilter").val();
+
+                if (!table) return;
+
+                let replacements = {};
+
+                $(".dynamic-field").each(function () {
+                    let name = $(this).attr("name");
+                    let value = $(this).val();
+
+                    if (name && value) {
+                        replacements[name] = value;
+                    }
+                });
+
+                Object.keys(replacements).forEach(k => {
+                    filter = filter.replaceAll("@@" + k, `'${replacements[k]}'`);
+                });
+
+                $.get('/Crud/List', {
+                    table: table,
+                    filter: filter
+                }, function (rows) {
+
+                    if (rows && rows.length > 0) {
+                        $("#btnDownloadFormat").show();
+                    }
+
+                    formatData = rows;
+                    formatColumns = columns.split(',').map(c => c.trim());
+                });
+            }
+
+            let exportTable;
+            function buildDataTable() {
+                let cols = getSelectedColumns();
+                let tableColumns = cols.map(c => {
+                    return { title: c, data: c };
+                });
+                if ($.fn.DataTable.isDataTable("#hiddenTable")) {
+                    $("#hiddenTable").DataTable().destroy();
+                    $("#hiddenTable").empty();
+                }
+
+                exportTable = $("#hiddenTable").DataTable({
+                    data: gridData,
+                    columns: tableColumns,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: 'Export'
+                        }
+                    ]
+                });
+            }
+
+            function getSelectedColumns() {
+                let cols = $("#FormatColumns").val();
+                return cols.split(',').map(c => c.trim());
+            }
+
+            $("#btnDownloadFormat").on("click", function () {
+                exportFormatExcel();
+            });
+            function exportFormatExcel() {
+                if (!formatData.length) {
+                    alert("No data available");
+                    return;
+                }
+                let cols = formatColumns;
+
+                let extraCols = ($("#ForColumns").val() || "")
+                    .split(',')
+                    .map(x => x.trim())
+                    .filter(x => x);
+
+                // merge all columns
+                let allCols = [...cols, ...extraCols];
+                let filteredData = formatData.map(row => {
+
+                    let obj = {};
+
+                    // existing columns
+                    cols.forEach(c => {
+                        obj[c] = row[c];
+                    });
+
+                    extraCols.forEach(c => {
+                        obj[c] = "";
+                    });
+
+                    return obj;
+                });
+
+                buildAndDownloadExcel(filteredData, allCols);
+            }
+
+            function buildAndDownloadExcel(data, columns) {
+                if ($.fn.DataTable.isDataTable("#hiddenTable")) {
+                    $("#hiddenTable").DataTable().destroy();
+                    $("#hiddenTable").empty();
+                }
+
+                let dtColumns = columns.map(c => ({
+                    title: c,
+                    data: c
+                }));
+
+                let table = $("#hiddenTable").DataTable({
+                    destroy: true,
+                    data: data,
+                    columns: dtColumns,
+                    paging: false,
+                    searching: false,
+                    info: false,
+                    dom: 'B',
+
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: null,
+                            filename: $("#table-title").html(),
+                            header: true
+                        }
+                    ]
+                });
+
+                table.button('.buttons-excel').trigger();
+            }
+        });
+
+
+    </script>
+}

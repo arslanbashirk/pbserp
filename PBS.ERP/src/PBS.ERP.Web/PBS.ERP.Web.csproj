@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PBS.ERP.Infrastructure\PBS.ERP.Infrastructure.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Portal\PBS.ERP.Modules.Portal.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.HR\PBS.ERP.Modules.HR.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Inventory\PBS.ERP.Modules.Inventory.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Survey\PBS.ERP.Modules.Survey.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Training\PBS.ERP.Modules.Training.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Frame\PBS.ERP.Modules.Frame.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Shared\PBS.ERP.Shared.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Core\PBS.ERP.Modules.Core.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Security\PBS.ERP.Modules.Security.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Monitoring\PBS.ERP.Modules.Monitoring.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Staff\PBS.ERP.Modules.Staff.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Subject\PBS.ERP.Modules.Subject.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.Api\PBS.ERP.Modules.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\Error.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_LoginPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

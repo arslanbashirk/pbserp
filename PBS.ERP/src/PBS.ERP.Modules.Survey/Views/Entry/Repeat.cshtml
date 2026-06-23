@@ -1,0 +1,1575 @@
+﻿@using System.Text.Json
+@using PBS.ERP.Modules.Survey.Services
+@model MetadataViewModel
+
+@{
+    ViewData["Title"] = "Iterative Form";
+
+    var formFields = Model.Fields
+        .Where(x => x.AllowInsert == true)
+        .ToList();
+
+    var grouped = formFields
+        .GroupBy(x => new { x.SectionNumber, x.SectionName });
+
+    var listFields = Model.Fields
+        .Where(x => x.ShowInList == true)
+        .ToList();
+
+    var rows = Model.Entry?.ToList() ?? new List<IDictionary<string, object>>();
+
+    var rowsForJson = rows
+        .Select(r => r.ToDictionary(
+            x => x.Key,
+            x => x.Value == null || x.Value == DBNull.Value ? string.Empty : x.Value.ToString()
+        ))
+        .ToList();
+
+    var existingRowsJson = JsonSerializer.Serialize(rowsForJson);
+    var formFieldNamesJson = JsonSerializer.Serialize(formFields.Select(x => x.ColumnName).ToList());
+
+    var areaCode = Model.Area?.AreaCode ?? string.Empty;
+}
+
+<style>
+    :root {
+        --erp-primary: #198754;
+        --erp-primary-dark: #146c43;
+        --erp-border: #d8dee4;
+        --erp-soft: #f8faf9;
+        --erp-muted: #6c757d;
+        --erp-danger: #dc3545;
+        --erp-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    }
+
+    .erp-wrap {
+        max-width: 100%;
+        margin: auto;
+        padding-bottom: 24px;
+    }
+
+    .erp-header {
+        background: linear-gradient(135deg, var(--erp-primary), var(--erp-primary-dark));
+        color: #fff;
+        padding: 16px 20px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: 0.95;
+        margin-bottom: 5px;
+    }
+
+    .erp-title {
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .erp-section {
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-section-header {
+        background: #f2f7f4;
+        color: #17212b;
+        padding: 11px 14px;
+        border-bottom: 1px solid #dce7e0;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.35;
+    }
+
+    .erp-section-body {
+        padding: 12px;
+    }
+
+    .erp-field {
+        min-width: 0;
+        min-height: 90px;
+        border: 1px solid #eef1f3;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fff;
+        transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+
+        .erp-field:hover {
+            border-color: #d9e2dc;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+    .erp-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .erp-field {
+        min-width: 0;
+    }
+
+    .erp-field-w-1 {
+        grid-column: span 1;
+    }
+
+    .erp-field-w-2 {
+        grid-column: span 2;
+    }
+
+    .erp-field-w-3 {
+        grid-column: span 3;
+    }
+
+    .erp-field-w-4 {
+        grid-column: span 4;
+    }
+
+    @@media (max-width: 768px) {
+        .erp-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-field-w-1,
+        .erp-field-w-2,
+        .erp-field-w-3,
+        .erp-field-w-4 {
+            grid-column: span 1;
+        }
+    }
+    .erp-label {
+        min-width: 0;
+        font-size: 13px;
+        font-weight: 700;
+        color: #374151;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.35;
+    }
+
+    .erp-label-text {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .erp-required {
+        color: var(--erp-danger);
+        margin-left: 4px;
+        font-weight: 800;
+    }
+
+    .erp-control {
+        margin-top: 7px;
+        min-width: 0;
+    }
+
+        .erp-control input:not([type="radio"]):not([type="checkbox"]),
+        .erp-control select,
+        .erp-control textarea {
+            width: 100%;
+            min-height: 40px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            background: #fff;
+            padding: 6px 9px;
+            font-size: 13px;
+            line-height: 1.35;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+            .erp-control input:focus,
+            .erp-control select:focus,
+            .erp-control textarea:focus {
+                border-color: var(--erp-primary);
+                box-shadow: 0 0 0 .15rem rgba(25, 135, 84, .15);
+                outline: none;
+            }
+
+        .erp-control textarea {
+            min-height: 72px;
+            resize: vertical;
+        }
+
+    .radio-group,
+    .checkbox-group {
+        width: 100%;
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 7px;
+        padding: 5px 0;
+    }
+
+    .erp-choice-item {
+        width: 100%;
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+        padding: 8px 10px;
+        border: 1px solid #dfe5e2;
+        border-radius: 10px;
+        background: #fff;
+        transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+    }
+
+        .erp-choice-item:hover {
+            border-color: #b8d6c6;
+            background: #f8fbf9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+        }
+
+        .erp-choice-item.is-selected {
+            border-color: var(--erp-primary);
+            background: rgba(25, 135, 84, .07);
+        }
+
+    .erp-choice-input {
+        flex: 0 0 auto;
+        margin: 0 !important;
+        cursor: pointer;
+    }
+
+    .erp-choice-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        margin: 0;
+        color: #243447;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.35;
+        cursor: pointer;
+        overflow-wrap: anywhere;
+    }
+
+    .erp-action-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+    }
+
+    .erp-action-left,
+    .erp-action-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .erp-action-bar .btn {
+        min-width: 120px;
+        font-weight: 600;
+    }
+
+    .erp-action-bar .btn-primary {
+        min-width: 150px;
+    }
+
+    .erp-action-muted {
+        color: var(--erp-muted);
+        border-color: #d0d7de;
+        background: #fff;
+    }
+
+        .erp-action-muted:hover {
+            color: #17212b;
+            background: #f6f8fa;
+            border-color: #b6bec8;
+        }
+
+    .erp-save-icon {
+        margin-right: 5px;
+    }
+
+    .erp-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(2px);
+    }
+
+    .erp-loading-card {
+        width: min(420px, calc(100% - 32px));
+        border: 1px solid var(--erp-border);
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+        padding: 22px;
+        text-align: center;
+    }
+
+    .erp-loading-title {
+        margin-top: 12px;
+        font-weight: 700;
+        color: #17212b;
+        font-size: 16px;
+    }
+
+    .erp-loading-text {
+        margin-top: 4px;
+        color: var(--erp-muted);
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .erp-form-locked {
+        pointer-events: none;
+        opacity: .72;
+    }
+
+    .erp-invalid-group {
+        border: 1px solid rgba(220, 53, 69, .45);
+        border-radius: 8px;
+        padding: 6px;
+        background: rgba(220, 53, 69, .03);
+    }
+
+    .erp-list-card {
+        border: 1px solid var(--erp-border);
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: var(--erp-shadow);
+        margin-top: 16px;
+        overflow: hidden;
+    }
+
+    .erp-list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: #f2f7f4;
+        border-bottom: 1px solid #dce7e0;
+    }
+
+    .erp-list-title {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #17212b;
+    }
+
+    .erp-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .erp-list-table {
+        margin: 0;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+        .erp-list-table th {
+            white-space: nowrap;
+            background: #fbfcfb;
+            color: #374151;
+            font-weight: 700;
+        }
+
+        .erp-list-table td {
+            max-width: 260px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    .erp-action-cell {
+        width: 90px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .erp-icon-btn {
+        border: 0;
+        background: transparent;
+        padding: 4px 6px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .erp-icon-btn-edit {
+        color: #0d6efd;
+    }
+
+    .erp-icon-btn-delete {
+        color: var(--erp-danger);
+    }
+
+    .erp-editing-note {
+        display: none;
+        margin-bottom: 12px;
+        border: 1px solid #b6d4fe;
+        background: #eef6ff;
+        color: #084298;
+        border-radius: 10px;
+        padding: 9px 12px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    @@media (max-width: 1199.98px) {
+        .erp-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .erp-field {
+            min-height: auto;
+            padding: 10px;
+        }
+
+        .erp-label {
+            align-items: flex-start;
+        }
+
+        .erp-control {
+            margin-top: 7px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            padding: 5px 0;
+        }
+    }
+
+    @@media (max-width: 575.98px) {
+        .erp-header {
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .erp-title {
+            font-size: 15px;
+        }
+
+        .erp-section-body {
+            padding: 8px;
+        }
+
+        .erp-field {
+            padding: 9px;
+        }
+
+        .erp-label {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .erp-label-text {
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+
+        .erp-control input:not([type="radio"]):not([type="checkbox"]),
+        .erp-control select,
+        .erp-control textarea {
+            font-size: 12px;
+            padding: 5px 7px;
+        }
+
+        .erp-choice-label {
+            font-size: 12px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            gap: 6px;
+        }
+
+        .erp-choice-item {
+            padding: 7px 9px;
+        }
+
+        .erp-action-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .erp-action-left,
+        .erp-action-right {
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .erp-action-bar .btn {
+            width: 100%;
+        }
+
+        .erp-list-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+<div id="formLoader" class="erp-loading-overlay" role="status" aria-live="polite">
+    <div class="erp-loading-card">
+        <div class="spinner-border text-success" role="status" aria-hidden="true"></div>
+        <div class="erp-loading-title">Loading form</div>
+        <div class="erp-loading-text">Please wait while fields and options are being prepared.</div>
+    </div>
+</div>
+
+<input type="hidden" id="TTUID" value="@Model.Entity?.UID" />
+<input type="hidden" id="FormType" value="@Model.Form?.FormType" />
+<input type="hidden" id="AACODE" value="@areaCode" />
+<input type="hidden" id="UID" value="" />
+
+<form id="dynamicForm" autocomplete="off" class="erp-form-locked">
+    <div class="erp-wrap container-fluid mt-3">
+        <div class="erp-header">
+            <div class="erp-breadcrumb">
+                <span>@Model.Form?.ShortVersion</span>
+                <span>&gt;</span>
+                <span>@Model.Form?.Questionnaire</span>
+                <span>&gt;</span>
+                <span>Section @Model.Form?.SectionNo</span>
+                <span>&gt;</span>
+                <span>Form @Model.Form?.FormNo</span>
+            </div>
+
+            <div class="erp-title">@Model.Form?.Heading</div>
+        </div>
+
+        <div id="editingNote" class="erp-editing-note">
+            Editing selected record. Click “Clear Form” to cancel editing and add a fresh record.
+        </div>
+
+        @foreach (var sec in grouped)
+        {
+            var sectionNoText = Convert.ToString(sec.Key.SectionNumber);
+            var sectionNameText = Convert.ToString(sec.Key.SectionName);
+
+            <div class="erp-section">
+                @if (!string.IsNullOrWhiteSpace(sectionNameText) || !string.IsNullOrWhiteSpace(sectionNoText))
+                {
+                    /*
+                    <div class="erp-section-header">
+                    @if (!string.IsNullOrWhiteSpace(sectionNoText))
+                    {
+                    <span>Section @sectionNoText</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(sectionNameText))
+                    {
+                    <small> - @sectionNameText</small>
+                    }
+                    </div>
+                    */
+                }
+
+                <div class="erp-section-body">
+                    <div class="erp-grid">
+                        @foreach (var field in sec)
+                        {
+                            var value = string.Empty;
+                            var tooltip = field.Tooltip;
+                            var inputType = Convert.ToString(field.InputType)?.ToLowerInvariant() ?? "text";
+                            var isRequiredAttr = field.IsRequired == true ? "required" : string.Empty;
+                            var width = Convert.ToInt32(field.Width == null ? 1 : field.Width);
+                            width = width < 1 || width > 4 ? 1 : width;
+
+                            <div class="erp-field erp-field-w-@width" data-field-container="@field.ColumnName">
+                                <div class="erp-label">
+                                    <span class="erp-label-text">
+                                        @field.DisplayLabel
+                                        @if (field.IsRequired == true)
+                                        {
+                                            <span class="erp-required">*</span>
+                                        }
+                                    </span>
+
+                                    @if (!string.IsNullOrWhiteSpace(tooltip))
+                                    {
+                                        <i class="bi bi-info-circle text-muted"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="@tooltip"></i>
+                                    }
+                                </div>
+
+                                <div class="erp-control">
+                                    @switch (inputType)
+                                    {
+                                        case "text":
+                                        case "email":
+                                        case "url":
+                                            <input type="@inputType"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   maxlength="@field.MaxLength"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "number":
+                                            <input type="number"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "date":
+                                            <input type="date"
+                                                   name="@field.ColumnName"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "datetime-local":
+                                            <input type="datetime-local"
+                                                   name="@field.ColumnName"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+
+                                        case "textarea":
+                                            <textarea name="@field.ColumnName"
+                                                      placeholder="@field.Placeholder"
+                                            @Html.Raw(isRequiredAttr)>@value</textarea>
+                                            break;
+
+                                        case "select":
+                                            <select class="form-select"
+                                                    name="@field.ColumnName"
+                                                    id="@field.ColumnName"
+                                                    data-selected=""
+                                                    data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                    data-table="@field.DropdownSourceTable"
+                                                    data-value="@field.DropdownValueColumn"
+                                                    data-text="@field.DropdownTextColumn"
+                                                    data-where="@field.DropdownWhere"
+                                                    data-order="@field.DropdownOrderBy"
+                                            @Html.Raw(isRequiredAttr)>
+                                            </select>
+                                            break;
+
+                                        case "radio":
+                                            <div class="radio-group"
+                                                 id="@field.ColumnName"
+                                                 data-selected=""
+                                                 data-name="@field.ColumnName"
+                                                 data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                 data-table="@field.DropdownSourceTable"
+                                                 data-value="@field.DropdownValueColumn"
+                                                 data-text="@field.DropdownTextColumn"
+                                                 data-where="@field.DropdownWhere"
+                                                 data-order="@field.DropdownOrderBy">
+                                            </div>
+                                            break;
+
+                                        case "checkbox":
+                                            <div class="checkbox-group"
+                                                 data-selected=""
+                                                 data-name="@field.ColumnName"
+                                                 data-required="@(field.IsRequired == true ? "true" : "false")"
+                                                 data-table="@field.DropdownSourceTable"
+                                                 data-value="@field.DropdownValueColumn"
+                                                 data-text="@field.DropdownTextColumn"
+                                                 data-where="@field.DropdownWhere"
+                                                 data-order="@field.DropdownOrderBy">
+                                            </div>
+                                            break;
+
+                                        case "boolean":
+                                            <div class="btn-group" role="group" aria-label="@field.DisplayLabel">
+                                                <input type="radio"
+                                                       class="btn-check"
+                                                       name="@field.ColumnName"
+                                                       id="@(field.ColumnName)_true"
+                                                       value="true"
+                                                       autocomplete="off"
+                                                @Html.Raw(isRequiredAttr) />
+
+                                                <label class="btn btn-outline-success btn-sm"
+                                                       for="@(field.ColumnName)_true">
+                                                    Yes
+                                                </label>
+
+                                                <input type="radio"
+                                                       class="btn-check"
+                                                       name="@field.ColumnName"
+                                                       id="@(field.ColumnName)_false"
+                                                       value="false"
+                                                       autocomplete="off"
+                                                @Html.Raw(isRequiredAttr) />
+
+                                                <label class="btn btn-outline-danger btn-sm"
+                                                       for="@(field.ColumnName)_false">
+                                                    No
+                                                </label>
+                                            </div>
+                                            break;
+
+                                        default:
+                                            <input type="text"
+                                                   name="@field.ColumnName"
+                                                   placeholder="@field.Placeholder"
+                                                   value="@value"
+                                            @Html.Raw(isRequiredAttr) />
+                                            break;
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div id="errorContainer"
+             class="alert alert-danger d-none position-relative pe-5"
+             role="alert">
+            <button type="button"
+                    class="btn-close position-absolute top-0 end-0 m-3"
+                    id="btnCloseErrors"
+                    aria-label="Close"></button>
+
+            <h6 class="alert-heading mb-2" id="errorMsg">Error While Saving</h6>
+            <ul id="errorList" class="mb-0"></ul>
+        </div>
+
+        <div class="erp-action-bar">
+            <div class="erp-action-left">
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        id="btnPrevious"
+                        data-next-url="@(Model.NextPrevious?.PreviousFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.PreviousFormUID}" : $"/Survey/Index?id={Model.Form?.SurveyUID}")">
+                    <i class="bi bi-arrow-left"></i>
+                    Previous Form
+                </button>
+            </div>
+
+            <div class="erp-action-right">
+                <button type="button"
+                        class="btn erp-action-muted"
+                        id="btnClearForm"
+                        disabled>
+                    <i class="bi bi-plus-circle"></i>
+                    Clear Form
+                </button>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        id="btnSave"
+                        disabled>
+                    <i class="bi bi-check2-circle erp-save-icon"></i>
+                    Save Record
+                </button>
+
+
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        id="btnNext"
+                        data-next-url="@(Model.NextPrevious?.NextFormUID != null ? $"/Entry/Form?form={Model.NextPrevious?.NextFormUID}" : $"/Survey/Index?id={Model.Form?.SurveyUID}")">
+                    Next Form
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="erp-list-card">
+            <div class="erp-list-header">
+                <h6 class="erp-list-title">Saved Records</h6>
+                <span class="text-muted small">Total: @rows.Count()</span>
+            </div>
+
+            <div class="erp-table-wrap">
+                <table class="table table-bordered table-hover erp-list-table">
+                    <thead>
+                        <tr>
+                            <th class="erp-action-cell">Edit</th>
+                            @foreach (var field in listFields)
+                            {
+                                <th>@field.DisplayLabel</th>
+                            }
+                            <th class="erp-action-cell">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (rows.Any())
+                        {
+                            foreach (var item in rows)
+                            {
+                                item.TryGetValue("UID", out var rowUidObj);
+                                var rowUid = rowUidObj == null || rowUidObj == DBNull.Value ? string.Empty : rowUidObj.ToString();
+
+                                <tr data-row-uid="@rowUid">
+                                    <td class="erp-action-cell">
+                                        <button type="button"
+                                                class="erp-icon-btn erp-icon-btn-edit btn-edit-row"
+                                                data-uid="@rowUid"
+                                                title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+
+                                    @foreach (var field in listFields)
+                                    {
+                                        item.TryGetValue(field.ColumnName, out var cellObj);
+                                        var cellText = cellObj == null || cellObj == DBNull.Value ? string.Empty : cellObj.ToString();
+
+                                        <td title="@cellText">@cellText</td>
+                                    }
+                                    <td class="erp-action-cell">
+                                        <button type="button"
+                                                class="erp-icon-btn erp-icon-btn-delete btn-delete-row"
+                                                data-uid="@rowUid"
+                                                title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="@(listFields.Count + 1)" class="text-center text-muted py-3">
+                                    No records added yet.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        let isFormReady = false;
+        let isSaving = false;
+        let formLoadingFailed = false;
+
+        const existingRows = @Html.Raw(existingRowsJson);
+        const formFieldNames = @Html.Raw(formFieldNamesJson);
+
+        window.addEventListener("error", function (event) {
+            if (!isFormReady && !formLoadingFailed) {
+                formLoadingFailed = true;
+                console.error("Form initialization error:", event.error || event.message);
+                isFormReady = false;
+                lockForm(false);
+                hideLoader();
+                $("#btnSave").prop("disabled", true);
+                $("#btnClearForm").prop("disabled", true);
+                showErrors("Form Loading Error", ["A script error occurred while preparing the form. Please check browser console/server data. The loader has been closed so you can see the form."]);
+            }
+        });
+
+        $(document).ready(function () {
+            initializeTooltips();
+            initializeFixedValues();
+            lockForm(true);
+
+            loadAllLookups()
+                .done(function () {
+                    isFormReady = true;
+                    lockForm(false);
+                    clearFormForInsert();
+                    hideLoader();
+                })
+                .fail(function () {
+                    isFormReady = false;
+                    lockForm(false);
+                    hideLoader();
+                    showErrors("Form Loading Error", ["Some field options could not be loaded. Please refresh the page or contact the administrator."]);
+                });
+
+            $(document).on("click", "#btnSave", saveForm);
+            $(document).on("click", "#btnNext, #btnPrevious", function () {
+                window.location.replace($(this).data("next-url"));
+            });
+
+            $(document).on("click", "#btnClearForm", clearFormForInsert);
+            $(document).on("click", "#btnCloseErrors", hideErrors);
+            $(document).on("click", ".btn-edit-row", editRow);
+            $(document).on("click", ".btn-delete-row", deleteRow);
+
+            $(document).on("change", ".checkbox-group input[type='checkbox']", function () {
+                $(this).closest(".checkbox-group").removeClass("erp-invalid-group");
+                $(this).closest(".erp-choice-item").toggleClass("is-selected", this.checked);
+            });
+
+            $(document).on("change", ".radio-group input[type='radio']", function () {
+                const $group = $(this).closest(".radio-group");
+                $group.removeClass("erp-invalid-group");
+                $group.find(".erp-choice-item").removeClass("is-selected");
+                $(this).closest(".erp-choice-item").addClass("is-selected");
+            });
+        });
+
+        function initializeTooltips() {
+            if (typeof bootstrap === "undefined" || !bootstrap.Tooltip) {
+                console.warn("Bootstrap Tooltip is not available. Please ensure bootstrap.bundle.min.js is loaded.");
+                return;
+            }
+
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+
+            tooltipTriggerList.forEach(function (el) {
+                const existingTooltip = bootstrap.Tooltip.getInstance(el);
+
+                if (existingTooltip) {
+                    existingTooltip.dispose();
+                }
+
+                new bootstrap.Tooltip(el);
+            });
+        }
+
+        function initializeFixedValues() {
+            const areaCode = $("#AACODE").val();
+
+            $('[name="AreaCode"]')
+                .val(areaCode)
+                .prop("readonly", true);
+        }
+
+        function loadAllLookups() {
+            const lookupTasks = [];
+
+            $("select[data-table]").each(function () {
+                lookupTasks.push(loadSelectOptions($(this)));
+            });
+
+            $(".radio-group[data-table]").each(function () {
+                lookupTasks.push(loadRadioOptions($(this)));
+            });
+
+            $(".checkbox-group[data-table]").each(function () {
+                lookupTasks.push(loadCheckboxOptions($(this)));
+            });
+
+            if (lookupTasks.length === 0) {
+                return $.Deferred().resolve().promise();
+            }
+
+            return $.when.apply($, lookupTasks);
+        }
+
+        function loadSelectOptions($ddl) {
+            const deferred = $.Deferred();
+
+            loadLookupFromElement($ddl)
+                .done(function (items) {
+                    $ddl.empty();
+                    $("<option>").val("").text("-- Select --").appendTo($ddl);
+
+                    items.forEach(function (item) {
+                        $("<option>")
+                            .val(toSafeString(item.value))
+                            .text(toSafeString(item.text))
+                            .appendTo($ddl);
+                    });
+
+                    const selected = $ddl.data("selected");
+
+                    if (selected !== null && selected !== undefined && selected !== "") {
+                        $ddl.val(String(selected));
+                    }
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        function loadRadioOptions($container) {
+            const deferred = $.Deferred();
+            const name = toSafeString($container.data("name") || $container.attr("id"));
+            const selected = toSafeString($container.data("selected"));
+            const isRequired = String($container.data("required")).toLowerCase() === "true";
+
+            loadLookupFromElement($container)
+                .done(function (items) {
+                    $container.empty();
+
+                    items.forEach(function (item, index) {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(name, index, value, "radio");
+
+                        const isSelected = selected.trim() === value.trim();
+                        const $check = $("<div>").addClass("erp-choice-item").toggleClass("is-selected", isSelected);
+
+                        $("<input>")
+                            .addClass("form-check-input erp-choice-input")
+                            .attr({
+                                type: "radio",
+                                name: name,
+                                id: id
+                            })
+                            .prop("required", isRequired)
+                            .val(value)
+                            .prop("checked", isSelected)
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("erp-choice-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        function loadCheckboxOptions($container) {
+            const deferred = $.Deferred();
+            const name = toSafeString($container.data("name"));
+            const selected = toSafeString($container.data("selected"))
+                .split(",")
+                .map(function (x) { return x.trim(); })
+                .filter(Boolean);
+
+            loadLookupFromElement($container)
+                .done(function (items) {
+                    $container.empty();
+
+                    items.forEach(function (item, index) {
+                        const value = toSafeString(item.value);
+                        const text = toSafeString(item.text);
+                        const id = buildControlId(name, index, value, "checkbox");
+
+                        const isSelected = selected.includes(value.trim());
+                        const $check = $("<div>").addClass("erp-choice-item").toggleClass("is-selected", isSelected);
+
+                        $("<input>")
+                            .addClass("form-check-input erp-choice-input")
+                            .attr({
+                                type: "checkbox",
+                                name: name,
+                                id: id
+                            })
+                            .val(value)
+                            .prop("checked", isSelected)
+                            .appendTo($check);
+
+                        $("<label>")
+                            .addClass("erp-choice-label")
+                            .attr("for", id)
+                            .text(text)
+                            .appendTo($check);
+
+                        $check.appendTo($container);
+                    });
+
+                    deferred.resolve();
+                })
+                .fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
+        }
+
+        
+        function saveForm() {
+            if (!isFormReady) {
+                showErrors("Form Not Ready", ["Please wait until the form and all field options are fully loaded."]);
+                return;
+            }
+
+            if (isSaving) {
+                return;
+            }
+
+            hideErrors();
+
+            const form = $("#dynamicForm")[0];
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!validateRequiredCheckboxGroups()) {
+                return;
+            }
+
+            const table = $("#TTUID").val();
+            const formData = new FormData(form);
+
+            removeEmptyValues(formData);
+            formData.append("table", table);
+
+            const uid = toSafeString($("#UID").val()).trim();
+
+            if (uid) {
+                formData.append("uid", uid);
+            }
+
+            isSaving = true;
+            setSaveButtonState(true);
+
+            $.ajax({
+                url: "/Crud/Save",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    table: table
+                },
+                success: function (response) {
+                    const isSuccess = response && (response.Success === true || response.success === true);
+
+                    if (isSuccess) {
+                        alert(uid ? "Updated Successfully" : "Saved Successfully");
+                        window.location.reload();
+                        return;
+                    }
+
+                    showErrors(
+                        response?.Message ?? response?.message ?? "Unable to save form.",
+                        response?.Errors ?? response?.errors ?? response?.Error ?? response?.error
+                    );
+                },
+                error: function (xhr) {
+                    console.error("Save failed:", xhr);
+                    showErrors("Server Error", ["Unable to save the form. Please check the server logs and try again."]);
+                },
+                complete: function () {
+                    isSaving = false;
+                    setSaveButtonState(false);
+                }
+            });
+        }
+
+        function editRow() {
+            if (!isFormReady) {
+                return;
+            }
+
+            hideErrors();
+
+            const uid = toSafeString($(this).data("uid")).trim();
+
+            if (!uid) {
+                showErrors("Edit Error", ["UID was not found for the selected row."]);
+                return;
+            }
+
+            const row = findRowByUid(uid);
+
+            if (!row) {
+                showErrors("Edit Error", ["Selected row data could not be found on this page."]);
+                return;
+            }
+
+            fillFormFromRow(row);
+            $("#UID").val(uid);
+            $("#btnSave").html('<i class="bi bi-check2-circle erp-save-icon"></i> Update Record');
+            $("#editingNote").show();
+
+            $("html, body").animate({
+                scrollTop: $("#dynamicForm").offset().top - 20
+            }, 300);
+        }
+
+        function deleteRow() {
+            if (!isFormReady) {
+                return;
+            }
+
+            hideErrors();
+
+            const uid = toSafeString($(this).data("uid")).trim();
+
+            if (!uid) {
+                showErrors("Delete Error", ["UID was not found for the selected row."]);
+                return;
+            }
+
+            if (!confirm("Are you sure you want to delete this record?")) {
+                return;
+            }
+
+            const table = $("#TTUID").val();
+
+            $.ajax({
+                url: "/Crud/Delete",
+                type: "POST",
+                data: {
+                    table: table,
+                    uid: uid
+                },
+                headers: {
+                    table: table
+                },
+                success: function (response) {
+                    const isSuccess = response && (response.Success === true || response.success === true);
+
+                    if (isSuccess) {
+                        alert("Deleted Successfully");
+                        window.location.reload();
+                        return;
+                    }
+
+                    showErrors(
+                        response?.Message ?? response?.message ?? "Unable to delete record.",
+                        response?.Errors ?? response?.errors ?? response?.Error ?? response?.error
+                    );
+                },
+                error: function (xhr) {
+                    console.error("Delete failed:", xhr);
+                    showErrors("Server Error", ["Unable to delete the record. Please check the server logs and try again."]);
+                }
+            });
+        }
+
+        function fillFormFromRow(row) {
+            resetFormControls(false);
+
+            formFieldNames.forEach(function (fieldName) {
+                const value = toSafeString(getValueByKey(row, fieldName));
+
+                const $checkboxGroup = $(`.checkbox-group[data-name="${escapeSelectorValue(fieldName)}"]`);
+                if ($checkboxGroup.length) {
+                    setCheckboxGroupValue($checkboxGroup, value);
+                    return;
+                }
+
+                const $radioGroup = $(`.radio-group[data-name="${escapeSelectorValue(fieldName)}"]`);
+                if ($radioGroup.length) {
+                    setRadioGroupValue($radioGroup, value);
+                    return;
+                }
+
+                const $controls = $(`[name="${escapeSelectorValue(fieldName)}"]`);
+
+                if (!$controls.length) {
+                    return;
+                }
+
+                const controlType = toSafeString($controls.first().attr("type")).toLowerCase();
+
+                if (controlType === "radio") {
+                    $controls.prop("checked", false);
+                    $controls.filter(function () {
+                        return toSafeString($(this).val()).trim() === value.trim();
+                    }).prop("checked", true);
+                    return;
+                }
+
+                if (controlType === "checkbox") {
+                    const selectedValues = value.split(",").map(function (x) { return x.trim(); }).filter(Boolean);
+
+                    $controls.each(function () {
+                        $(this).prop("checked", selectedValues.includes(toSafeString($(this).val()).trim()));
+                    });
+                    return;
+                }
+
+                $controls.val(value);
+            });
+
+            initializeFixedValues();
+        }
+
+        function clearFormForInsert() {
+            hideErrors();
+            $("#UID").val("");
+            resetFormControls(true);
+            initializeFixedValues();
+            $("#btnSave").html('<i class="bi bi-check2-circle erp-save-icon"></i> Save Record');
+            $("#editingNote").hide();
+        }
+
+        function resetFormControls(clearValues) {
+            const form = $("#dynamicForm")[0];
+
+            if (form && clearValues) {
+                form.reset();
+            }
+
+            $("#dynamicForm")
+                .find("input:not([type='hidden']):not([type='radio']):not([type='checkbox']), select, textarea")
+                .each(function () {
+                    $(this).val("");
+                });
+
+            $("#dynamicForm")
+                .find("input[type='radio'], input[type='checkbox']")
+                .prop("checked", false);
+
+            $(".erp-choice-item").removeClass("is-selected");
+            $(".erp-invalid-group").removeClass("erp-invalid-group");
+        }
+
+        function setRadioGroupValue($group, value) {
+            const targetValue = toSafeString(value).trim();
+
+            $group.find("input[type='radio']").prop("checked", false);
+            $group.find(".erp-choice-item").removeClass("is-selected");
+
+            $group.find("input[type='radio']").each(function () {
+                const isSelected = toSafeString($(this).val()).trim() === targetValue;
+                $(this).prop("checked", isSelected);
+
+                if (isSelected) {
+                    $(this).closest(".erp-choice-item").addClass("is-selected");
+                }
+            });
+        }
+
+        function setCheckboxGroupValue($group, value) {
+            const selectedValues = toSafeString(value)
+                .split(",")
+                .map(function (x) { return x.trim(); })
+                .filter(Boolean);
+
+            $group.find("input[type='checkbox']").each(function () {
+                const isSelected = selectedValues.includes(toSafeString($(this).val()).trim());
+                $(this).prop("checked", isSelected);
+                $(this).closest(".erp-choice-item").toggleClass("is-selected", isSelected);
+            });
+        }
+
+        function findRowByUid(uid) {
+            const targetUid = toSafeString(uid).trim();
+
+            return existingRows.find(function (row) {
+                return toSafeString(getValueByKey(row, "UID")).trim() === targetUid;
+            });
+        }
+
+        function getValueByKey(row, key) {
+            if (!row || !key) {
+                return "";
+            }
+
+            if (Object.prototype.hasOwnProperty.call(row, key)) {
+                return row[key];
+            }
+
+            const lowerKey = key.toLowerCase();
+            const actualKey = Object.keys(row).find(function (k) {
+                return k.toLowerCase() === lowerKey;
+            });
+
+            return actualKey ? row[actualKey] : "";
+        }
+
+        function validateRequiredCheckboxGroups() {
+            let isValid = true;
+            let firstInvalid = null;
+
+            $(".checkbox-group[data-required='true']").each(function () {
+                const $group = $(this);
+                const hasCheckedValue = $group.find("input[type='checkbox']:checked").length > 0;
+
+                $group.toggleClass("erp-invalid-group", !hasCheckedValue);
+
+                if (!hasCheckedValue) {
+                    isValid = false;
+                    firstInvalid = firstInvalid || $group;
+                }
+            });
+
+            if (!isValid) {
+                showErrors("Validation Error", ["Please select at least one option for all required checkbox fields."]);
+
+                if (firstInvalid && firstInvalid.length) {
+                    $("html, body").animate({
+                        scrollTop: firstInvalid.closest(".erp-field").offset().top - 20
+                    }, 300);
+                }
+            }
+
+            return isValid;
+        }
+
+        function removeEmptyValues(formData) {
+            const emptyKeys = [];
+
+            for (const pair of formData.entries()) {
+                const key = pair[0];
+                const value = pair[1];
+
+                if (
+                    value === null ||
+                    value === undefined ||
+                    (typeof value === "string" && value.trim() === "")
+                ) {
+                    emptyKeys.push(key);
+                }
+            }
+
+            emptyKeys.forEach(function (key) {
+                formData.delete(key);
+            });
+        }
+
+        function setSaveButtonState(disabled) {
+            const $btn = $("#btnSave");
+            const isUpdateMode = toSafeString($("#UID").val()).trim() !== "";
+
+            const defaultText = isUpdateMode
+                ? '<i class="bi bi-check2-circle erp-save-icon"></i> Update Record'
+                : '<i class="bi bi-check2-circle erp-save-icon"></i> Save Record';
+
+            $btn.prop("disabled", disabled || !isFormReady);
+
+            if (disabled) {
+                $btn.html('<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Saving...');
+            } else {
+                $btn.html(defaultText);
+            }
+        }
+
+        function lockForm(locked) {
+            $("#dynamicForm").toggleClass("erp-form-locked", locked);
+
+            $("#dynamicForm")
+                .find("input, select, textarea, button")
+                .not("#btnCloseErrors")
+                .prop("disabled", locked);
+
+            $("#btnSave").prop("disabled", locked || !isFormReady);
+            $("#btnClearForm").prop("disabled", locked || !isFormReady);
+        }
+
+        function hideLoader() {
+            $("#formLoader").fadeOut(150);
+        }
+
+        function showErrors(message, errors) {
+            const $container = $("#errorContainer");
+            const $list = $("#errorList");
+
+            $list.empty();
+
+            const errorItems = Array.isArray(errors)
+                ? errors
+                : (errors ? [errors] : ["An unknown error occurred."]);
+
+            errorItems.forEach(function (error) {
+                $("<li>").text(toSafeString(error)).appendTo($list);
+            });
+
+            $("#errorMsg").text(message || "Error While Saving");
+            $container.removeClass("d-none");
+
+            const offsetTop = $container.offset()?.top ?? 0;
+
+            $("html, body").animate({
+                scrollTop: offsetTop - 20
+            }, 300);
+        }
+
+        function hideErrors() {
+            $("#errorList").empty();
+            $("#errorContainer").addClass("d-none");
+            $(".erp-invalid-group").removeClass("erp-invalid-group");
+        }
+
+        function loadLookupFromElement($element) {
+            return loadLookup(
+                $element.data("table"),
+                $element.data("value"),
+                $element.data("text"),
+                $element.data("where"),
+                $element.data("order")
+            );
+        }
+
+        function loadLookup(table, valueCol, textCol, whereClause, orderBy) {
+            const deferred = $.Deferred();
+
+            if (!table || !valueCol || !textCol) {
+                deferred.resolve([]);
+                return deferred.promise();
+            }
+
+            $.ajax({
+                url: "/Api/Lookup/Get",
+                type: "GET",
+                data: {
+                    table: table,
+                    valueCol: valueCol,
+                    textCol: textCol,
+                    where: whereClause,
+                    order: orderBy
+                },
+                success: function (response) {
+                    deferred.resolve(Array.isArray(response) ? response : []);
+                },
+                error: function (xhr) {
+                    console.error("Lookup load failed:", xhr);
+                    deferred.reject(xhr);
+                }
+            });
+
+            return deferred.promise();
+        }
+
+        function buildControlId(name, index, value, type) {
+            return `${type}_${sanitizeId(name)}_${index}_${sanitizeId(value)}`;
+        }
+
+        function sanitizeId(value) {
+            return String(value ?? "")
+                .replace(/[^a-zA-Z0-9_-]/g, "_")
+                .replace(/_+/g, "_");
+        }
+
+        function escapeSelectorValue(value) {
+            if (window.CSS && CSS.escape) {
+                return CSS.escape(value);
+            }
+
+            return String(value ?? "").replace(/["\\]/g, "\\$&");
+        }
+
+        function toSafeString(value) {
+            return value === null || value === undefined ? "" : String(value);
+        }
+    </script>
+}

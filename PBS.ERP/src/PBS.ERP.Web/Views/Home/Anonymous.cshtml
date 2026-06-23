@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Account Created Successfully";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <div class="card shadow border-0">
+                <div class="card-header bg-success text-white py-3">
+                    <h3 class="mb-0">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Why I'm seeting this page?
+                    </h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="alert alert-success">
+                        <strong>Congratulations!</strong> Your login account has been created successfully.
+                    </div>
+
+                    <p class="lead">
+                        Your account has been authenticated; however, no role could be assigned automatically.
+                    </p>
+
+                    <hr />
+
+                    <h4 class="mb-3">Frequently Asked Questions (FAQ)</h4>
+
+                    <div class="accordion" id="faqAccordion">
+
+                        <!-- PBS Staff -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne">
+                                    I am a PBS Staff Member. Why am I seeing this page?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    If you are a <strong>Pakistan Bureau of Statistics (PBS)</strong> employee
+                                    and are seeing this page, your account could not be linked to your employee
+                                    profile automatically.
+                                    <br /><br />
+                                    The most common reason is that your
+                                    <strong>CNIC information does not match the CNIC recorded in the PBS ERP system</strong>.
+                                    As a result, the system was unable to assign the appropriate role to your account.
+                                    <br /><br />
+                                    <div class="alert alert-warning mb-0">
+                                        <strong>Required Action:</strong>
+                                        Please contact the ERP Administrator and provide your CNIC, Username, Email details for verification and correction.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Non PBS User -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo">
+                                    I am not a PBS Staff Member. What should I do?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    If you are not a PBS employee, your account requires a role to be assigned manually before access can be granted.
+                                    <br /><br />
+                                    <div class="alert alert-info mb-0">
+                                        <strong>Required Action:</strong>
+                                        Please contact the ERP Administrator and request the appropriate role assignment for your account.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Steps -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree">
+                                    What should I do after contacting the ERP Administrator?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse"
+                                 data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Once your CNIC information is verified or the appropriate role has been assigned,
+                                    please sign out and log in again.
+                                    <br /><br />
+                                    The system will then grant access according to your assigned permissions.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <a href="@Url.Action("Logout", "Account")"
+                           class="btn btn-primary btn-lg">
+                            Sign Out & Try Again Later
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-muted text-center">
+                    For assistance, please contact the ERP Administration Team.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

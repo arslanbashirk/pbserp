@@ -1,0 +1,226 @@
+﻿@{
+    ViewData["Title"] = "Role Management";
+    Layout = "_AdminLayout";
+    ViewBag.Menu = "Role";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+<div class="container-fluid mt-4">
+
+    <h3 class="mb-3">Role Management</h3>
+
+    <!-- ================== Insert / Update Form ================== -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 id="formTitle">Add Role</h5>
+            <form id="roleForm">
+                <input type="hidden" id="uid" />
+
+                <div id="dynamicFields" class="row">
+                    <!-- Dynamic fields injected here -->
+                </div>
+
+                <button type="button" class="btn btn-success mt-3" onclick="saveRole()">Save</button>
+                <button type="button" class="btn btn-secondary mt-3" onclick="resetForm()">Reset</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================== Table ================== -->
+    <table class="table table-bordered table-striped" id="roleTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Parent Role</th>
+                <th>Active</th>
+                <th>Default</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data populated via DataTables -->
+        </tbody>
+    </table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+    const columns = [
+        { key: "Name", label: "Name", type: "text" },
+        { key: "Description", label: "Description", type: "text" },
+        { key: "PriorityLevel", label: "Priority", type: "number" },
+        { key: "ParentRoleId", label: "Parent Role", type: "select" },
+        { key: "IsActive", label: "Active", type: "boolean" },
+        { key: "IsDefault", label: "Default", type: "boolean" }
+    ];
+
+    let parentRoles = [];
+    let table;
+
+    $(document).ready(function () {
+        // Initialize DataTable
+        table = $('#roleTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5'],
+            order: [[0, "asc"]],
+            pageLength: 20,
+            lengthMenu: [5, 10, 25, 50, 100]
+        });
+
+        // Load parent roles and then render form and table
+        loadParentRoles().then(() => {
+            renderFormFields();
+            loadRoles();
+        });
+    });
+
+    // ================== Render Form Fields ==================
+    function renderFormFields() {
+        let html = "";
+        columns.forEach(c => {
+            if (c.type === "boolean") {
+                html += `
+                        <div class="col-md-3 mb-3">
+                            <label>${c.label}</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="${c.key}" id="${c.key}_true" value="true">
+                                <label class="form-check-label" for="${c.key}_true">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline ms-3">
+                                <input class="form-check-input" type="radio" name="${c.key}" id="${c.key}_false" value="false">
+                                <label class="form-check-label" for="${c.key}_false">No</label>
+                            </div>
+                        </div>`;
+            } else if (c.type === "select") {
+                html += `
+                        <div class="col-md-3 mb-3">
+                            <label>${c.label}</label>
+                            <select class="form-control" id="${c.key}"><option value=''>None</option></select>
+                        </div>`;
+            } else {
+                html += `
+                        <div class="col-md-3 mb-3">
+                            <label>${c.label}</label>
+                            <input type="${c.type}" class="form-control" id="${c.key}">
+                        </div>`;
+            }
+        });
+
+        $("#dynamicFields").html(html);
+
+        // Populate ParentRoleId dropdown
+        const parentSelect = $("#ParentRoleId");
+        parentSelect.empty().append("<option value=''>None</option>");
+        parentRoles.forEach(r => {
+            parentSelect.append(`<option value="${r.Id}">${r.Name}</option>`);
+        });
+    }
+
+    // ================== Load Parent Roles ==================
+    async function loadParentRoles() {
+        return $.get("/Role/ParentRoles", function (data) {
+            parentRoles = data;
+        });
+    }
+
+    // ================== Load Roles ==================
+    function loadRoles() {
+        $.get("/Role/List", function (data) {
+            const rows = data.map(r => [
+                r.Name,
+                r.Description,
+                r.PriorityLevel,
+                r.ParentRoleId ? (parentRoles.find(p => p.Id === r.ParentRoleId)?.Name ?? "") : "",
+                r.IsActive ? "Yes" : "No",
+                r.IsDefault ? "Yes" : "No",
+                `<button class="btn btn-sm btn-warning me-1" onclick="editRole('${r.UID}')">Edit</button>
+                     <button class="btn btn-sm btn-danger" onclick="deleteRole('${r.UID}')">Delete</button>`
+            ]);
+
+            table.clear();
+            table.rows.add(rows);
+            table.draw();
+        });
+    }
+
+    // ================== Reset Form ==================
+    function resetForm() {
+        $("#uid").val("");
+        columns.forEach(c => {
+            if (c.type === "boolean") {
+                $("#" + c.key + "_true").prop("checked", false);
+                $("#" + c.key + "_false").prop("checked", false);
+            } else {
+                $("#" + c.key).val("");
+            }
+        });
+        $("#formTitle").text("Add Role");
+    }
+
+    // ================== Edit Role ==================
+    function editRole(uid) {
+        $.get(`/Role/Get?uid=${uid}`, function (r) {
+            $("#uid").val(r.UID);
+            columns.forEach(c => {
+                if (c.type === "boolean") {
+                    if (r[c.key] === true) $("#" + c.key + "_true").prop("checked", true);
+                    else $("#" + c.key + "_false").prop("checked", true);
+                } else {
+                    $("#" + c.key).val(r[c.key] ?? "");
+                }
+            });
+            $("#formTitle").text("Edit Role");
+        });
+    }
+
+    // ================== Save Role ==================
+    function saveRole() {
+        const uid = $("#uid").val();
+        let data = {};
+        columns.forEach(c => {
+            if (c.type === "boolean") {
+                const val = $(`input[name='${c.key}']:checked`).val();
+                data[c.key] = val === "true";
+            } else {
+                data[c.key] = $("#" + c.key).val();
+            }
+        });
+
+        const url = uid ? `/Role/Update?uid=${uid}` : "/Role/Insert";
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (res) {
+                if (res.success) {
+                    resetForm();
+                    loadRoles();
+                } else {
+                    alert(JSON.stringify(res.error));
+                }
+            }
+        });
+    }
+
+    // ================== Delete Role ==================
+    function deleteRole(uid) {
+        if (!confirm("Delete role?")) return;
+        $.post("/Role/Delete", { uid: uid }, function (res) {
+            if (res.success) loadRoles();
+            else alert(res.error);
+        });
+    }
+</script>

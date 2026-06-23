@@ -1,0 +1,230 @@
+@{
+    var loginUrl = Url.Action("Login", "Account") ?? "/Account/Login";
+    var logoutUrl = Url.Action("Logout", "Account") ?? "/Account/Logout";
+    var accessDeniedUrl = Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PBS ERP Survey Solution</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* 🔷 Navbar */
+        .navbar-custom {
+            background: linear-gradient(90deg, #198754 0%, #157347 100%);
+        }
+
+        /* 🔷 Layout Wrapper */
+        .layout-wrapper {
+            flex: 1 0 auto;
+            display: flex;
+        }
+
+        /* 🔷 Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(90deg, #198754 0%, #157347 100%);
+            color: white;
+            padding: 15px;
+            min-height: calc(100vh - 70px);
+        }
+
+            .sidebar a {
+                color: white;
+                display: block;
+                padding: 8px;
+                border-radius: 6px;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover {
+                    background: green;
+                }
+
+        .text-mhead {
+            color: white;
+            font-weight: bold;
+        }
+
+        /* 🔷 Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        /* 🔷 Footer */
+        .footer-custom {
+            background: linear-gradient(90deg, #198754 0%, #157347 100%);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🔷 Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <img src="~/images/pbslogo.png" height="45" class="me-2" />
+                <div>
+                    ERP Survey Solution
+                    <span style="font-size:12px;">Pakistan Bureau of Statistics</span>
+                </div>
+            </a>
+
+            <div class="ms-auto text-white">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <span class="me-3">Welcome, <strong>@User.Identity.Name</strong></span>
+                    <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline" onsubmit="clearPbsErpLogin();">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-light">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-outline-light btn-sm" href="@loginUrl">Login</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- 🔷 Body Layout -->
+    <div class="layout-wrapper">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+    <h5 class="mb-3">Survey ERP</h5>
+
+    <a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+
+    <hr />
+
+   
+
+    <small class="text-uppercase text-mhead">Design</small>
+    <a href="/Survey/Designer?id=@ViewBag.Survey"><i class="bi bi-database"></i> Metadata Engine</a>
+    <a href="/Survey/Questionnaire?id=@ViewBag.Survey">📘 Questionnaire</a>
+    <a href="/Section/Index">📂 Sections</a>
+    <a href="/Form/Index">🧾 Forms</a>
+    <a href="/Survey/Entity?id=@ViewBag.Survey"><i class="bi bi-table"></i> Tables</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">HR & Task</small>
+    <a href="/SurveyOperations/ManageRoles?survey=@ViewBag.Survey"><i class="bi bi-person-badge"></i> Roles</a>
+    <a href="/SurveyOperations/SurveyStaff?survey=@ViewBag.Survey"><i class="bi bi-people"></i> Survey Staff</a>
+    <a href="/SurveyOperations/SurveyAssignment?survey=@ViewBag.Survey"><i class="bi bi-diagram-2"></i> Assignments</a>
+    <a href="/SurveyOperations/ManageTeams?survey=@ViewBag.Survey"><i class="bi bi-calendar-event"></i> Manage Teams</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">Area Frame</small>
+    <a href="#"><i class="bi bi-map"></i> Area Frame</a>
+    <a href="#"><i class="bi bi-map"></i> Entities</a>
+    <a href="#"><i class="bi bi-bounding-box"></i> GIS</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">Sampling</small>
+    <a href="/Survey/Frame?id=@ViewBag.Survey"><i class="bi bi-filter"></i> Sample Frame</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">Survey Setup</small>
+    <a href="#"><i class="bi bi-gear"></i> Survey Settings</a>
+    <a href="#"><i class="bi bi-diagram-3"></i> Workflow Engine</a>
+    <a href="#"><i class="bi bi-list-check"></i> Rules Library</a>
+    <a href="#"><i class="bi bi-sliders"></i> Survey Modes</a>
+
+    <hr />
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">Monitoring</small>
+    <a href="#"><i class="bi bi-graph-up"></i> Dashboard</a>
+    <a href="#"><i class="bi bi-activity"></i> Progress Tracking</a>
+    <a href="#"><i class="bi bi-exclamation-triangle"></i> Alerts</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">Data</small>
+    <a href="#"><i class="bi bi-database"></i> Data Tables</a>
+    <a href="#"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+    <a href="#"><i class="bi bi-download"></i> Export Data</a>
+
+    <hr />
+
+    <small class="text-uppercase text-mhead">System</small>
+    <a href="#"><i class="bi bi-shield-lock"></i> Permissions</a>
+    <a href="#"><i class="bi bi-clock-history"></i> Audit Logs</a>
+    <a href="#"><i class="bi bi-hdd-network"></i> Integrations</a>
+
+</div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <!-- 🔷 Footer -->
+    <footer class="footer-custom text-white text-center py-3">
+        <div>
+            © @DateTime.Now.Year Pakistan Bureau of Statistics
+        </div>
+        <div>ERP Survey Solution | Government of Pakistan</div>
+    </footer>
+
+    <!-- jQuery: must load before pbs-erp-auth.js if pages use $.ajax -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- PBS ERP JWT/Auth configuration -->
+    <script>
+        window.PbsErpConfig = {
+            loginUrl: '@loginUrl',
+            logoutUrl: '@logoutUrl',
+            accessDeniedUrl: '@accessDeniedUrl',
+
+            tokenKeys: {
+                token: 'pbs_erp_token',
+                user: 'pbs_erp_user',
+                expires: 'pbs_erp_token_expires'
+            }
+        };
+    </script>
+
+    <!-- Shared JWT helper for AJAX/API access -->
+    <script src="~/js/pbs-erp-auth.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

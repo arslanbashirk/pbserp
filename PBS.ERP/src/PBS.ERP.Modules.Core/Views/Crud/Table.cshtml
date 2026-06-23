@@ -1,0 +1,1215 @@
+﻿@model PBS.ERP.Shared.Models.Entity;
+@{
+    ViewBag.Title = "Dynamic CRUD";
+    Layout = "_Layout";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+
+    .mb-3 {
+        margin-bottom: 15px;
+    }
+
+    thead {
+        background-color: blue !important;
+        color: white;
+    }
+
+    .sheading {
+        color: darkblue;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 36px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+    }
+</style>
+
+    <h2 class="mb-3 text-capitalize" id="table">@Model.Name (@Model.Description)</h2>
+    <input type="hidden" id="uid" value="@Model.UID" />
+    <input type="hidden" id="path" value="@ViewBag.Path" />
+    <hr />
+    <div class="mb-3">
+        <label class="form-label">Import CSV / Excel</label>
+        <input type="file" id="importFile" class="form-control" accept=".csv,.xlsx,.xls" />
+        <button type="button" class="btn btn-success mt-2" onclick="uploadFile()">
+            <i class="bi bi-upload"></i> Upload & Import
+        </button>
+    </div>
+    <style>
+        .app-loading-container {
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #475569;
+        }
+
+        .app-loading-spinner {
+            width: 34px;
+            height: 34px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #0d6efd;
+            border-radius: 50%;
+            animation: appLoadingSpin .8s linear infinite;
+        }
+
+        .app-loading-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+
+        .app-loading-text {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @@keyframes appLoadingSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <!-- ===================== FORM ===================== -->
+    <div id="form-container">
+        <form id="dynamicForm" class="row">
+            <div class="app-loading-container">
+                <div class="app-loading-spinner"></div>
+
+                <div>
+                    <div class="app-loading-title">
+                        Loading
+                    </div>
+
+                    <div class="app-loading-text">
+                        Please wait while data is being prepared...
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="mt-3" style="margin-top:10px">
+            <button type="button" class="btn btn-primary" onclick="save()">Save</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+        </div>
+        @{
+            var preFilledDataJson = System.Text.Json.JsonSerializer.Serialize(
+            ViewBag.PreFilledData ?? new Dictionary<string, object>()
+            );
+        }
+
+        <script>
+            window.PreFilledData = @Html.Raw(preFilledDataJson);
+        </script>
+    </div>
+
+    <hr />
+    <!-- ===================== GRID ===================== -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" id="grid">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td colspan="100">
+                        <div class="app-loading-container">
+                            <div class="app-loading-spinner"></div>
+                            <div>
+                                <div class="app-loading-title">Loading table</div>
+                                <div class="app-loading-text">Please wait while records are being loaded...</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <div id="visualizationRoot"></div>
+    <div id="uploadOverlay" style=" display:none; position:fixed;top:0; left:0;
+    width:100%; height:100%; background:rgba(0,0,0,0.5);
+    z-index:9999;justify-content:center;align-items:center;">
+        <div class="bg-white p-4 rounded shadow text-center" style="width:300px;">
+            <h5>Uploading...</h5>
+
+            <div class="progress mt-3">
+                <div id="uploadProgressBar"
+                     class="progress-bar progress-bar-striped progress-bar-animated"
+                     style="width: 0%">
+                    0%
+                </div>
+            </div>
+
+            <small class="text-muted mt-2 d-block">Please wait</small>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <script>
+
+
+        $(document).ready(function () {
+            const preFilledData = window.PreFilledData || {};
+
+            const uid = $("#uid").val();
+            const PATH = $("#path").val();
+            const table = $("#table").text();
+            let metadata = [];
+
+            loadMetadata();
+
+            function loadMetadata() {
+                $.ajax({
+                    url: '/api/metadata/get',
+                    type: 'GET',
+                    data: { table: uid },
+                    success: function (response) {
+                        if (!response.Success) {
+                            alert(response.Message || 'Failed to load metadata.');
+                            return;
+                        }
+
+                        metadata = response.Data;
+                        buildForm(metadata);
+                        loadGrid();
+                        if (typeof showColumns === "function") {
+                            showColumns(metadata);
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401 || xhr.status === 403) {
+                            return;
+                        }
+
+                        alert('Server error while loading metadata.');
+                    }
+                });
+            }
+
+            function hasPreFilledValue(columnName) {
+                return preFilledData &&
+                    Object.prototype.hasOwnProperty.call(preFilledData, columnName) &&
+                    preFilledData[columnName] !== null &&
+                    preFilledData[columnName] !== undefined &&
+                    preFilledData[columnName] !== "";
+            }
+
+            function getPreFilledValue(columnName) {
+                return hasPreFilledValue(columnName)
+                    ? String(preFilledData[columnName])
+                    : "";
+            }
+
+            function escapeAttr(value) {
+                return String(value ?? "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+            }
+
+            function escapeHtml(value) {
+                return String(value ?? "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+            }
+
+            function buildForm(fields) {
+                const $form = $('#dynamicForm');
+                $form.empty();
+                $form.append('<input type="hidden" id="UID" name="UID"/>');
+
+                let currentSection = null;
+
+                fields.forEach(f => {
+
+                    const hasPreFilled = hasPreFilledValue(f.ColumnName);
+                    const preFilledValue = getPreFilledValue(f.ColumnName);
+                    const safePreFilledValue = escapeAttr(preFilledValue);
+
+                    /*
+                        Earlier you had:
+                        if (f.IsReadonly) return;
+
+                        That skips readonly fields completely.
+                        But if readonly field has preFilledData, we still need to render/submit it.
+                    */
+                    if (f.IsReadonly && !hasPreFilled) return;
+
+                    // ---------- SECTION HEADER ----------
+                    if (f.SectionNumber != null && f.SectionNumber !== currentSection) {
+                        currentSection = f.SectionNumber;
+
+                        if (f.SectionName) {
+                            $form.append(`
+                            <div class="col-md-12 mt-3 section">
+                                    <h3 class="sheading">${escapeHtml(f.SectionName)}</h3>
+                                    <hr/>
+                                    </div>
+                            `);
+                        } else {
+                            $form.append(`<div class="col-md-12 mt-3 section"></div>`);
+                        }
+                    }
+
+                    // ---------- INPUT HTML ----------
+                    let inputHtml = '';
+
+                    const required = f.IsRequired ? 'required' : '';
+
+                    /*
+                        readonly works for text/date/textarea etc.
+                        It does NOT work properly for select/radio/checkbox.
+                    */
+                    const readonly = (f.IsReadonly || hasPreFilled) ? 'readonly' : '';
+
+                    /*
+                        For select/radio/checkbox, use disabled if prefilled/readonly.
+                        Disabled fields are not submitted, so we add hidden input also.
+                    */
+                    const disabled = (f.IsReadonly || hasPreFilled) ? 'disabled' : '';
+
+                    const placeholder = escapeAttr(f.Placeholder ?? '');
+
+                    if (f.InputType === "grid") {
+                        f.InputType = "select";
+                    }
+
+                    // Hidden value for disabled select/radio/checkbox
+                    const hiddenPreFilledInput = hasPreFilled
+                        ? `<input type="hidden" name="${escapeAttr(f.ColumnName)}" value="${safePreFilledValue}" />`
+                        : '';
+
+                    // ---------- BOOLEAN INPUTS ----------
+                    if (f.InputType === 'boolean') {
+
+                        const boolValue = preFilledValue.toLowerCase();
+
+                        const trueChecked = !hasPreFilled || boolValue === "true" || boolValue === "1" || boolValue === "yes"
+                            ? "checked"
+                            : "";
+
+                        const falseChecked = hasPreFilled && (boolValue === "false" || boolValue === "0" || boolValue === "no")
+                            ? "checked"
+                            : "";
+
+                        inputHtml = `
+                        <div>
+                        ${hiddenPreFilledInput}
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   id="${escapeAttr(f.ColumnName)}_true"
+                                   value="true"
+                                   ${required}
+                                   ${disabled}
+                                   ${trueChecked}>
+
+                            <label class="form-check-label" for="${escapeAttr(f.ColumnName)}_true">
+                                ${escapeHtml(f.TrueLabel ?? 'True')}
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline ms-3">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   id="${escapeAttr(f.ColumnName)}_false"
+                                   value="false"
+                                   ${disabled}
+                                   ${falseChecked}>
+
+                            <label class="form-check-label" for="${escapeAttr(f.ColumnName)}_false">
+                                ${escapeHtml(f.FalseLabel ?? 'False')}
+                            </label>
+                        </div>
+
+                            ${f.Tooltip ? `<div><small class="text-muted">${escapeHtml(f.Tooltip)}</small></div>` : ''}
+                        </div>`;
+                    }
+                    else {
+                        switch (f.InputType) {
+
+                            case 'text':
+                            case 'number':
+                            case 'email':
+                            case 'url':
+                            case 'tel':
+                            case 'password':
+                            case 'color':
+                            case 'range':
+                            case 'month':
+                            case 'week':
+                            case 'search':
+                            case 'time':
+                            case 'datetime-local':
+                                inputHtml = `
+                            <input type="${escapeAttr(f.InputType)}"
+                                   class="form-control"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   placeholder="${placeholder}"
+                                   value="${safePreFilledValue}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+
+                            case 'date':
+                                inputHtml = `
+                            <input type="date"
+                                   class="form-control"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   value="${safePreFilledValue}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+
+                            case 'textarea':
+                                inputHtml = `
+                            <textarea class="form-control"
+                                      name="${escapeAttr(f.ColumnName)}"
+                                      placeholder="${placeholder}"
+                                      ${required}
+                                      ${readonly}>${escapeHtml(preFilledValue)}</textarea>`;
+                                break;
+
+                            case 'checkbox':
+                                inputHtml = `
+                                    ${hiddenPreFilledInput}
+                                    <div id="checkboxContainer_${escapeAttr(f.ColumnName)}"></div>
+                                `;
+                                break;
+
+                            case 'radio':
+                                inputHtml = `
+                            ${hiddenPreFilledInput}
+                            <div id="radioContainer_${escapeAttr(f.ColumnName)}"></div>`;
+                                break;
+
+                            case 'select':
+                                inputHtml = `
+                            ${hiddenPreFilledInput}
+
+                            <select class="form-select"
+                                    name="${escapeAttr(f.ColumnName)}"
+                                    id="${escapeAttr(f.ColumnName)}"
+                                    ${required}
+                                    ${disabled}>
+                                <option value="">-- Select --</option>
+                            </select>`;
+                                break;
+
+                            case 'file':
+                                /*
+                                    File input value cannot be prefilled by browser security.
+                                */
+                                inputHtml = `
+                            <input type="file"
+                                   class="form-control"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+
+                            default:
+                                inputHtml = `
+                            <input type="text"
+                                   class="form-control"
+                                   name="${escapeAttr(f.ColumnName)}"
+                                   placeholder="${placeholder}"
+                                   value="${safePreFilledValue}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+                        }
+                    }
+
+                    // ---------- APPEND FIELD ----------
+                    if (f.InputType !== 'checkbox' && f.InputType !== 'radio') {
+                        $form.append(`
+                        <div class="col-md-4 mb-3">
+                        <label class="form-label">
+                            ${escapeHtml(f.DisplayLabel ?? f.ColumnName)}
+                            ${f.IsRequired ? '<span class="text-danger">*</span>' : ''}
+                        </label>
+
+                        ${inputHtml}
+
+                        ${f.Tooltip ? `<small class="text-muted">${escapeHtml(f.Tooltip)}</small>` : ''}
+                        </div>
+                        `);
+                    } else {
+                        $form.append(`
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                ${(f.InputType === 'radio' || f.InputType === 'checkbox') ? escapeHtml(f.DisplayLabel ?? f.ColumnName) : ''}
+                                ${f.IsRequired ? '<span class="text-danger">*</span>' : ''}
+                            </label>
+
+                                ${inputHtml}
+
+                                ${f.Tooltip ? `<small class="text-muted">${escapeHtml(f.Tooltip)}</small>` : ''}
+                        </div>
+                    `);
+                    }
+
+                    // ---------- LOAD DROPDOWN / RADIO DATA ----------
+                    if ((f.InputType === 'select' || f.InputType === 'radio' || f.InputType === 'checkbox') && f.DropdownSourceTable) {
+                        $.get('/api/lookup/get', {
+                            table: f.DropdownSourceTable,
+                            valueCol: f.DropdownValueColumn,
+                            textCol: f.DropdownTextColumn,
+                            where: f.DropdownWhere,
+                            order: f.DropdownOrderBy
+                        }, function (response) {
+                            if(!response.Success){
+                                return;
+                            }
+                            rows = response.Data;
+
+                            if (f.InputType === 'select') {
+                                const $select = $('#' + f.ColumnName);
+
+                                rows.forEach(r => {
+                                    $select.append(`
+                                        <option value="${escapeAttr(r.value)}">
+                                            ${escapeHtml(r.text)}
+                                        </option>
+                                    `);
+                                });
+
+                                if (hasPreFilled) {
+                                    $select.val(preFilledValue);
+                                }
+                            }
+                            else if (f.InputType === 'radio') {
+                                const $container = $(`#radioContainer_${f.ColumnName}`);
+
+                                rows.forEach(r => {
+                                    const checked = hasPreFilled && String(r.value) === preFilledValue
+                                        ? "checked"
+                                        : "";
+
+                                    const safeValue = escapeAttr(r.value);
+                                    const safeId = escapeAttr(`${f.ColumnName}_${r.value}`);
+
+                                    const radioHtml = `
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                    type="radio"
+                                                    name="${escapeAttr(f.ColumnName)}"
+                                                    value="${safeValue}"
+                                                    id="${safeId}"
+                                                    ${checked}
+                                                    ${disabled} />
+
+                                            <label class="form-check-label" for="${safeId}">
+                                                ${escapeHtml(r.text)}
+                                            </label>
+                                        </div>
+                                    `;
+
+                                    $container.append(radioHtml);
+                                });
+                            }
+                            else if (f.InputType === 'checkbox') {
+                                const $container = $(`#checkboxContainer_${f.ColumnName}`);
+
+                                const selectedValues = hasPreFilled
+                                    ? preFilledValue.split(',').map(x => x.trim())
+                                    : [];
+
+                                rows.forEach(r => {
+                                    const value = String(r.value ?? "");
+                                    const text = String(r.text ?? "");
+
+                                    const checked = selectedValues.includes(value)
+                                        ? "checked"
+                                        : "";
+
+                                    const safeValue = escapeAttr(value);
+                                    const safeId = escapeAttr(`${f.ColumnName}_${value}`);
+
+                                    const checkboxHtml = `
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               name="${escapeAttr(f.ColumnName)}"
+                                               value="${safeValue}"
+                                               id="${safeId}"
+                                               ${checked}
+                                               ${disabled} />
+
+                                        <label class="form-check-label" for="${safeId}">
+                                            ${escapeHtml(text)}
+                                        </label>
+                                    </div>
+                                `;
+
+                                    $container.append(checkboxHtml);
+                                });
+                            }
+                        });
+                    }
+                    $form.append("</div>");
+                });
+                $('#dynamicForm select').select2({
+                    width: '100%',
+                    placeholder: 'Select an option',
+                    allowClear: true
+                });
+            }
+
+
+
+            window.save = function () {
+                var id = $('#UID').val();
+                var data = {};
+                const isUpdate = id && id != '';
+
+
+                $('#dynamicForm').find('input, select, textarea').each(function () {
+                    if (this.type === 'checkbox') {
+
+                        if (this.checked) {
+                            if (data[this.name]) {
+                                data[this.name] += "," + this.value;
+                            } else {
+                                data[this.name] = this.value;
+                            }
+                        }
+
+                    }
+                    else if (this.type === 'radio') {
+                        // Only set value if this radio button is checked
+                        if (this.checked) {
+                            data[this.name] = this.value;
+                        }
+                    } else if ($(this).val() != "") {
+                        data[this.name] = $(this).val();
+                    }
+                });
+
+                $.ajax({
+                    url: `/api/crud/save?table=${encodeURIComponent(uid)}`,
+                    method: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        ID: isUpdate ? id : null,
+                        fields: data
+                    }),
+                    success: function (res) {
+                        if (res.Success) {
+                            alert(isUpdate ? 'Updated successfully' : 'Saved successfully');
+                            resetForm();
+                            loadGrid();
+                        }
+                        else {
+                            let message = res.Message;
+                            if (res.Errors) {
+                                message += "\nErrors:\n";
+                                message += JSON.stringify(res.Errors);
+                            }
+                            alert(message);
+                            return;
+                        }
+                    }
+                });
+            }
+
+
+            window.resetForm = function () {
+                $('#dynamicForm')[0].reset();
+                $('#UID').val('');
+                $('.select2-hidden-accessible').val(null).trigger('change');
+            }
+
+            function loadGrid() {
+
+                let filter = "";
+
+                if (preFilledData && Object.keys(preFilledData).length > 0) {
+                    filter = Object.entries(preFilledData)
+                        .filter(([key, value]) => value !== null && value !== undefined && value !== "")
+                        .map(([key, value]) => {
+                            const safeValue = String(value).replace(/'/g, "''");
+                            return `{alias}.${key}='${safeValue}'`;
+                        })
+                        .join(" AND ");
+                }
+                $.get(`/api/crud/list`, {
+                    table:uid,
+                    filter: filter
+                }, function (res) {
+                    const rows = res && res.Data ? res.Data : [];
+                    const $grid = $('#grid');
+
+                    // Destroy DataTable first if it exists
+                    if ($.fn.DataTable.isDataTable($grid)) {
+                        $grid.DataTable().destroy();
+                    }
+
+                    // Clear previous content
+                    $grid.find('thead').empty();
+                    $grid.find('tbody').empty();
+
+                    if (!rows || rows.length === 0) {
+                        $grid.find('thead').html('<tr><th>No data</th></tr>');
+                        return;
+                    }
+
+                    const convertedRows = rows; // already an array of objects
+
+
+                    // Build header
+                    let headerHtml = '<tr>';
+                    metadata.filter(f => f.ShowInList).forEach(f => {
+                        headerHtml += `<th>${f.DisplayName ?? f.ColumnName}</th>`;
+                    });
+                    headerHtml += '<th>Actions</th></tr>';
+                    $grid.find('thead').html(headerHtml);
+
+                    // Build body
+                    let bodyHtml = '';
+                    convertedRows.forEach(r => {
+                        bodyHtml += '<tr>';
+                        metadata.filter(f => f.ShowInList).forEach(f => {
+                            let val = r[f.ColumnName] ?? '';
+                            // Parse .NET date format
+                            if (typeof val === 'string' && val.startsWith('/Date(')) {
+                                val = formatDotNetDate(val);
+                            } else if (typeof val === 'object') {
+                                val = JSON.stringify(val);
+                            }
+                            bodyHtml += `<td>${val}</td>`;
+                        });
+
+                        bodyHtml += `<td>`;
+                        bodyHtml += `<button class="btn btn-sm btn-info edit-btn" data-id="${r.UID}" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>`;
+                        bodyHtml += `
+                                <button class="btn btn-sm btn-danger delete-btn" data-id="${r.UID}" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>`;
+
+                        bodyHtml += '</td>';
+                        bodyHtml += '</tr>';
+                    });
+                    $grid.find('tbody').html(bodyHtml);
+                    var button = [
+                            { extend: 'excelHtml5', title: table },
+                            { extend: 'csvHtml5', title: table },
+                            { extend: 'pdfHtml5', title: table },
+                            {
+                                text: 'JSON',
+                                action: function (e, dt, node, config) {
+                                    const data = dt.rows({ search: 'applied' }).data().toArray();
+                                    const jsonStr = JSON.stringify(data, null, 2);
+                                    const blob = new Blob([jsonStr], { type: "application/json" });
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'data.json';
+                                    a.click();
+                                    URL.revokeObjectURL(url);
+                                }
+                            }
+                        ];
+                    $grid.DataTable({
+                        dom: button ? 'Blfrtip' : 'flrtip',
+                        buttons: button || [],
+                        order: [[0, "asc"]],
+                        pageLength: 20,
+                        lengthMenu: [5, 10, 20, 50, 100]
+                    });
+                });
+            }
+
+
+
+            // Event delegation for dynamically generated buttons
+            $('#grid tbody').on('click', '.edit-btn', function () {
+                editRecord($(this).data('id'));
+            });
+
+            $('#grid tbody').on('click', '.delete-btn', function () {
+                deleteRecord($(this).data('id'));
+            });
+
+
+            function setDateInput(name, val) {
+                if (!val) {
+                    $(`[name='${name}']`).val('');
+                    return;
+                }
+
+                let dateStr = '';
+
+                // Handle /Date(1532400000000)/ format
+                if (val.startsWith('/Date(')) {
+                    const timestamp = parseInt(val.replace(/\/Date\((\d+)\)\//, '$1'));
+                    const dateObj = new Date(timestamp);
+                    const yyyy = dateObj.getFullYear();
+                    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                    const dd = String(dateObj.getDate()).padStart(2, '0');
+                    dateStr = `${yyyy}-${mm}-${dd}`;
+                }
+                // Handle yyyy-MM-dd or ISO string
+                else {
+                    const dateObj = new Date(val);
+                    if (isNaN(dateObj)) {
+                        dateStr = '';
+                    } else {
+                        const yyyy = dateObj.getFullYear();
+                        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const dd = String(dateObj.getDate()).padStart(2, '0');
+                        dateStr = `${yyyy}-${mm}-${dd}`;
+                    }
+                }
+
+                $(`[name='${name}']`).val(dateStr);
+            }
+
+
+            function parseDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const match = /\/Date\((\d+)\)\//.exec(dotNetDateStr);
+                if (match) {
+                    const timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            function formatDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const timestamp = parseInt(dotNetDateStr.replace(/\/Date\((\d+)\)\//, '$1'), 10);
+                const date = new Date(timestamp);
+
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const dd = String(date.getDate()).padStart(2, '0');
+                const yyyy = date.getFullYear();
+
+                return `${mm}/${dd}/${yyyy}`;
+            }
+
+
+            // ----------------- EDIT RECORD -----------------
+            function editRecord(id) {
+                $.get('/api/crud/record', {
+                    table: uid,   
+                    id: id       
+                }, function (res) {
+                    if(!res.Success){
+                        let message = res.Message;
+                        if (res.Errors) {
+                            message += "\nErrors:\n";
+                            message += JSON.stringify(res.Errors);
+                        }
+                        alert(message);
+                        return;
+                    }
+                    const recordArr = res.Data || {};
+                    const record = {};
+
+                    Object.keys(recordArr).forEach(key => {
+                        record[key] = recordArr[key];
+                    })
+                    $('#UID').val(record.UID);
+
+                    metadata.forEach(f => {
+                        let val = record[f.ColumnName];
+                        let $el = $(`[name='${f.ColumnName}']`);
+
+
+                        if (!$el.length) return; // safety check
+
+                        if (f.InputType === 'checkbox') {
+
+                            // Clear all checkboxes of this field first
+                            $(`input[name='${f.ColumnName}']`).prop('checked', false);
+
+                            if (val !== null && val !== undefined && val !== "") {
+
+                                const selectedValues = String(val)
+                                    .split(',')
+                                    .map(x => x.trim())
+                                    .filter(x => x !== "");
+
+                                selectedValues.forEach(v => {
+                                    $(`input[name='${f.ColumnName}'][value='${v}']`).prop('checked', true);
+                                });
+                            }
+                        }
+                        else if (f.InputType === 'boolean') {
+                            const name = f.ColumnName;
+
+                            let boolValue = null;
+                            if (val === true) {
+                                boolValue = "true";
+                            }
+                            else if(val === false){
+                                boolValue = "false";
+                            }
+
+                            // Clear all first, then check the correct radio
+                            $(`input[name='${name}']`).prop("checked", false);
+
+                            if (boolValue !== null) {
+                                $(`input[name='${name}'][value='${boolValue}']`).prop("checked", true);
+                            }
+                        }
+                        else if (f.InputType === 'date') {
+                            setDateInput(f.ColumnName, val);
+                        }
+                        else if (f.InputType === 'select') {
+                            if (typeof val === 'boolean') {
+                                val = val ? 'True' : 'False';
+                            }
+                            $el.val(val).trigger('change');
+                        }
+                        else {
+                            $el.val(val);
+                        }
+                    });
+                    $('#dynamicForm').find('input,select,textarea')
+                    .filter(':visible:not([readonly]):not([disabled])')
+                    .first()
+                    .focus();
+                });
+            }
+
+            // ----------------- DELETE -----------------
+            function deleteRecord(id) {
+                if (!confirm('Are you sure, deleting this record?')) return;
+
+                $.ajax({
+                    url: `/api/crud/delete?table=${encodeURIComponent(uid)}&id=${encodeURIComponent(id)}`,
+                    type: 'DELETE',
+                    success: function (res) {
+                        if (!res.Success){
+                            let message = res.Message;
+                            if (res.Errors) {
+                                message += "\nErrors:\n";
+                                message += JSON.stringify(res.Errors);
+                            }
+                            alert(message);
+                        }
+                        else {
+                            alert('Deleted successfully');
+                            if ($("#path").val() == "form") {
+                                dropTable(id);
+                            }
+                            else {
+                                loadGrid();
+                            }
+                        }
+                    }, error: function (xhr) {
+                        console.error(xhr.responseText);
+                        alert('Server error: ' + xhr.responseText);
+                    }
+                });
+            }
+                window.uploadFile = function () {
+                    const fileInput = document.getElementById('importFile');
+                    if (fileInput.files.length === 0) {
+                        alert("Please select a file.");
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append("file", fileInput.files[0]);
+
+                    // Show loader
+                    $("#uploadOverlay").css("display", "flex");
+                    $("#uploadProgressBar").css("width", "0%").text("0%");
+
+                    $.ajax({
+                        url: `/api/crud/upload?table=${encodeURIComponent(uid)}`,
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+
+                        xhr: function () {
+                            var xhr = new window.XMLHttpRequest();
+
+                            xhr.upload.addEventListener("progress", function (evt) {
+                                if (evt.lengthComputable) {
+                                    var percent = Math.round((evt.loaded / evt.total) * 100);
+
+                                    $("#uploadProgressBar")
+                                        .css("width", percent + "%")
+                                        .text(percent + "%");
+                                }
+                            }, false);
+
+                            return xhr;
+                        },
+
+                        success: function (res) {
+                            $("#uploadOverlay").hide();
+                            if (res.Success) {
+                            $('#importFile').val('');
+                                alert(res.Message);
+                                loadGrid();
+                            } else {
+                                var msg = res.Message;
+                                if (res.Errors) {
+                                    msg += JSON.stringify(res.Errors);
+                                }
+                                alert(msg);
+                            }
+                        },
+
+                        error: function () {
+                            $("#uploadOverlay").hide();
+                            alert("Upload error");
+                        }
+                    });
+                }
+
+            function dropTable(table) {
+                    $.ajax({
+                        url: '/Super/api/table/drop',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({ Table: table }),
+                        success: function (response) {
+                            if (response.error) {
+                                alert(response.message || "Failed to drop table.");
+                                return;
+                            }
+                            alert(response.message);
+                            loadGrid();
+                        },
+                        error: function (xhr) {
+                            let msg = "Server error: ";
+                            try {
+                                const resp = JSON.parse(xhr.responseText);
+                                if (resp.message) msg = resp.message;
+                            } catch (e) {
+                                msg = xhr.responseText;
+                            }
+                            alert(msg);
+                        }
+                    });
+                }
+
+        });
+
+    </script>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <script src="~/js/our-visualization.js"></script>
+    }
+}
+
+<style>
+    .viz-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+        margin-top: 15px;
+    }
+
+    .viz-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+        border-bottom: 1px solid #e5e7eb;
+        cursor: pointer;
+    }
+
+    .viz-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        color: #1f2937;
+        font-size: 16px;
+    }
+
+    .viz-title-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #2563eb;
+        color: white;
+        font-size: 17px;
+    }
+
+    .viz-subtitle {
+        font-size: 12px;
+        color: #6b7280;
+        font-weight: 400;
+        margin-top: 2px;
+    }
+
+    .viz-toggle-btn {
+        border: none;
+        background: #ffffff;
+        color: #2563eb;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .viz-card-body {
+        display: none;
+        padding: 18px;
+    }
+
+    .viz-filter-box {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 18px;
+    }
+
+        .viz-filter-box .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .viz-filter-box .form-control,
+        .viz-filter-box .form-select {
+            font-size: 13px;
+            border-radius: 9px;
+        }
+
+    .viz-action-bar {
+        display: flex;
+        align-items: end;
+        height: 100%;
+    }
+
+        .viz-action-bar .btn {
+            border-radius: 9px;
+            font-weight: 600;
+            width: 100%;
+        }
+
+    .viz-result-area {
+        display: flex;
+        gap: 18px;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .viz-chart-panel,
+    .viz-table-panel {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 12px;
+    }
+
+    .viz-chart-panel {
+        width: 70%;
+        min-height: 430px;
+    }
+
+    .viz-table-panel {
+        width: 30%;
+        max-height: 430px;
+        overflow: auto;
+    }
+
+    #chartContainer {
+        width: 100%;
+        height: 390px;
+    }
+
+    #summaryTable {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+        #summaryTable th {
+            background: #f3f4f6;
+            color: #374151;
+            font-weight: 700;
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        #summaryTable td {
+            padding: 7px 8px;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        #summaryTable tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+    .viz-empty-state {
+        color: #6b7280;
+        font-size: 13px;
+        text-align: center;
+        padding: 35px 10px;
+    }
+
+    @@media (max-width: 992px) {
+        .viz-result-area {
+            flex-direction: column;
+        }
+
+        .viz-chart-panel,
+        .viz-table-panel {
+            width: 100%;
+        }
+    }
+</style>
