@@ -1,0 +1,90 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Survey List";
+    Layout = "_SurveyLayout.cshtml";
+    ViewBag.Menu = "Survey";
+    var allModes = new List<string>
+    {
+        "CAPI","CATI","CAVI","Chatbot","Desktop","Face-to-Face","IVR","Kiosk",
+        "Laptop","Live","Mobile","Online","Paper","PAPI","Phone","Self",
+        "SMS","Tablet","USSD","Web","WhatsApp"
+    };
+}
+
+<style>
+    .mode-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+    .mode-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .mode-card input {
+        display: none;
+    }
+
+    .mode-card.selected {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border-color: transparent;
+    }
+
+    .mode-label {
+        font-weight: 600;
+        font-size: 14px;
+        margin-top: 8px;
+        display: block;
+    }
+
+    .icon {
+        font-size: 22px;
+    }
+</style>
+
+<div class="container mt-4">
+    <h3 class="mb-4 text-center">Select Survey Modes</h3>
+
+    <form method="post" asp-action="SaveSurveyModes">
+        <div class="row">
+            @foreach (var mode in allModes)
+            {
+                var isChecked = Model != null && Model.Contains(mode);
+
+                <div class="col-md-3 col-sm-4 col-6 mb-3">
+                    <label class="mode-card @(isChecked ? "selected" : "")">
+                        <input type="checkbox" name="SelectedModes" value="@mode" @(isChecked ? "checked" : "") />
+
+                        <div class="icon">📊</div>
+                        <span class="mode-label">@mode</span>
+                    </label>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">
+                Save Selection
+            </button>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    <script>
+        document.querySelectorAll('.mode-card').forEach(card => {
+            card.addEventListener('click', function () {
+                let checkbox = this.querySelector('input');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected');
+            });
+        });
+    </script>
+}

@@ -1,0 +1,160 @@
+﻿@* File: Views/Shared/_PartialCrud.cshtml *@
+<style>
+    .mb-3 {
+        margin-bottom: 15px;
+    }
+
+    thead {
+        background-color: blue !important;
+        color: white;
+    }
+
+    .sheading {
+        color: darkblue;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 36px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 36px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+    }
+
+    .app-loading-container {
+        background: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #475569;
+    }
+
+    .app-loading-spinner {
+        width: 34px;
+        height: 34px;
+        border: 4px solid #e5e7eb;
+        border-top-color: #0d6efd;
+        border-radius: 50%;
+        animation: appLoadingSpin .8s linear infinite;
+    }
+
+    .app-loading-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    .app-loading-text {
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    @@keyframes appLoadingSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<!-- ===================== File Upload ===================== -->
+<div class="mb-3">
+    <label class="form-label">Import CSV / Excel</label>
+    <input type="file" id="importFile" class="form-control" accept=".csv,.xlsx,.xls" />
+    <button type="button" class="btn btn-success mt-2" onclick="uploadFile()">
+        <i class="bi bi-upload"></i> Upload & Import
+    </button>
+</div>
+<!-- ===================== FORM ===================== -->
+<div id="form-container">
+    <form id="dynamicForm" class="row">
+        <div class="app-loading-container">
+            <div class="app-loading-spinner"></div>
+
+            <div>
+                <div class="app-loading-title">
+                    Loading
+                </div>
+
+                <div class="app-loading-text">
+                    Please wait while data is being prepared...
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-3" style="margin-top:10px">
+        <button type="button" class="btn btn-primary" onclick="save()">
+            Save
+        </button>
+
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">
+            Reset
+        </button>
+    </div>
+</div>
+
+<hr />
+
+<!-- ===================== GRID ===================== -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="grid">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <td colspan="100">
+                    <div class="app-loading-container">
+                        <div class="app-loading-spinner"></div>
+
+                        <div>
+                            <div class="app-loading-title">
+                                Loading table
+                            </div>
+
+                            <div class="app-loading-text">
+                                Please wait while records are being loaded...
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<hr />
+
+<!-- ===================== Charts ===================== -->
+<div id="visualizationRoot"></div>
+
+<!-- ===================== Upload Loading Overlay ===================== -->
+<div id="uploadOverlay"
+     style="display:none; position:fixed; top:0; left:0;
+            width:100%; height:100%; background:rgba(0,0,0,0.5);
+            z-index:9999; justify-content:center; align-items:center;">
+
+    <div class="bg-white p-4 rounded shadow text-center" style="width:300px;">
+        <h5>Uploading...</h5>
+
+        <div class="progress mt-3">
+            <div id="uploadProgressBar"
+                 class="progress-bar progress-bar-striped progress-bar-animated"
+                 style="width:0%">
+                0%
+            </div>
+        </div>
+
+        <small class="text-muted mt-2 d-block">
+            Please wait
+        </small>
+    </div>
+</div>

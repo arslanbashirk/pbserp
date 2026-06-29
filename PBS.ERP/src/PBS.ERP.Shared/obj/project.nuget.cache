@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RY+DwTg+riQ=",
+  "dgSpecHash": "MxoVyLxx+nE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
+  "projectFilePath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PBS\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\PBS\\.nuget\\packages\\entityframework.extended\\6.1.0.168\\entityframework.extended.6.1.0.168.nupkg.sha512",

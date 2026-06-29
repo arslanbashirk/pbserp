@@ -4693,11 +4693,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
       "projectName": "PBS.ERP.Shared",
-      "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
+      "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
       "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\obj\\",
+      "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",

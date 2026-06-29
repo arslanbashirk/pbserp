@@ -12,6 +12,7 @@ using System.Security.Claims;
 
 namespace PBS.ERP.Modules.Core.Controllers
 {
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("[controller]")]
     [Authorize(AuthenticationSchemes = Constants.Identity_Application_Scheme,Roles = "Root,Super,Admin")]
     public class SuperController : Controller
@@ -23,7 +24,7 @@ namespace PBS.ERP.Modules.Core.Controllers
             _context = context;
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
+        
         [HttpGet("Index")]
         public async Task<IActionResult> Index()
         {
@@ -31,16 +32,15 @@ namespace PBS.ERP.Modules.Core.Controllers
 
             var tables = (await con.QueryAsync<Entity>(
                 $@"
-SELECT *
-FROM {Constants.EntityTable}
-WHERE ISNULL(IsDeleted, 0) = 0
-ORDER BY CreatedTime DESC"))
+                SELECT *
+                FROM {Constants.EntityTable}
+                WHERE ISNULL(IsDeleted, 0) = 0
+                ORDER BY CreatedTime DESC"))
                 .ToList();
 
             return View(tables);
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
@@ -64,27 +64,27 @@ ORDER BY CreatedTime DESC"))
             if (isRootOrSuper)
             {
                 sql = @"
-SELECT [Short], [Name]
-FROM SYS_TABLE_TYPE
-WHERE IsDeleted = 0
-ORDER BY [Name]";
-            }
-            else
-            {
-                sql = $@"
-SELECT 
-    st.Short AS Short,
-    st.Name AS Name
-FROM SYS_TABLE_TYPE st
-JOIN {Constants.RoleTable} r
-    ON st.Short = r.Name
-    AND r.IsDeleted = 0
-JOIN {Constants.UserRoleTable} ur
-    ON r.Id = ur.RoleId
-    AND ur.IsDeleted = 0
-WHERE st.IsDeleted = 0
-AND ur.UserId = @UserId
-ORDER BY st.Name";
+                SELECT [Short], [Name]
+                FROM SYS_TABLE_TYPE
+                WHERE IsDeleted = 0
+                ORDER BY [Name]";
+                            }
+                            else
+                            {
+                                sql = $@"
+                SELECT 
+                    st.Short AS Short,
+                    st.Name AS Name
+                FROM SYS_TABLE_TYPE st
+                JOIN {Constants.RoleTable} r
+                    ON st.Short = r.Name
+                    AND r.IsDeleted = 0
+                JOIN {Constants.UserRoleTable} ur
+                    ON r.Id = ur.RoleId
+                    AND ur.IsDeleted = 0
+                WHERE st.IsDeleted = 0
+                AND ur.UserId = @UserId
+                ORDER BY st.Name";
 
                 param = new { UserId = userId };
             }
@@ -99,7 +99,6 @@ ORDER BY st.Name";
             return View(data);
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("Alter")]
         public async Task<IActionResult> Alter(string? id)
         {
@@ -126,6 +125,41 @@ ORDER BY st.Name";
             return View();
         }
 
+
+        [HttpGet("Order")]
+        public async Task<IActionResult> Order(string? id)
+        {
+            var name = await _context.Entities
+               .Where(m => m.UID == id)
+               .Select(m => m.Name)
+               .FirstOrDefaultAsync();
+
+            if (string.IsNullOrWhiteSpace(name))
+                return NotFound("Table metadata not found.");
+
+            ViewBag.Table = name;
+            ViewBag.UID = id;
+
+            return View();
+        }
+
+        
+        [HttpGet("Fields")]
+        public async Task<IActionResult> Fields(string? id)
+        {
+            var name = await _context.Entities
+               .Where(m => m.UID == id)
+               .Select(m => m.Name)
+               .FirstOrDefaultAsync();
+
+            if (string.IsNullOrWhiteSpace(name))
+                return NotFound("Table metadata not found.");
+
+            ViewBag.Table = name;
+            ViewBag.UID = id;
+
+            return View();
+        }
         private async Task<DbConnection> GetOpenConnectionAsync()
         {
             var con = _context.Database.GetDbConnection();

@@ -1,7 +1,10 @@
-﻿@{
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
     var loginUrl = Url.Action("Login", "Account") ?? "/Account/Login";
     var logoutUrl = Url.Action("Logout", "Account") ?? "/Account/Logout";
     var accessDeniedUrl = Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied";
+    var apiBaseUrl = Configuration["ApiSettings:BaseUrl"] ?? "";
+    var refreshUrl = "/api/auth/refresh";
 }
 
 <!DOCTYPE html>
@@ -67,9 +70,9 @@
             font-weight: 500;
         }
 
-            .btn-logout:hover {
-                text-decoration: underline;
-            }
+        .btn-logout:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -79,7 +82,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm sticky-top">
         <div class="container-fluid px-4">
 
-            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+            <a class="navbar-brand d-flex align-items-center" href="javascript:void(0)" onclick="goToUserHome()">
                 <img src="~/images/pbslogo.png" alt="PBS Logo" height="45" class="me-2" />
                 <div>
                     ERP Survey Solution
@@ -168,11 +171,32 @@
             loginUrl: '@(Url.Action("Login", "Account") ?? "/Account/Login")',
             accessDeniedUrl: '@(Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied")'
         };
+
+        window.PBS_ERP_API_BASE_URL = "@apiBaseUrl".replace(/\/$/, "");
+
+        window.apiUrl = function (path) {
+            const baseUrl = window.PBS_ERP_API_BASE_URL || "";
+            if (!path) {
+                return baseUrl;
+            }
+
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+            return baseUrl + path;
+        };
+
+        window.goToUserHome = function () {
+            const homeUrl =
+                localStorage.getItem("pbs_erp_redirect_url") ||
+                "/Home/Index";
+
+            window.location.href = homeUrl;
+        };
     </script>
 
     <script src="~/js/pbs-erp-auth.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

@@ -9,9 +9,11 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PBS.ERP.Infrastructure.Interfaces;
 using PBS.ERP.Infrastructure.Tokens;
 using PBS.ERP.Shared.Auth;
 using PBS.ERP.Shared.Identity;
+using PBS.ERP.Shared.Models;
 
 namespace PBS.ERP.Infrastructure.Services;
 
@@ -574,6 +576,108 @@ public sealed class AuthService : IAuthService
         }
 
         return assignedRole;
+    }
+
+    public async Task<ApiResponse<object>> UpdateProfileAsync(
+    string? userId,
+    UpdateProfileRequest model,
+    CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return ApiResponse<object>.Fail("Unauthorized");
+        }
+
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return ApiResponse<object>.Fail("Unauthorized");
+        }
+
+        if (string.IsNullOrWhiteSpace(model.Name) || string.IsNullOrWhiteSpace(model.CNIC))
+        {
+            return ApiResponse<object>.Fail("Name and CNIC are required");
+        }
+
+        var newCnic = model.CNIC.Trim();
+
+        var cnicExists = await _userManager.Users
+            .AnyAsync(u => u.CNIC == newCnic && u.Id != user.Id, cancellationToken);
+
+        if (cnicExists)
+        {
+            return ApiResponse<object>.Fail("CNIC already exists");
+        }
+
+        await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
+
+        try
+        {
+            user.Name = model.Name.Trim();
+            user.Gender = model.Gender;
+            user.Mobile = model.Mobile?.Trim();
+            user.CNIC = newCnic;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+
+                return ApiResponse<object>.Fail(
+                    "User update failed",
+                    result.Errors.Select(e => e.Description).ToList()
+                );
+            }
+
+            try
+            {
+                var connectionString = _configuration.GetConnectionString("ERPHRConnection");
+
+                if (string.IsNullOrWhiteSpace(connectionString))
+                {
+                    throw new InvalidOperationException("ERPHRConnection is missing.");
+                }
+
+                await using var conn = new SqlConnection(connectionString);
+                await conn.OpenAsync(cancellationToken);
+
+                const string query = @"
+                UPDATE Staff
+                SET [User] = @UID
+                WHERE CNIC = @NewCNIC;
+                ";
+
+                await conn.ExecuteAsync(new CommandDefinition(
+                    query,
+                    new
+                    {
+                        UID = user.UID,
+                        NewCNIC = newCnic
+                    },
+                    cancellationToken: cancellationToken
+                ));
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+
+                return ApiResponse<object>.Fail("Staff mapping failed: " + ex.Message);
+            }
+
+            await transaction.CommitAsync(cancellationToken);
+
+            await _securityLogService.LogAsync("ProfileUpdatedWithCNIC", user.Id);
+
+            return ApiResponse<object>.Ok(null, "Profile updated successfully");
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+
+            return ApiResponse<object>.Fail("Update failed: " + ex.Message);
+        }
     }
 
     private sealed class JwtTokenResult

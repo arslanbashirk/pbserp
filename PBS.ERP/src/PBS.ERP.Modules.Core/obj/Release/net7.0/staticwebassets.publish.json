@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "uQbS/pHj9z5qUxixe2HlwpJ5sOSbFAId3qnUkBcY70A=",
+  "Source": "PBS.ERP.Modules.Core",
+  "BasePath": "_content/PBS.ERP.Modules.Core",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

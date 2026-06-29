@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj": {}
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
         "projectName": "PBS.ERP.Infrastructure",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,8 +29,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -101,14 +101,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
         "projectName": "PBS.ERP.Modules.Api",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -126,11 +126,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -182,14 +182,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj",
         "projectName": "PBS.ERP.Modules.Core",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -207,11 +207,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -275,14 +275,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
         "projectName": "PBS.ERP.Modules.Frame",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -300,11 +300,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -343,14 +343,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
         "projectName": "PBS.ERP.Modules.HR",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -368,11 +368,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -411,14 +411,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
         "projectName": "PBS.ERP.Modules.Inventory",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -436,8 +436,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -476,14 +476,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
         "projectName": "PBS.ERP.Modules.Monitoring",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -501,8 +501,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -544,14 +544,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
         "projectName": "PBS.ERP.Modules.Portal",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -569,8 +569,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              },
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -589,6 +592,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.ViewFeatures": {
+              "target": "Package",
+              "version": "[2.3.11, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -609,14 +618,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
         "projectName": "PBS.ERP.Modules.Security",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -634,11 +643,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -680,14 +689,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
         "projectName": "PBS.ERP.Modules.Staff",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -705,147 +714,153 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
-        "projectName": "PBS.ERP.Modules.Subject",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
-        "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
-        "projectName": "PBS.ERP.Modules.Survey",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
-        "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
+        "projectName": "PBS.ERP.Modules.Subject",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
+        "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              },
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
+        "projectName": "PBS.ERP.Modules.Survey",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
+        "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              },
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -901,14 +916,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
         "projectName": "PBS.ERP.Modules.Training",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -926,8 +941,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }
@@ -966,14 +981,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
         "projectName": "PBS.ERP.Shared",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1041,14 +1056,14 @@
         }
       }
     },
-    "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj": {
+    "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+        "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
         "projectName": "PBS.ERP.Web",
-        "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+        "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
         "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
+        "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1066,47 +1081,47 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
               },
-              "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-                "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+              "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+                "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
               }
             }
           }

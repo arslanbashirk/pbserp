@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5fNrR2sH/To=",
+  "dgSpecHash": "U6ZbRF06zb0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
+  "projectFilePath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PBS\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
     "C:\\Users\\PBS\\.nuget\\packages\\entityframework.extended\\6.1.0.168\\entityframework.extended.6.1.0.168.nupkg.sha512",

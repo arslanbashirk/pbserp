@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <ItemGroup>
+    <ProjectReference Include="..\PBS.ERP.Infrastructure\PBS.ERP.Infrastructure.csproj" />
     <ProjectReference Include="..\PBS.ERP.Shared\PBS.ERP.Shared.csproj" />
   </ItemGroup>
 

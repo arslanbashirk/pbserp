@@ -5687,11 +5687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
+      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
       "projectName": "PBS.ERP.Modules.Api",
-      "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
+      "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
       "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\obj\\",
+      "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5709,11 +5709,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
             }
           }
         }

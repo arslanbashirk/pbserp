@@ -212,7 +212,8 @@ public sealed class LookupApiController : ControllerBase
             return StatusCode(500, new
             {
                 Success = false,
-                ex.Message
+                ex.Message,
+                Errors=sql
             });
         }
     }

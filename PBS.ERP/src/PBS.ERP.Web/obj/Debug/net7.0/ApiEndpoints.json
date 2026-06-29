@@ -2,6 +2,22 @@
   {
     "ContainingType": "PBS.ERP.Modules.Api.Controllers.AuthApiController",
     "Method": "Login",
+    "RelativePath": "api/auth/authenticate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PBS.ERP.Shared.Auth.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PBS.ERP.Modules.Api.Controllers.AuthApiController",
+    "Method": "Login",
     "RelativePath": "api/auth/login",
     "HttpMethod": "POST",
     "IsController": true,
@@ -33,6 +49,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PBS.ERP.Modules.Api.Controllers.AuthApiController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/auth/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "PBS.ERP.Shared.Models.UpdateProfileRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -114,27 +146,6 @@
       {
         "Name": "request",
         "Type": "PBS.ERP.Shared.Auth.LoginRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PBS.ERP.Modules.Api.Controllers.CrudApiController",
-    "Method": "SaveBulk",
-    "RelativePath": "api/crud/{table}/bulk-save",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "table",
-        "Type": "System.String",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "PBS.ERP.Shared.CrudBulkSaveRequest",
         "IsRequired": true
       }
     ],
@@ -233,6 +244,27 @@
         "Name": "checkRights",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PBS.ERP.Modules.Api.Controllers.CrudApiController",
+    "Method": "SaveBulk",
+    "RelativePath": "api/crud/bulksave",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "table",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PBS.ERP.Shared.CrudBulkSaveRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -757,48 +789,6 @@
         "Name": "request",
         "Type": "PBS.ERP.Shared.Models.AlterTableName",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PBS.ERP.Modules.Core.Controllers.CrudController",
-    "Method": "File",
-    "RelativePath": "Crud/File",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PBS.ERP.Modules.Core.Controllers.CrudController",
-    "Method": "Grid",
-    "RelativePath": "Crud/Grid",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PBS.ERP.Modules.Core.Controllers.CrudController",
-    "Method": "Table",
-    "RelativePath": "Crud/Table",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "table",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

@@ -17,7 +17,7 @@ public sealed class CrudSaveRequest
 
 public sealed class CrudBulkSaveRequest
 {
-    public List<Dictionary<string, object?>> Rows { get; set; } = new();
+    public List<Dictionary<string, object?>> Fields { get; set; } = new();
 }
 
 public sealed class CleanRequest

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Password Reset Assistance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+
+            <div class="card border-0 shadow-lg">
+
+                <div class="card-body p-3">
+
+                    <div class="text-center mb-4">
+                        <h2 class="text-danger">Forgot Your Password?</h2>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>Important:</strong>
+                        For security and account protection purposes, self-service password reset is not available for this portal.
+                    </div>
+
+                    <h5 class="mt-4 mb-3">How to Reset Your Password</h5>
+
+                    <div class="border rounded p-4 bg-light">
+                        <ol class="mb-0">
+                            <li class="mb-3">
+                                Contact the <strong>ERP / Survey Solutions Administrator</strong> or
+                                <strong>IT Team</strong>.
+                            </li>
+                            <li class="mb-3">
+                                Provide your username, CNIC, employee details, or other information required for identity verification.
+                            </li>
+                            <li class="mb-3">
+                                Once your identity has been verified, your password will be reset by the administrator.
+                            </li>
+                            <li>
+                                Sign in again using the credentials provided by the administrator.
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <a href="@Url.Action("Login", "Account")"
+                           class="btn btn-primary btn-md">
+                            Try Again, Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

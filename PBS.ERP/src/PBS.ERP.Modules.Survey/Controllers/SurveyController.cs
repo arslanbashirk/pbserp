@@ -7,16 +7,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PBS.ERP.Infrastructure;
 using PBS.ERP.Shared.Models;
-using System.Data;
-using System.Data.Entity;
 using static PBS.ERP.Shared.Models.Constants;
 using static PBS.ERP.Shared.Models.SurveyModel;
 
 namespace PBS.ERP.Modules.Survey.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Authorize(
+        AuthenticationSchemes = Constants.Identity_Application_Scheme,
+        Roles = "Root,Super,Admin")]
     public class SurveyController : Controller
     {
 

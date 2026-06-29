@@ -1,8 +1,12 @@
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @{
     var loginUrl = Url.Action("Login", "Account") ?? "/Account/Login";
     var logoutUrl = Url.Action("Logout", "Account") ?? "/Account/Logout";
     var accessDeniedUrl = Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied";
+    var apiBaseUrl = Configuration["ApiSettings:BaseUrl"] ?? "";
+    var refreshUrl = "/api/auth/refresh";
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +90,7 @@
     <!-- 🔷 Top Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm sticky-top">
         <div class="container-fluid px-4">
-            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+            <a class="navbar-brand d-flex align-items-center" href="javascript:void(0)" onclick="goToUserHome()">
                 <img src="~/images/pbslogo.png" height="45" class="me-2" />
                 <div>
                     ERP Survey Solution
@@ -206,22 +210,35 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- PBS ERP JWT/Auth configuration -->
     <script>
         window.PbsErpConfig = {
-            loginUrl: '@loginUrl',
-            logoutUrl: '@logoutUrl',
-            accessDeniedUrl: '@accessDeniedUrl',
+            loginUrl: '@(Url.Action("Login", "Account") ?? "/Account/Login")',
+            accessDeniedUrl: '@(Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied")'
+        };
 
-            tokenKeys: {
-                token: 'pbs_erp_token',
-                user: 'pbs_erp_user',
-                expires: 'pbs_erp_token_expires'
+        window.PBS_ERP_API_BASE_URL = "@apiBaseUrl".replace(/\/$/, "");
+
+        window.apiUrl = function (path) {
+            const baseUrl = window.PBS_ERP_API_BASE_URL || "";
+            if (!path) {
+                return baseUrl;
             }
+
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+            return baseUrl + path;
+        };
+
+        window.goToUserHome = function () {
+            const homeUrl =
+                localStorage.getItem("pbs_erp_redirect_url") ||
+                "/Home/Index";
+
+            window.location.href = homeUrl;
         };
     </script>
 
-    <!-- Shared JWT helper for AJAX/API access -->
     <script src="~/js/pbs-erp-auth.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)

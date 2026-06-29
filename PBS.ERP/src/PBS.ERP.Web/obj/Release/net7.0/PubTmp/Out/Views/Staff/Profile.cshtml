@@ -1,0 +1,202 @@
+﻿@using PBS.ERP.Shared.Identity
+@{
+    Layout = "_Staff";
+    ViewData["Title"] = "Profile";
+    ViewBag.Menu = "Profile";
+}
+@model ApplicationUser
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white d-flex align-items-center">
+                    <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+                    <h5 class="mb-0 fw-bold">My Profile</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-semibold">Full Name:</label>
+                        <div class="col-sm-8">
+                            <input id="Name" asp-for="Name" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-semibold">CNIC:</label>
+                        <div class="col-sm-8">
+                            <input id="CNIC" asp-for="CNIC" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-semibold">Gender:</label>
+                        <div class="col-sm-8">
+                            <select id="Gender" asp-for="Gender" class="form-select">
+                                <option value="">-- Select --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-4 col-form-label fw-semibold">Mobile Number:</label>
+                        <div class="col-sm-8">
+                            <input asp-for="Mobile" id="Mobile" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer d-flex justify-content-between bg-white border-top-0">
+                    <div class="mb-3">
+                        <button type="button" id="btnSaveProfile" class="btn btn-success me-2">
+                            <i class="bi bi-check-circle"></i> Save Changes
+                        </button>
+
+                        <a href="@Url.Action("Index", "Staff")" class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
+                <div class="px-3 pb-3">
+                    <div id="success" class="text-success"></div>
+                    <div id="error" class="text-danger"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/save-data.js" asp-append-version="true"></script>
+    <script>
+        $(document).on("click", "#btnSaveProfile", function () {
+
+            $("#error").html("");
+            $("#success").html("");
+
+            const model = {
+                name: $("#Name").val(),
+                cnic: $("#CNIC").val(),
+                gender: $("#Gender").val(),
+                mobile: $("#Mobile").val()
+            };
+
+            if (!model.name || !model.cnic) {
+                showToast("Name and CNIC are required.", "error");
+                return;
+            }
+
+            const $btn = $("#btnSaveProfile");
+
+            $btn.prop("disabled", true)
+                .html('<span class="spinner-border spinner-border-sm me-1"></span> Saving...');
+
+            window.PbsErp.call("auth.updateProfile", model, {
+                success: function (res) {
+
+                    $btn.prop("disabled", false)
+                        .html('<i class="bi bi-check-circle"></i> Save Changes');
+
+                    if (res.Success) {
+                        $("#success").html(res.Message || "Profile updated successfully.");
+                        $("#error").html("");
+                        showToast(res.Message || "Profile updated successfully.", "success");
+                        return;
+                    }
+
+                    let msg = res.Message || "Profile update failed.";
+
+                    if (res.Errors) {
+                        msg += "<br/>" + formatErrors(res.Errors);
+                    }
+
+                    $("#error").html(msg);
+                    $("#success").html("");
+                    showToast(res.Message || "Profile update failed.", "error");
+                },
+
+                error: function (err) {
+
+                    $btn.prop("disabled", false)
+                        .html('<i class="bi bi-check-circle"></i> Save Changes');
+
+                    let msg = err.Message || "Profile update failed.";
+
+                    if (err.Errors) {
+                        msg += "<br/>" + formatErrors(err.Errors);
+                    }
+
+                    $("#error").html(msg);
+                    $("#success").html("");
+                    showToast(err.Message || "Profile update failed.", "error");
+                    console.error("Profile update error:", err);
+                }
+            });
+        });
+
+        function formatErrors(errors) {
+
+            if (!errors) {
+                return "";
+            }
+
+            if (Array.isArray(errors)) {
+                return errors.join("<br/>");
+            }
+
+            if (typeof errors === "string") {
+                return errors;
+            }
+
+            if (typeof errors === "object") {
+                return Object.keys(errors).map(function (key) {
+                    const value = errors[key];
+
+                    if (Array.isArray(value)) {
+                        return key + ": " + value.join(", ");
+                    }
+
+                    return key + ": " + value;
+                }).join("<br/>");
+            }
+
+            return String(errors);
+        }
+
+        function showToast(message, type) {
+
+            const bg = type === "success" ? "bg-success" : "bg-danger";
+
+            const toast = `
+                        <div class="toast align-items-center text-white ${bg} border-0 show position-fixed bottom-0 end-0 m-3"
+                             style="z-index: 9999;">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    ${message}
+                                </div>
+                                <button type="button"
+                                        class="btn-close btn-close-white me-2 m-auto"
+                                        onclick="$(this).closest('.toast').remove()">
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+            $("body").append(toast);
+
+            setTimeout(function () {
+                $(".toast").fadeOut(500, function () {
+                    $(this).remove();
+                });
+            }, 3000);
+        }
+    </script>
+}

@@ -212,7 +212,7 @@ public sealed class MetadataApiController : ControllerBase
         {
             return Ok(new
             {
-                Sucess = true,
+                Success = true,
                 Message = "Successful",
                 Data = Constants.systemFields
             });
@@ -263,7 +263,7 @@ public sealed class MetadataApiController : ControllerBase
 
             return Ok(new
             {
-                Sucess = false,
+                Success = false,
                 Message = "Error: " + ex.Message,
             });
         }

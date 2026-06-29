@@ -1,0 +1,297 @@
+﻿@model List<PBS.ERP.Shared.Models.SurveyModel.ExportView>
+
+@{
+    ViewData["Title"] = "Export";
+    Layout = "_Staff";
+    ViewBag.Menu = "Export";
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    .survey-card {
+        border: none;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+        .survey-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+    .badge-active {
+        background-color: #28a745;
+    }
+
+    .badge-inactive {
+        background-color: #dc3545;
+    }
+
+    .meta {
+        font-size: 13px;
+        color: #6c757d;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    table.dataTable {
+        width: 100% !important;
+    }
+</style>
+
+<div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="fa fa-chart-bar"></i> Export Utilties</h3>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width:150px;">Action</th>
+                        <th>Heading</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        int count = 1;
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                <div class="d-flex gap-2">
+
+                                    <button 
+                                       class="btn btn-danger btn-sm export-btn"
+                                       data-heading="@item.Heading"
+                                       data-table="@item.TableReference"
+                                       data-filter="@item.Filter">
+                                        <i class="bi bi-file-earmark-pdf"></i> Load Data
+                                    </button>
+                                </div>
+                            </td>
+                            <td>@item.Heading</td>
+
+                        </tr>
+
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="status-body">
+            <h5 class="text-danger fw-bold">No Export Utility Available</h5>
+
+            <p class="text-muted mt-2">
+                Your currently do not have any Facility Available.
+            </p>
+
+            <div class="alert alert-warning mt-3" role="alert">
+                Please contact <strong>ERP Manager</strong> or <strong>Administrator</strong>.
+            </div>
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped display nowrap" id="grid" style="width:100%">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    </div>
+</div>
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+        $(document).ready(function () {
+            let metadata = [];
+            $(document).on('click', '.export-btn', function () {
+
+                const table = $(this).data('table');
+                const filter = $(this).data('filter');
+                const heading = $(this).data('heading');
+
+                metadata = [];
+                loadMetadata(table, filter, heading);
+
+            });
+
+            function loadMetadata(table,filter, heading) {
+                $.ajax({
+                    url: '/Api/Metadata/Get',
+                    type: 'GET',
+                    data: { table: table },
+                    success: function (response) {
+                        if (response.error) {
+                            alert(response.message || 'Failed to load metadata.');
+                            return;
+                        }
+
+                        metadata = response.data;
+                        loadGrid(table, filter, heading);
+                    },
+                    error: function () {
+                        alert('Server error while loading metadata.');
+                    }
+                });
+            }
+            function loadGrid(table, filter, heading) {
+
+                $.get('/Crud/List', { table, filter }, function (rows) {
+
+                    const $grid = $('#grid');
+
+                    // Destroy existing DataTable safely
+                    if ($.fn.DataTable.isDataTable($grid)) {
+                        $grid.DataTable().destroy();
+                    }
+
+                    $grid.empty(); // IMPORTANT: remove old THEAD/TBODY completely
+
+                    if (!rows || rows.length === 0) {
+                        $grid.html('<thead><tr><th>No data</th></tr></thead>');
+                        return;
+                    }
+
+                    const convertedRows = rows;
+
+                    // ==============================
+                    // METADATA
+                    // ==============================
+                    const listCols = metadata;
+                    const allCols = metadata;
+
+                    const dtColumns = [
+
+                        ...listCols.map(f => ({
+                            data: f.ColumnName,
+                            title: f.DisplayName ?? f.ColumnName,
+
+                            render: function (val) {
+
+                                if (val == null) return '';
+
+                                if (typeof val === 'string' && val.startsWith('/Date(')) {
+                                    val = formatDotNetDate(val);
+                                }
+                                else if (typeof val === 'object') {
+                                    val = JSON.stringify(val);
+                                }
+
+                                return val;
+                            }
+                        })),
+
+                    ];
+
+                    $grid.DataTable({
+                        scrollX: true,      // ✅ IMPORTANT
+                        autoWidth: false,   // ✅ IMPORTANT
+                        data: convertedRows,
+
+                        columns: dtColumns,
+
+                        dom: 'Blfrtip',
+
+                        buttons: [
+                            {
+                                extend: 'excelHtml5',
+                                title: heading,
+                                exportOptions: {
+                                    // export only real data columns (exclude Actions)
+                                    columns: ':not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'csvHtml5',
+                                title: heading,
+                                exportOptions: {
+                                    columns: ':not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                title: heading,
+                                exportOptions: {
+                                    columns: ':not(:last-child)'
+                                }
+                            },
+                            {
+                                text: 'JSON',
+                                action: function (e, dt) {
+
+                                    const data = dt.rows({ search: 'applied' }).data().toArray();
+
+                                    const cleaned = data.map(r => {
+                                        let obj = {};
+
+                                        allCols.forEach(f => {
+                                            let val = r[f.ColumnName] ?? '';
+
+                                            if (typeof val === 'string' && val.startsWith('/Date(')) {
+                                                val = formatDotNetDate(val);
+                                            }
+                                            else if (typeof val === 'object' && val !== null) {
+                                                val = JSON.stringify(val);
+                                            }
+
+                                            obj[f.ColumnName] = val;
+                                        });
+
+                                        return obj;
+                                    });
+
+                                    const blob = new Blob(
+                                        [JSON.stringify(cleaned, null, 2)],
+                                        { type: "application/json" }
+                                    );
+
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = table + '_data.json';
+                                    a.click();
+                                    URL.revokeObjectURL(url);
+                                }
+                            }
+                        ],
+
+                        order: [[0, "asc"]],
+                        pageLength: 100,
+                        lengthMenu: [20, 50, 100, 500]
+                    });
+
+                });
+            }
+        });
+</script>
+    
+}

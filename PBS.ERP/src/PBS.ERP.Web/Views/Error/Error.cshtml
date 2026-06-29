@@ -1,16 +1,141 @@
-﻿@{
-    ViewData["Title"] = "Error";
-    var statusCode = ViewBag.StatusCode;
+﻿@model PBS.ERP.Web.Models.ErrorPageViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    string iconClass = Model.StatusCode switch
+    {
+        401 => "bi bi-person-lock",
+        403 => "bi bi-shield-lock",
+        404 => "bi bi-search",
+        500 => "bi bi-exclamation-triangle",
+        503 => "bi bi-cloud-slash",
+        _ => "bi bi-info-circle"
+    };
+
+    string badgeClass = Model.StatusCode switch
+    {
+        401 => "bg-warning text-dark",
+        403 => "bg-danger",
+        404 => "bg-secondary",
+        500 => "bg-danger",
+        503 => "bg-warning text-dark",
+        _ => "bg-dark"
+    };
+
+    string accentClass = Model.StatusCode switch
+    {
+        401 => "border-warning",
+        403 => "border-danger",
+        404 => "border-secondary",
+        500 => "border-danger",
+        503 => "border-warning",
+        _ => "border-success"
+    };
 }
 
-<div class="text-center mt-5">
-    <h1>Error @statusCode</h1>
+<div class="container">
 
-    <p>
-        Something went wrong while processing your request.
-    </p>
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
 
-    <a asp-controller="Account" asp-action="Login" class="btn btn-primary">
-        Go to Login
-    </a>
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+
+                <div class="card-body">
+
+                    <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4">
+
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-light border @accentClass"
+                             style="width:96px; height:96px; min-width:96px;">
+                            <i class="@iconClass text-success" style="font-size:3rem;"></i>
+                        </div>
+
+                        <div class="text-center text-md-start flex-grow-1">
+
+                            <span class="badge @badgeClass px-3 py-2 mb-3">
+                                Error @Model.StatusCode
+                            </span>
+
+                            <h2 class="fw-bold text-dark mb-3">
+                                @Model.Title
+                            </h2>
+
+                            <p class="fs-5 text-muted mb-2">
+                                @Model.Message
+                            </p>
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Description))
+                            {
+                                <p class="text-muted mb-0">
+                                    @Model.Description
+                                </p>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.OriginalPath) || Model.ShowRequestId)
+                    {
+                        <div class="mt-4 pt-4 border-top">
+
+                            <h6 class="fw-bold text-muted mb-3">
+                                Technical Details
+                            </h6>
+
+                            @if (!string.IsNullOrWhiteSpace(Model.OriginalPath))
+                            {
+                                <div class="bg-light border rounded-3 p-3 mb-3">
+                                    <div class="small text-muted fw-semibold mb-1">
+                                        Requested Path
+                                    </div>
+                                    <div class="text-break small">
+                                        @Model.OriginalPath
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>
+                    }
+
+                    <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-2 mt-4">
+
+                        <button type="button"
+                                class="btn btn-success px-4"
+                                onclick="goToUserHome()">
+                            <i class="bi bi-house-door me-1"></i>
+                            Go to Home
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-outline-secondary px-4"
+                                onclick="history.back()">
+                            <i class="bi bi-arrow-left me-1"></i>
+                            Go Back
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-outline-dark px-4"
+                                onclick="location.reload()">
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                            Retry
+                        </button>
+
+                        <a href="/Account/Login"
+                           class="btn btn-outline-success px-4">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>
+                            Login
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
 </div>
+

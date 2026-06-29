@@ -220,6 +220,26 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Antiforgery/2.3.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "2.3.9",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.3.9",
+          "Microsoft.AspNetCore.Http.Extensions": "2.3.9",
+          "Microsoft.AspNetCore.WebUtilities": "2.3.9",
+          "Microsoft.Extensions.ObjectPool": "8.0.11"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Antiforgery.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Antiforgery.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication/2.3.9": {
         "type": "package",
         "dependencies": {
@@ -376,7 +396,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.DataProtection/2.3.0": {
+      "Microsoft.AspNetCore.DataProtection/2.3.9": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Cryptography.Internal": "2.3.0",
@@ -409,6 +429,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Diagnostics.Abstractions/2.3.10": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Diagnostics.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Diagnostics.Abstractions.dll": {
             "related": ".xml"
           }
         }
@@ -463,6 +496,22 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Html.Abstractions/2.3.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll": {
             "related": ".xml"
           }
         }
@@ -575,6 +624,23 @@
           }
         }
       },
+      "Microsoft.AspNetCore.JsonPatch/2.3.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Abstractions/2.3.10": {
         "type": "package",
         "dependencies": {
@@ -621,6 +687,41 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Mvc.DataAnnotations/2.3.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.3.9",
+          "Microsoft.Extensions.Localization": "8.0.11",
+          "System.ComponentModel.Annotations": "5.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.DataAnnotations.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.DataAnnotations.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.Formatters.Json/2.3.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.JsonPatch": "2.3.9",
+          "Microsoft.AspNetCore.Mvc.Core": "2.3.9"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -656,6 +757,30 @@
         ],
         "build": {
           "buildTransitive/net7.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets": {}
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.ViewFeatures/2.3.11": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Antiforgery": "2.3.10",
+          "Microsoft.AspNetCore.Diagnostics.Abstractions": "2.3.10",
+          "Microsoft.AspNetCore.Html.Abstractions": "2.3.10",
+          "Microsoft.AspNetCore.Mvc.Core": "2.3.10",
+          "Microsoft.AspNetCore.Mvc.DataAnnotations": "2.3.10",
+          "Microsoft.AspNetCore.Mvc.Formatters.Json": "2.3.10",
+          "Microsoft.Extensions.WebEncoders": "8.0.11",
+          "Newtonsoft.Json": "13.0.1",
+          "Newtonsoft.Json.Bson": "1.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.ViewFeatures.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.ViewFeatures.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Razor.Language/6.0.0": {
@@ -1390,6 +1515,38 @@
           }
         }
       },
+      "Microsoft.Extensions.Localization/8.0.11": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Localization.Abstractions": "8.0.11",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
+          "Microsoft.Extensions.Options": "8.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Localization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Localization.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Localization.Abstractions/8.0.11": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Extensions.Logging/7.0.0": {
         "type": "package",
         "dependencies": {
@@ -1764,6 +1921,35 @@
         },
         "runtime": {
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Newtonsoft.Json.Bson/1.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "RBush.Signed/4.0.0": {
@@ -2526,6 +2712,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.3.11",
+          "PBS.ERP.Infrastructure": "1.0.0",
           "PBS.ERP.Shared": "1.0.0"
         },
         "compile": {
@@ -2556,6 +2744,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "PBS.ERP.Infrastructure": "1.0.0",
           "PBS.ERP.Shared": "1.0.0"
         },
         "compile": {
@@ -2572,6 +2761,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "PBS.ERP.Infrastructure": "1.0.0",
           "PBS.ERP.Shared": "1.0.0"
         },
         "compile": {
@@ -2911,6 +3101,19 @@
         "logo.png"
       ]
     },
+    "Microsoft.AspNetCore.Antiforgery/2.3.10": {
+      "sha512": "NLXAVGL73WOaf4apppg3DjgWYNJ3ZHskB3ulSKZIg6lTzP21vBk1JJsQmrO3Hgi+MGIR7wuNOo2183DbSbwL+w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.antiforgery/2.3.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Antiforgery.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Antiforgery.xml",
+        "microsoft.aspnetcore.antiforgery.2.3.10.nupkg.sha512",
+        "microsoft.aspnetcore.antiforgery.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.Authentication/2.3.9": {
       "sha512": "CcvW4qPOhEP6HbU5DQSQsXpb9rE5IvecxXvBg9TD106IgYUuzRSe0obFdvErUpLPn2ooXhryXBKNpYYYLeCijg==",
       "type": "package",
@@ -3042,16 +3245,16 @@
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.DataProtection/2.3.0": {
-      "sha512": "C+FhGaA8ekrfes0Ujhtkhk74Bpkt6Zt+NrMaGrCWBqW1LFzqw/pXDbMbpcAyI9hbYgZfC6+t01As4LGXbdxG4A==",
+    "Microsoft.AspNetCore.DataProtection/2.3.9": {
+      "sha512": "38A+sWmUo/0UF5bGjkTN+/Y0AVyDxKYCkNanuQkcJoKhGG+GMzdiBClYa04GePvHLWSOBXbvVcpvULIEDnc1uA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.dataprotection/2.3.0",
+      "path": "microsoft.aspnetcore.dataprotection/2.3.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.xml",
-        "microsoft.aspnetcore.dataprotection.2.3.0.nupkg.sha512",
+        "microsoft.aspnetcore.dataprotection.2.3.9.nupkg.sha512",
         "microsoft.aspnetcore.dataprotection.nuspec"
       ]
     },
@@ -3066,6 +3269,19 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.Abstractions.xml",
         "microsoft.aspnetcore.dataprotection.abstractions.2.3.0.nupkg.sha512",
         "microsoft.aspnetcore.dataprotection.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Diagnostics.Abstractions/2.3.10": {
+      "sha512": "5FnmUYlUzaqmYW9pxYADMUoPy0zKHoWJsF6mZbhFxnF4FFGb6apQPwuKGO8Z95p0v8Nz45KsyivAsj5n7GAa1g==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.diagnostics.abstractions/2.3.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Diagnostics.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Diagnostics.Abstractions.xml",
+        "microsoft.aspnetcore.diagnostics.abstractions.2.3.10.nupkg.sha512",
+        "microsoft.aspnetcore.diagnostics.abstractions.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore/7.0.20": {
@@ -3107,6 +3323,19 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Hosting.Server.Abstractions.xml",
         "microsoft.aspnetcore.hosting.server.abstractions.2.3.9.nupkg.sha512",
         "microsoft.aspnetcore.hosting.server.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Html.Abstractions/2.3.10": {
+      "sha512": "dPxi9xGnvrUEsx6ccQpOb7T8FtKHvsG1Q3Hmw7JBgBmG65i50p1bqyLjcs5qYda3sQYAX8LYoAFnPhjHOUe8LA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.html.abstractions/2.3.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Html.Abstractions.xml",
+        "microsoft.aspnetcore.html.abstractions.2.3.10.nupkg.sha512",
+        "microsoft.aspnetcore.html.abstractions.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Http/2.3.10": {
@@ -3189,6 +3418,19 @@
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
+    "Microsoft.AspNetCore.JsonPatch/2.3.9": {
+      "sha512": "RGK7V/pKcIt7pdUIpPUy8pgEfe4w1RWEPjKDpCX2DLAS0M/H8CFnKb5YV7KrU/xnYmRsdVD2W5xCdIhIP7nPgQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.jsonpatch/2.3.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.xml",
+        "microsoft.aspnetcore.jsonpatch.2.3.9.nupkg.sha512",
+        "microsoft.aspnetcore.jsonpatch.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.Mvc.Abstractions/2.3.10": {
       "sha512": "JO4u/FnLdV9rr3zQlsqXHcFU2EtLyr226GUGszwpEXLv7vQRIk08LFpZFl7b3dfrJQIYn9NGxUZVf0Ml1ywUSQ==",
       "type": "package",
@@ -3213,6 +3455,32 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Core.xml",
         "microsoft.aspnetcore.mvc.core.2.3.11.nupkg.sha512",
         "microsoft.aspnetcore.mvc.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.DataAnnotations/2.3.10": {
+      "sha512": "+kLxZgAoYnGca7Y91e0AtM1QVSy9SyuzNPGov++5BBikv4EGEMn0OTJCfF6MRQtXsCXwFdp0v5IDzW85jhjLRg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.dataannotations/2.3.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.DataAnnotations.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.DataAnnotations.xml",
+        "microsoft.aspnetcore.mvc.dataannotations.2.3.10.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.dataannotations.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Formatters.Json/2.3.10": {
+      "sha512": "4xwmMNb2C5TB46AXhoFZK8bygcoKHom2c1wH2zJl7SMq8d2kNTWfgVuApBSs32tz5kq1c2RkuPcNAipKYcbKTw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.formatters.json/2.3.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.xml",
+        "microsoft.aspnetcore.mvc.formatters.json.2.3.10.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.formatters.json.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
@@ -3244,6 +3512,19 @@
         "lib/net7.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.xml",
         "microsoft.aspnetcore.mvc.razor.runtimecompilation.7.0.20.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razor.runtimecompilation.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.ViewFeatures/2.3.11": {
+      "sha512": "U8NnByEiK9UK74nCFr7PxJ9bgcPEv9I0JwKo41Tdgzr6IIIYZceU2Vk3N0UklaUNNTbe9TCaiq1mTI0DWoWHsg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.viewfeatures/2.3.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.ViewFeatures.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.ViewFeatures.xml",
+        "microsoft.aspnetcore.mvc.viewfeatures.2.3.11.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.viewfeatures.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.0": {
@@ -4469,6 +4750,44 @@
         "microsoft.extensions.identity.stores.nuspec"
       ]
     },
+    "Microsoft.Extensions.Localization/8.0.11": {
+      "sha512": "yTb325+mCuoUBBMEztLv48kK/I/99TfVPh4V5kW8Qw+45mqAJs9bndOYxvjJvJxKVuwgzOYiWC/a34fr4pJ8IA==",
+      "type": "package",
+      "path": "microsoft.extensions.localization/8.0.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.Extensions.Localization.dll",
+        "lib/net462/Microsoft.Extensions.Localization.xml",
+        "lib/net8.0/Microsoft.Extensions.Localization.dll",
+        "lib/net8.0/Microsoft.Extensions.Localization.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.xml",
+        "microsoft.extensions.localization.8.0.11.nupkg.sha512",
+        "microsoft.extensions.localization.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Localization.Abstractions/8.0.11": {
+      "sha512": "qyfVEOJ8PsYrwC6kTQFSTm4+FrpOAz3OfPXvRPfs7j34V+yHMuVUgIiP5yjrYHcpNbXTtCzoQc/ZdcbpdeX/Xg==",
+      "type": "package",
+      "path": "microsoft.extensions.localization.abstractions/8.0.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.Extensions.Localization.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.Localization.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.Localization.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.Localization.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.xml",
+        "microsoft.extensions.localization.abstractions.8.0.11.nupkg.sha512",
+        "microsoft.extensions.localization.abstractions.nuspec"
+      ]
+    },
     "Microsoft.Extensions.Logging/7.0.0": {
       "sha512": "Nw2muoNrOG5U5qa2ZekXwudUn2BJcD41e65zwmDHb1fQegTX66UokLWZkJRpqSSHXDOWZ5V0iqhbxOEky91atA==",
       "type": "package",
@@ -5049,6 +5368,54 @@
         "lib/netstandard2.0/Mono.TextTemplating.dll",
         "mono.texttemplating.2.2.1.nupkg.sha512",
         "mono.texttemplating.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "Newtonsoft.Json.Bson/1.0.2": {
+      "sha512": "QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
+      "type": "package",
+      "path": "newtonsoft.json.bson/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net45/Newtonsoft.Json.Bson.dll",
+        "lib/net45/Newtonsoft.Json.Bson.pdb",
+        "lib/net45/Newtonsoft.Json.Bson.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.pdb",
+        "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.pdb",
+        "lib/netstandard2.0/Newtonsoft.Json.Bson.xml",
+        "newtonsoft.json.bson.1.0.2.nupkg.sha512",
+        "newtonsoft.json.bson.nuspec"
       ]
     },
     "RBush.Signed/4.0.0": {
@@ -6537,11 +6904,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
       "projectName": "PBS.ERP.Web",
-      "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+      "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
       "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
+      "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6559,47 +6926,47 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\PBS.ERP\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
             }
           }
         }

@@ -11,10 +11,10 @@ using System.Text;
 using PBS.ERP.Infrastructure;
 using PBS.ERP.Infrastructure.Services;
 using PBS.ERP.Shared.Identity;
-using PBS.ERP.Modules.Core.Services;
 using Microsoft.Extensions.FileProviders;
 using PBS.ERP.Infrastructure.Interfaces;
 using PBS.ERP.Modules.Survey.Services;
+using PBS.ERP.Modules.Security.Models;
 
 namespace PBS.ERP
 {
@@ -195,35 +195,35 @@ namespace PBS.ERP
             builder.Services
                 .AddAuthentication()
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-    {
-        var jwt = builder.Configuration.GetSection("Jwt");
+            {
+                var jwt = builder.Configuration.GetSection("Jwt");
 
-        var key = jwt["Key"]
-            ?? throw new InvalidOperationException("Jwt:Key is missing.");
+                var key = jwt["Key"]
+                    ?? throw new InvalidOperationException("Jwt:Key is missing.");
 
-        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
-        options.SaveToken = false;
+                options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+                options.SaveToken = false;
 
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = jwt["Issuer"],
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwt["Issuer"],
 
-            ValidateAudience = true,
-            ValidAudience = jwt["Audience"],
+                    ValidateAudience = true,
+                    ValidAudience = jwt["Audience"],
 
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(key)),
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(key)),
 
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.FromMinutes(1),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(1),
 
-            NameClaimType = ClaimTypes.Name,
-            RoleClaimType = ClaimTypes.Role
-        };
-    });
-            // =====================================================
+                    NameClaimType = ClaimTypes.Name,
+                    RoleClaimType = ClaimTypes.Role
+                };
+            });
+                    // =====================================================
             // AUTHORIZATION POLICIES
             // =====================================================
 
@@ -253,6 +253,8 @@ namespace PBS.ERP
                     policy.RequireRole("Manager");
                 });
             });
+
+            builder.Services.AddSecurityModule(builder.Configuration);
 
             // =====================================================
             // SWAGGER
@@ -317,7 +319,6 @@ namespace PBS.ERP
             builder.Services.AddScoped<ISuperInterface, TableService>();
             builder.Services.AddScoped<IDbInterface, DbService>();
             builder.Services.AddScoped<IConnectionService, ConnectionService>();
-            builder.Services.AddScoped<IDatabaseService, DatabaseService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IDbConnection>(sp =>
             {
@@ -332,6 +333,26 @@ namespace PBS.ERP
             // builder.Services.Configure<BackupSettings>(
             //     builder.Configuration.GetSection("BackupSettings"));
             // builder.Services.AddScoped<DatabaseBackupService>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalDevelopment", policy =>
+                {
+                    policy
+                        .SetIsOriginAllowed(origin =>
+                        {
+                            if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+                                return false;
+
+                            return
+                                (uri.Scheme == "https" || uri.Scheme == "http") &&
+                                (uri.Host == "localhost" || uri.Host == "127.0.0.1");
+                        })
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
 
             var app = builder.Build();
 
@@ -354,21 +375,22 @@ namespace PBS.ERP
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
 
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("AllowLocalDevelopment");
             app.UseAuthentication();
             app.UseAuthorization();
 

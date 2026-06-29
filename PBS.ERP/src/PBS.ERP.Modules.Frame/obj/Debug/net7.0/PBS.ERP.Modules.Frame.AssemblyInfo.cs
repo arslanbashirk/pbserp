@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Modules.Frame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc361eb662139e43458187a56d2ecffff02ad33b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Modules.Frame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Modules.Frame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

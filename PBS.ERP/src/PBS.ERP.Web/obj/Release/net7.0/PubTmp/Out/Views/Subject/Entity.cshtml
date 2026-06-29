@@ -1,0 +1,383 @@
+﻿@model List<PBS.ERP.Shared.Models.Entity>
+
+@{
+    ViewBag.Title = "Entity Dashboard";
+
+    var totalEntities = Model.Count();
+    var surveyTables = Model.Count(x => x.Type == "SUR");
+    var lookupTables = Model.Count(x => x.Type == "SLT");
+    var otherTables = totalEntities - surveyTables - lookupTables;
+}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<!-- DataTables -->
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+<style>
+
+    body {
+        background: #f4f6f9;
+    }
+
+    .dashboard-card {
+        border: none;
+        border-radius: 14px;
+        overflow: hidden;
+        transition: .3s;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .dashboard-icon {
+        font-size: 2rem;
+        opacity: .85;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        background: #fff;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .badge {
+        font-size: .8rem;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+
+    .dataTables_wrapper .dt-buttons {
+        margin-bottom: 15px;
+    }
+
+    table.dataTable tbody tr:hover {
+        background-color: #f8f9fa !important;
+    }
+
+    .btn {
+        border-radius: 8px;
+    }
+
+    .stats-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+</style>
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4 p-4 bg-white rounded shadow-sm border">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-bar-chart-line-fill text-primary me-2"></i>
+                @ViewBag.SurveyName
+                <span class="text-muted fw-normal">
+                    @ViewBag.ExecutionYear
+                </span>
+            </h2>
+
+            <p class="text-muted mb-0">
+                Manage survey tables, entities, lookup tables, forms, and data structures.
+            </p>
+
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+
+            <a asp-controller="Survey"
+               asp-action="Questionnaire"
+               asp-route-id="@ViewBag.Survey"
+               class="btn btn-outline-secondary bg-dark text-white">
+
+                <i class="bi bi-database me-1"></i>
+                Questionnaire
+
+            </a>
+            <a asp-controller="Subject"
+               asp-action="All"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-arrow-left me-1"></i>
+                Back to Survey
+
+            </a>
+
+        </div>
+
+    </div>
+    <!-- DASHBOARD -->
+    <div class="row mb-4">
+
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card shadow-sm bg-primary text-white">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>Total Entities</div>
+                        <h2 class="stats-number">@totalEntities</h2>
+                    </div>
+                    <i class="bi bi-database dashboard-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card shadow-sm bg-success text-white">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>Survey Tables</div>
+                        <h2 class="stats-number">@surveyTables</h2>
+                    </div>
+                    <i class="bi bi-ui-checks-grid dashboard-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card shadow-sm bg-info text-white">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>Lookup Tables</div>
+                        <h2 class="stats-number">@lookupTables</h2>
+                    </div>
+                    <i class="bi bi-list-ul dashboard-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card dashboard-card shadow-sm bg-dark text-white">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>Other Tables</div>
+                        <h2 class="stats-number">@otherTables</h2>
+                    </div>
+                    <i class="bi bi-grid dashboard-icon"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CREATE TABLE CARD -->
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success shadow-sm">
+            @ViewBag.Message
+        </div>
+    }
+
+    <!-- TABLE LIST -->
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <h4 class="mb-0">
+                <i class="bi bi-table"></i>
+                Entity Registry
+            </h4>
+
+            <span class="badge bg-primary fs-6">
+                @totalEntities Records
+            </span>
+
+        </div>
+
+        <div class="card-body">
+
+            <table id="tablesList"
+                   class="table table-striped table-hover">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Added By</th>
+                        <th>Modified By</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var table in Model)
+                    {
+                        <tr>
+
+                            <td>
+
+                                @if (table.Type == "SUR")
+                                {
+                                    <span class="badge bg-success">
+                                        Survey
+                                    </span>
+                                }
+                                else if (table.Type == "SLT")
+                                {
+                                    <span class="badge bg-info text-dark">
+                                        Lookup
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        @table.Type
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>
+                                <strong>@table.Name</strong>
+                            </td>
+
+                            <td>
+                                @table.Description
+                            </td>
+
+                            <td>
+                                @table.CreatedBy
+                            </td>
+
+                            <td>
+                                @table.ModifiedBy
+                            </td>
+
+                            <td>
+
+                                <a href="@Url.Action("table", "subject", new { table = table.UID })"
+                                   class="btn btn-success btn-sm">
+                                    <i class="bi bi-database"></i>
+                                    Data
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#tablesList').DataTable({
+
+                dom: 'Bfrtip',
+
+                pageLength: 20,
+
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+
+                order: [[1, 'asc']],
+
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        className: 'btn btn-secondary'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        className: 'btn btn-success'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        className: 'btn btn-info'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        className: 'btn btn-danger'
+                    }
+                ]
+            });
+
+            $("#tablesList").on("click", ".droptable", function () {
+
+                var table = $(this).data("id");
+
+                if (!confirm("Are you sure you want to drop this table?"))
+                    return;
+
+                $.ajax({
+                    url: '/api/super/table/drop',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify({ Table: table }),
+
+                    success: function (response) {
+
+                        if (!response.Success) {
+                            alert(response.Message || "Failed.");
+                            return;
+                        }
+
+                        alert(response.Message);
+                        location.reload();
+                    },
+
+                    error: function (xhr) {
+
+                        let msg = "Server error";
+
+                        try {
+                            const resp = JSON.parse(xhr.responseText);
+
+                            if (resp.message)
+                                msg = resp.message;
+                        }
+                        catch (e) {
+                            msg = xhr.responseText;
+                        }
+
+                        alert(msg);
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+}
+

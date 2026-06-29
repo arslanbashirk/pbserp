@@ -1,0 +1,108 @@
+﻿@using PBS.ERP.Shared.Identity
+@{
+    Layout = "_Staff";
+    ViewData["Title"] = "Staff Home";
+    ViewBag.Menu = "Index";
+    <style>
+        .breadcrumbparent{
+            display:none;
+        }
+    </style>
+}
+
+@model ApplicationUser
+
+<div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0 bg-success text-white">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h4 class="fw-bold mb-1">
+                            Welcome to ERP Solution Staff Home Page
+                        </h4>
+                        <p class="mb-0">
+                            Hello, <strong>@User.Identity.Name</strong>
+                        </p>
+                    </div>
+                    <div>
+                        <i class="bi bi-speedometer2" style="font-size:3rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Cards -->
+    <div class="row g-4">
+
+        <!-- Dashboard -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-grid-1x2-fill text-success fs-2"></i>
+                    <h6 class="mt-2">Dashboard</h6>
+                    <a href="@Url.Action("Dashboard", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Survey -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-clipboard-data-fill text-success fs-2"></i>
+                    <h6 class="mt-2">Survey</h6>
+                    <a href="@Url.Action("Survey", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Online Proforma -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-journal-text text-success fs-2"></i>
+                    <h6 class="mt-2">Online Proforma</h6>
+                    <a href="@Url.Action("Index", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-kanban-fill text-success fs-2"></i>
+                    <h6 class="mt-2">Tasks</h6>
+                    <a href="@Url.Action("Task", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-person-fill text-success fs-2"></i>
+                    <h6 class="mt-2">Profile</h6>
+                    <a href="@Url.Action("Profile", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="col-md-4 col-lg-4">
+            <div class="card text-center shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <i class="bi bi-gear-fill text-success fs-2"></i>
+                    <h6 class="mt-2">Settings</h6>
+                    <a href="@Url.Action("Index", "Staff")" class="btn btn-success btn-sm mt-2">Open</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

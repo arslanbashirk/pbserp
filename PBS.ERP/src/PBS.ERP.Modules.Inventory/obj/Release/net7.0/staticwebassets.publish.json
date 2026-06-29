@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IQmNN8Hr3KtuM/IqjMr/WxvGoSDzfWyMxZHTqOyZ/EM=",
+  "Source": "PBS.ERP.Modules.Inventory",
+  "BasePath": "_content/PBS.ERP.Modules.Inventory",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

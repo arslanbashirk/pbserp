@@ -1,0 +1,463 @@
+﻿@{
+    Layout = "_Layout";
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+}
+
+<input type="hidden" id="uid"  value="@ViewBag.UID" />
+<div class="metadata-viewer">
+
+    <div class="metadata-viewer-header">
+        <div>
+            <div class="metadata-viewer-title">
+                <i class="bi bi-table me-2"></i>
+                Table Metadata Viewer (@ViewBag.Table)
+            </div>
+            <div class="metadata-viewer-subtitle">
+                Professional view of table fields, sections, validation, database mapping and UI behavior
+            </div>
+        </div>
+
+        <div class="metadata-viewer-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="metadataSearch" placeholder="Search fields..." />
+        </div>
+    </div>
+
+    <div id="metadataSummary" class="metadata-summary-row"></div>
+
+    <div id="metadataViewerBody"></div>
+
+</div>
+
+<style>
+
+    .metadata-viewer {
+        background: #f8fafc;
+    }
+
+    .metadata-viewer-header {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        color: #fff;
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .15);
+    }
+
+    .metadata-viewer-title {
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .metadata-viewer-subtitle {
+        font-size: 13px;
+        opacity: .8;
+    }
+
+    .metadata-viewer-search {
+        min-width: 320px;
+        height: 40px;
+        background: #fff;
+        color: #64748b;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px;
+    }
+
+        .metadata-viewer-search input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+        }
+
+    .metadata-summary-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .metadata-stat-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 5px 16px rgba(15, 23, 42, .06);
+    }
+
+    .metadata-stat-value {
+        font-size: 22px;
+        font-weight: 900;
+        color: #1e293b;
+    }
+
+    .metadata-stat-label {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 700;
+    }
+
+    .metadata-section {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, .06);
+    }
+
+    .metadata-section-header {
+        padding: 14px 16px;
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .metadata-section-title {
+        font-size: 15px;
+        font-weight: 900;
+        color: #1e293b;
+    }
+
+    .metadata-section-count {
+        font-size: 12px;
+        font-weight: 800;
+        background: #dbeafe;
+        color: #1d4ed8;
+        border-radius: 999px;
+        padding: 5px 10px;
+    }
+
+    .metadata-field-grid {
+        padding: 14px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .metadata-field-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 14px;
+        background: #ffffff;
+    }
+
+    .metadata-field-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .metadata-field-label {
+        font-size: 15px;
+        font-weight: 900;
+        color: #111827;
+    }
+
+    .metadata-column-name {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 700;
+    }
+
+    .metadata-badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .metadata-badge {
+        font-size: 11px;
+        font-weight: 800;
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: #f1f5f9;
+        color: #334155;
+    }
+
+        .metadata-badge.required {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .metadata-badge.fk {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .metadata-badge.readonly {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .metadata-badge.list {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+    .metadata-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px 10px;
+        font-size: 12px;
+    }
+
+    .metadata-detail {
+        color: #64748b;
+    }
+
+        .metadata-detail b {
+            color: #334155;
+        }
+
+    .metadata-dropdown-box {
+        margin-top: 10px;
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12px;
+        color: #475569;
+    }
+
+    @@media (max-width: 992px) {
+        .metadata-summary-row,
+        .metadata-field-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .metadata-viewer-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .metadata-viewer-search {
+            min-width: 100%;
+        }
+    }
+
+</style>
+@section scripts{
+    <script src="~/js/save-data.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            loadMetadataViewer();
+        });
+        function loadMetadataViewer() {
+            let id = $("#uid").val();
+            showMetadataLoading();
+
+            window.PbsErp.call("metadata.get", {
+                table: id
+            }, {
+                success: function (res) {
+
+                    const fields = res.Data || [];
+
+                    renderMetadataViewer(fields);
+                },
+
+                error: function (err) {
+
+                    let message = err.Message || "Unable to load metadata.";
+
+                    if (err.Errors) {
+                        message += "<br/><pre class='mb-0'>" +
+                            JSON.stringify(err.Errors, null, 2) +
+                            "</pre>";
+                    }
+
+                    $("#metadataViewerBody").html(`
+                    <div class="alert alert-danger">
+                        ${message}
+                    </div>
+                `);
+
+                    console.error("Metadata load error:", err);
+                }
+            });
+        }
+
+        function showMetadataLoading() {
+            $("#metadataViewerBody").html(`
+                    <div class="app-loading-container">
+                        <div class="app-loading-spinner"></div>
+                        <div>
+                            <div class="app-loading-title">Loading metadata</div>
+                            <div class="app-loading-text">Preparing field structure viewer...</div>
+                        </div>
+                    </div>
+                `);
+        }
+
+        function renderMetadataViewer(fields) {
+
+            fields = fields
+                .filter(x => x.IsDeleted !== true)
+                .sort((a, b) =>
+                    (a.SectionNumber ?? 0) - (b.SectionNumber ?? 0) ||
+                    (a.SortOrder ?? 0) - (b.SortOrder ?? 0)
+                );
+
+            renderMetadataSummary(fields);
+
+            const grouped = {};
+
+            fields.forEach(f => {
+                const sectionKey = `${f.SectionNumber ?? 0} - ${f.SectionName || "General"}`;
+                if (!grouped[sectionKey]) grouped[sectionKey] = [];
+                grouped[sectionKey].push(f);
+            });
+
+            let html = "";
+
+            Object.entries(grouped).forEach(([section, items]) => {
+
+                html += `
+                        <div class="metadata-section">
+                            <div class="metadata-section-header">
+                                <div class="metadata-section-title">
+                                    <i class="bi bi-folder2-open me-2"></i>
+                                    ${escapeHtml(section)}
+                                </div>
+                                <div class="metadata-section-count">
+                                    ${items.length} Fields
+                                </div>
+                            </div>
+
+                            <div class="metadata-field-grid">
+                    `;
+
+                items.forEach(f => {
+                    html += renderMetadataFieldCard(f);
+                });
+
+                html += `
+                            </div>
+                        </div>
+                    `;
+            });
+
+            $("#metadataViewerBody").html(html);
+        }
+
+        function renderMetadataSummary(fields) {
+
+            const total = fields.length;
+            const required = fields.filter(x => x.IsRequired).length;
+            const list = fields.filter(x => x.ShowInList).length;
+            const fk = fields.filter(x => x.IsForeignKey).length;
+
+            $("#metadataSummary").html(`
+                    <div class="metadata-stat-card">
+                        <div class="metadata-stat-value">${total}</div>
+                        <div class="metadata-stat-label">Total Fields</div>
+                    </div>
+
+                    <div class="metadata-stat-card">
+                        <div class="metadata-stat-value">${required}</div>
+                        <div class="metadata-stat-label">Required Fields</div>
+                    </div>
+
+                    <div class="metadata-stat-card">
+                        <div class="metadata-stat-value">${list}</div>
+                        <div class="metadata-stat-label">List Columns</div>
+                    </div>
+
+                    <div class="metadata-stat-card">
+                        <div class="metadata-stat-value">${fk}</div>
+                        <div class="metadata-stat-label">Foreign Keys</div>
+                    </div>
+                `);
+        }
+
+        function renderMetadataFieldCard(f) {
+
+            return `
+                    <div class="metadata-field-card">
+                        <div class="metadata-field-top">
+                            <div>
+                                <div class="metadata-field-label">
+                                    ${escapeHtml(f.DisplayLabel || f.ColumnName)}
+                                </div>
+                                <div class="metadata-column-name">
+                                    ${escapeHtml(f.ColumnName)}
+                                </div>
+                            </div>
+
+                            <div class="metadata-badge">
+                                ${escapeHtml(f.InputType || "text")}
+                            </div>
+                        </div>
+
+                        <div class="metadata-badge-row">
+                            ${f.IsRequired ? `<span class="metadata-badge required">Required</span>` : ""}
+                            ${f.IsReadonly ? `<span class="metadata-badge readonly">Readonly</span>` : ""}
+                            ${f.IsForeignKey ? `<span class="metadata-badge fk">Foreign Key</span>` : ""}
+                            ${f.ShowInList ? `<span class="metadata-badge list">Show In List</span>` : ""}
+                            ${f.IsComputed ? `<span class="metadata-badge">Computed</span>` : ""}
+                        </div>
+
+                        <div class="metadata-detail-grid">
+                            <div class="metadata-detail"><b>SQL:</b> ${escapeHtml(f.SqlType)}</div>
+                            <div class="metadata-detail"><b>Max:</b> ${escapeHtml(f.MaxLength ?? "-")}</div>
+                            <div class="metadata-detail"><b>Section:</b> ${escapeHtml(f.SectionNumber ?? "-")}</div>
+                            <div class="metadata-detail"><b>Order:</b> ${escapeHtml(f.SortOrder ?? "-")}</div>
+                            <div class="metadata-detail"><b>Insert:</b> ${yesNo(f.AllowInsert)}</div>
+                            <div class="metadata-detail"><b>Update:</b> ${yesNo(f.AllowUpdate)}</div>
+                        </div>
+
+                        ${f.Tooltip ? `
+                            <div class="metadata-dropdown-box">
+                                <b>Tooltip:</b> ${escapeHtml(f.Tooltip)}
+                            </div>
+                        ` : ""}
+
+                        ${f.IsForeignKey ? `
+                            <div class="metadata-dropdown-box">
+                                <b>Dropdown Source:</b> ${escapeHtml(f.DropdownSourceTable || "-")}<br>
+                                <b>Value:</b> ${escapeHtml(f.DropdownValueColumn || "-")} |
+                                <b>Text:</b> ${escapeHtml(f.DropdownTextColumn || "-")}
+                            </div>
+                        ` : ""}
+                    </div>
+                `;
+        }
+
+        $(document).on("input", "#metadataSearch", function () {
+            const term = ($(this).val() || "").toLowerCase();
+
+            $(".metadata-field-card").each(function () {
+                const text = $(this).text().toLowerCase();
+                $(this).toggle(text.includes(term));
+            });
+        });
+
+        function yesNo(value) {
+            return value ? "Yes" : "No";
+        }
+
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return "";
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+    </script>
+}

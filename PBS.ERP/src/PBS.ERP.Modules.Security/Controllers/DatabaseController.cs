@@ -29,8 +29,8 @@ namespace PBS.ERP.Modules.Security.Controllers
 
                 return Json(new
                 {
-                    success = true,
-                    message = "Backup created successfully.",
+                    Success = true,
+                    Message = "Backup created successfully.",
                     fileName
                 });
             }
@@ -38,8 +38,8 @@ namespace PBS.ERP.Modules.Security.Controllers
             {
                 return Json(new
                 {
-                    success = false,
-                    message = ex.Message
+                    Success = false,
+                    Message = ex.Message
                 });
             }
         }

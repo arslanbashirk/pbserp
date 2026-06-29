@@ -1,8 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using PBS.ERP.Shared.Identity
-@* File: Views/Shared/_AdminLayout.cshtml *@
-
 @inject UserManager<ApplicationUser> UserManager
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
+    var loginUrl = Url.Action("Login", "Account") ?? "/Account/Login";
+    var logoutUrl = Url.Action("Logout", "Account") ?? "/Account/Logout";
+    var accessDeniedUrl = Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied";
+    var apiBaseUrl = Configuration["ApiSettings:BaseUrl"] ?? "";
+    var refreshUrl = "/api/auth/refresh";
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +33,6 @@
             min-height: 100vh;
         }
 
-        /* NAVBAR */
         .navbar-custom {
             background: linear-gradient(90deg,#198754,#157347);
         }
@@ -49,13 +55,11 @@
             margin-left: 5px;
         }
 
-        /* MAIN */
         .main-wrapper {
             flex: 1;
             display: flex;
         }
 
-        /* SIDEBAR */
         #sidebar-wrapper {
             width: 220px;
             min-width: 220px;
@@ -75,7 +79,6 @@
                     display: none;
                 }
 
-        /* MOBILE SIDEBAR */
         @@media (max-width: 768px) {
             #sidebar-wrapper {
                 position: fixed;
@@ -99,7 +102,6 @@
             }
         }
 
-        /* MENU */
         .list-group-item {
             background: transparent;
             color: #fff;
@@ -119,21 +121,18 @@
                 border-left: 4px solid #fff;
             }
 
-        /* CONTENT */
         #page-content-wrapper {
             flex: 1;
             padding: 1.5rem;
             background: #f8f9fa;
         }
 
-        /* BREADCRUMB */
         .breadcrumb {
             font-size: 0.85rem;
             overflow-x: auto;
             white-space: nowrap;
         }
 
-        /* FOOTER */
         .footer-custom {
             background: linear-gradient(90deg,#198754,#157347);
             color: #fff;
@@ -158,18 +157,15 @@
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
         <div class="container-fluid">
 
-            <!-- Toggle -->
             <button class="btn btn-light me-2" id="menu-toggle" aria-label="Toggle Menu">
                 <i class="bi bi-list"></i>
             </button>
 
             <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index","Staff")">
+            <a class="navbar-brand d-flex align-items-center" href="javascript:void(0)" onclick="goToUserHome()">
                 <img src="~/images/pbslogo.png" class="logo-img me-2" />
                 <div class="brand-text">
                     ERP Survey Solution
@@ -380,6 +376,28 @@
             loginUrl: '@(Url.Action("Login", "Account") ?? "/Account/Login")',
             accessDeniedUrl: '@(Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied")'
         };
+
+        window.PBS_ERP_API_BASE_URL = "@apiBaseUrl".replace(/\/$/, "");
+
+        window.apiUrl = function (path) {
+            const baseUrl = window.PBS_ERP_API_BASE_URL || "";
+            if (!path) {
+                return baseUrl;
+            }
+
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+            return baseUrl + path;
+        };
+
+        window.goToUserHome = function () {
+            const homeUrl =
+                localStorage.getItem("pbs_erp_redirect_url") ||
+                "/Home/Index";
+
+            window.location.href = homeUrl;
+        };
     </script>
 
     <script src="~/js/pbs-erp-auth.js" asp-append-version="true"></script>
@@ -405,7 +423,7 @@
             });
         }
     </script>
-
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,1045 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<input type="hidden" id="uid" value="@ViewBag.UID" />
+
+<div class="seq-page">
+
+    <div class="seq-hero">
+        <div class="seq-hero-left">
+            <div class="seq-hero-icon">
+                <i class="bi bi-diagram-3"></i>
+            </div>
+
+            <div>
+                <div class="seq-hero-title">
+                    Field Sequencing and Layout
+                </div>
+                <div class="seq-hero-subtitle">
+                    Table Name: @ViewBag.Table — arrange fields by section and display order, and control width
+                </div>
+            </div>
+        </div>
+
+        <div class="seq-hero-badge">
+            <i class="bi bi-arrows-move me-1"></i>
+            Drag & Drop Enabled
+        </div>
+    </div>
+
+
+    <div class="seq-toolbar">
+        <div class="seq-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="sequenceSearch" placeholder="Search field by label, column name or input type..." />
+        </div>
+
+        <div class="seq-hint">
+            <div class="seq-hint-line">
+                <i class="bi bi-arrows-move me-1"></i>
+                Drag fields to change their section or order.
+            </div>
+            <div class="seq-hint-line">
+                <i class="bi bi-layout-three-columns me-1"></i>
+                Use width buttons <strong>1–4</strong>: 1 = small, 2 = half, 3 = wide, 4 = full row.
+            </div>
+            <div class="seq-hint-line text-muted">
+                <i class="bi bi-info-circle me-1"></i>
+                Section 0 and Section 10 are system-defined. Use <strong>+</strong> to add a new section.
+            </div>
+        </div>
+    </div>
+
+    <div id="sequenceContainer" class="seq-board">
+        <div class="app-loading-container">
+            <div class="app-loading-spinner"></div>
+            <div>
+                <div class="app-loading-title">Loading fields</div>
+                <div class="app-loading-text">Preparing sequence designer...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="seq-save-panel">
+        <div class="seq-save-info">
+            <div class="seq-save-icon">
+                <i class="bi bi-check2-circle"></i>
+            </div>
+
+            <div>
+                <div class="seq-save-title">Apply field sequence</div>
+                <div class="seq-save-text">
+                    Updates only Section Number, Section Name and Sort Order. Table structure will not be changed.
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="seq-save-button" id="saveSequenceBtn">
+            <i class="bi bi-save2 me-1"></i>
+            Save Sequence
+        </button>
+    </div>
+
+    <div id="sequenceMessage" class="seq-message-area"></div>
+
+</div>
+
+<style>
+    .seq-page {
+        min-height: calc(100vh - 80px);
+        padding-bottom: 20px;
+    }
+
+    .seq-toolbar {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 12px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 5px 16px rgba(15, 23, 42, .05);
+    }
+
+    .seq-search {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+        height: 50px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        color: #64748b;
+    }
+
+        .seq-search input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 13px;
+        }
+
+    .seq-hint {
+        font-size: 13px;
+        color: black;
+        line-height: 1.45;
+    }
+
+    .seq-hint-line {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+    }
+
+    .seq-board {
+        background: rgba(255,255,255,.9);
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 18px;
+        min-height: 360px;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, .08);
+    }
+
+    .seq-hero {
+        background: linear-gradient(135deg, #198754, #48b073);
+        color: #ffffff;
+        border-radius: 20px;
+        padding: 20px 22px;
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 16px 38px rgba(15, 23, 42, .18);
+    }
+
+    .seq-hero-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .seq-hero-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: rgba(255,255,255,.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+    }
+
+    .seq-hero-title {
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    .seq-hero-subtitle {
+        font-size: 16px;
+        opacity: .82;
+        margin-top: 2px;
+    }
+
+    .seq-hero-badge {
+        background: rgba(255,255,255,.12);
+        border: 1px solid white;
+        border-radius: 20px;
+        padding: 8px 14px;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .seq-section-block {
+        margin-bottom: 18px;
+        border: 1px solid #cbd5e1;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, .08);
+    }
+
+    .seq-section-header {
+        background: linear-gradient(135deg, #198754, #48b073);
+        color: #ffffff;
+        border-bottom: 1px solid #198754;
+        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: grab;
+    }
+
+    .seq-section-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .seq-section-number-box {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: #ffffff;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 900;
+    }
+
+    .seq-section-number {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .seq-section-title {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .seq-section-meta {
+        color: #cbd5e1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    .seq-section-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .seq-add-section-below-btn,
+    .seq-collapse-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.1);
+        border: 1px solid rgba(255,255,255,.25);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .seq-add-section-below-btn i {
+            font-size: 20px;
+        }
+
+        .seq-add-section-below-btn:hover,
+        .seq-collapse-btn:hover {
+            background: rgba(255,255,255,.2);
+        }
+
+    .seq-section-name-input {
+        min-width: 260px;
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.25);
+        color: #ffffff;
+        border-radius: 15px;
+        padding: 7px 13px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+        .seq-section-name-input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .seq-section-name-input:focus {
+            outline: none;
+            background: rgba(255,255,255,.14);
+            border-color: rgba(255,255,255,.55);
+        }
+
+    .seq-section-block.seq-collapsed .seq-field-list {
+        display: none;
+    }
+
+    .seq-system-pill {
+        font-size: 10px;
+        font-weight: 900;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.16);
+        color: #ffffff;
+        text-transform: uppercase;
+    }
+
+    /* Main 3-column form preview area */
+    .seq-field-list {
+        padding: 12px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        background: #f8fafc;
+        min-height: 58px;
+        align-items: stretch;
+    }
+
+    /* Field card */
+    .seq-field-card {
+        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 9px 12px;
+        display: grid;
+        grid-template-columns: 26px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+        cursor: grab;
+        box-shadow: none;
+        transition: border-color .15s ease, background .15s ease, transform .15s ease;
+        min-width: 0;
+    }
+
+        .seq-field-card[data-width="1"] {
+            grid-column: span 1;
+        }
+
+        .seq-field-card[data-width="2"] {
+            grid-column: span 2;
+        }
+
+        .seq-field-card[data-width="3"] {
+            grid-column: span 3;
+        }
+        .seq-field-card[data-width="4"] {
+            grid-column: span 4;
+        }
+
+        .seq-field-card:hover {
+            border-color: #2563eb;
+            background: #f8fbff;
+            transform: translateY(-1px);
+        }
+
+    .seq-drag-handle {
+        color: #94a3b8;
+        font-size: 17px;
+    }
+
+    .seq-field-main {
+        min-width: 0;
+    }
+
+    .seq-display-label {
+        font-size: 13px;
+        font-weight: 800;
+        color: #111827;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .seq-column-name {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 700;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .seq-field-tags {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .seq-width-selector {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+    .seq-width-btn {
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        color: #334155;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 900;
+        padding: 3px 8px;
+        cursor: pointer;
+    }
+
+        .seq-width-btn.active {
+            background: #198754;
+            color: #ffffff;
+            border-color: #198754;
+        }
+
+    .seq-input-type-pill,
+    .seq-required-pill {
+        font-size: 10px;
+        font-weight: 900;
+        border-radius: 999px;
+        padding: 4px 8px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .seq-input-type-pill {
+        background: #f1f5f9;
+        color: #334155;
+        border: 1px solid #e2e8f0;
+    }
+
+    .seq-required-pill.mandatory {
+        background: #fff1f2;
+        color: #be123c;
+        border: 1px solid #fecdd3;
+    }
+
+    .seq-required-pill.optional {
+        background: #f0fdf4;
+        color: #15803d;
+        border: 1px solid #bbf7d0;
+    }
+
+    .sortable-ghost {
+        opacity: .35;
+        background: #dbeafe !important;
+    }
+
+    .sortable-chosen {
+        border-color: #2563eb !important;
+        box-shadow: 0 14px 28px rgba(37, 99, 235, .18) !important;
+    }
+
+    .app-loading-container {
+        background: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: #475569;
+    }
+
+    .app-loading-spinner {
+        width: 34px;
+        height: 34px;
+        border: 4px solid #e5e7eb;
+        border-top-color: #0d6efd;
+        border-radius: 50%;
+        animation: appLoadingSpin .8s linear infinite;
+    }
+
+    .app-loading-title {
+        font-size: 14px;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    .app-loading-text {
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    @@keyframes appLoadingSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .seq-save-panel {
+        margin-top: 18px;
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border: 1px solid #dbe3ef;
+        border-radius: 18px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 14px 32px rgba(15, 23, 42, .08);
+    }
+
+    .seq-save-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .seq-save-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: #dcfce7;
+        color: #15803d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .seq-save-title {
+        font-size: 15px;
+        font-weight: 900;
+        color: #0f172a;
+    }
+
+    .seq-save-text {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    .seq-save-button {
+        border: none;
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: #ffffff;
+        border-radius: 15px;
+        padding: 10px 18px;
+        font-size: 18px;
+        font-weight: 900;
+        box-shadow: 0 8px 18px rgba(22, 163, 74, .25);
+    }
+
+        .seq-save-button:hover {
+            background: linear-gradient(135deg, #15803d, #166534);
+        }
+
+    .seq-message-area {
+        margin-top: 10px;
+    }
+
+    @@media (max-width: 768px) {
+        .seq-hero,
+        .seq-save-panel {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+
+        .seq-hero-badge {
+            width: fit-content;
+        }
+
+        .seq-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .seq-section-header {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .seq-section-right {
+            width: 100%;
+        }
+
+        .seq-section-name-input {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .seq-field-list {
+            grid-template-columns: 1fr;
+        }
+
+        .seq-field-card,
+        .seq-field-card[data-width="1"],
+        .seq-field-card[data-width="2"],
+        .seq-field-card[data-width="3"],
+        .seq-field-card[data-width="4"] {
+            grid-column: span 1;
+        }
+
+        .seq-field-card {
+            grid-template-columns: 22px minmax(0, 1fr);
+        }
+
+        .seq-field-tags {
+            grid-column: 2;
+            justify-content: flex-start;
+        }
+    }
+
+    .seq-required-star {
+        color: #dc2626;
+        font-size: 16px;
+        font-weight: 900;
+        margin-left: 3px;
+    }
+</style>
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+
+    <script>
+        let sequenceFields = [];
+        let sectionCounter = 0;
+
+        $(document).ready(function () {
+            loadSequenceDesigner();
+        });
+
+        function loadSequenceDesigner() {
+            const id = $("#uid").val();
+
+            $.get(apiUrl("/api/metadata/get"), { table: id }, function (response) {
+                if(response.Success){
+                    sequenceFields = response.Data || [];
+                    renderSequenceDesigner(sequenceFields);
+                }
+                else{
+                    $("#sequenceContainer").html(`
+                        <div class="alert alert-danger">
+                            ${response.Message || "Unable to load metadata fields."}
+                        </div>
+                    `);
+                }
+            }).fail(function (xhr) {
+                $("#sequenceContainer").html(`
+                    <div class="alert alert-danger">
+                        ${xhr.responseText || "Unable to load metadata fields."}
+                    </div>
+                `);
+            });
+        }
+
+        function renderSequenceDesigner(fields) {
+            fields = (fields || [])
+                .filter(x => x.IsDeleted !== true)
+                .sort((a, b) =>
+                    (a.SectionNumber ?? 0) - (b.SectionNumber ?? 0) ||
+                    (a.SortOrder ?? 0) - (b.SortOrder ?? 0)
+                );
+
+            const grouped = {};
+
+            fields.forEach(f => {
+                const sectionNo = f.SectionNumber ?? 0;
+                const sectionName = f.SectionName || "General";
+                const key = `${sectionNo}||${sectionName}`;
+
+                if (!grouped[key]) {
+                    grouped[key] = {
+                        sectionNumber: sectionNo,
+                        sectionName: sectionName,
+                        fields: []
+                    };
+                }
+
+                grouped[key].fields.push(f);
+            });
+
+            let html = "";
+
+            Object.values(grouped)
+                .sort((a, b) => a.sectionNumber - b.sectionNumber)
+                .forEach(section => {
+                    html += renderSectionBlock(section);
+                });
+
+            $("#sequenceContainer").html(html);
+
+            initSortable();
+            recalculateSequencePreview();
+        }
+
+        function renderSectionBlock(section) {
+            sectionCounter++;
+
+            return buildSectionHtml({
+                sectionTemp: sectionCounter,
+                sectionNumber: section.sectionNumber,
+                sectionName: section.sectionName,
+                fields: section.fields || []
+            });
+        }
+
+        function buildSectionHtml(section) {
+
+            const sectionNumber = section.sectionNumber ?? 0;
+            const fields = section.fields || [];
+            const isSystem = sectionNumber === 0 || sectionNumber === 10;
+            const collapsedClass = isSystem ? "seq-collapsed seq-system-section" : "";
+
+            return `
+                    <div class="seq-section-block ${collapsedClass}"
+                         data-section-temp="${section.sectionTemp}"
+                         data-section-number="${sectionNumber}">
+
+                        <div class="seq-section-header">
+                            <div class="seq-section-left">
+                                <div class="seq-section-number-box">
+                                    <span class="seq-section-number">${sectionNumber}</span>
+                                </div>
+
+                                <div>
+                                    <div class="seq-section-title">
+                                        Section
+                                        ${isSystem ? `<span class="seq-system-pill">System</span>` : ""}
+                                    </div>
+                                    <div class="seq-section-meta">
+                                        <span class="seq-field-count">${fields.length}</span> fields arranged in this section
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="seq-section-right">
+                                ${sectionNumber !== 10 ? `
+                                    <button type="button" class="seq-add-section-below-btn">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                ` : ""}
+
+                                <input type="text"
+                                       class="seq-section-name-input"
+                                       value="${escapeHtml(section.sectionName || "New Section")}"
+                                       placeholder="Section name" />
+
+                                <button type="button" class="seq-collapse-btn">
+                                    <i class="bi ${isSystem ? "bi-chevron-down" : "bi-chevron-up"}"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="seq-field-list">
+                            ${fields.map(f => renderFieldItem(f)).join("")}
+                        </div>
+                    </div>
+                `;
+        }
+        $(document)
+            .off("click", ".seq-add-section-below-btn")
+            .on("click", ".seq-add-section-below-btn", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const normalSections = $("#sequenceContainer .seq-section-block").filter(function () {
+                    const sectionNo = Number($(this).attr("data-section-number"));
+                    return sectionNo > 0 && sectionNo < 10;
+                }).length;
+
+                if (normalSections >= 9) {
+                    showSequenceMessage("warning", "Only sections 1 to 9 are allowed. Section 0 and Section 10 are system-defined.");
+                    return;
+                }
+
+                sectionCounter++;
+
+                const html = buildSectionHtml({
+                    sectionTemp: sectionCounter,
+                    sectionNumber: 1,
+                    sectionName: "New Section",
+                    fields: []
+                });
+
+                const $currentSection = $(this).closest(".seq-section-block");
+                const $systemSection = $("#sequenceContainer .seq-section-block").filter(function () {
+                    return Number($(this).attr("data-section-number")) === 10;
+                }).first();
+
+                if ($currentSection.attr("data-section-number") == "10") {
+                    $systemSection.before(html);
+                } else {
+                    $currentSection.after(html);
+                }
+
+                const $newSection = $(`[data-section-temp='${sectionCounter}']`);
+
+                $newSection.removeClass("seq-collapsed seq-system-section");
+                $newSection.find(".seq-collapse-btn i")
+                    .removeClass("bi-chevron-down")
+                    .addClass("bi-chevron-up");
+
+                initSortable();
+                recalculateSequencePreview();
+            });
+        function renderFieldItem(f) {
+
+            const isRequired = f.IsRequired === true;
+
+            const width = Number(f.Width || 1);
+            const safeWidth = [1, 2, 3, 4].includes(width) ? width : 1;
+
+            return `
+                    <div class="seq-field-card"
+                         data-uid="${escapeHtml(f.UID)}"
+                         data-column="${escapeHtml(f.ColumnName)}"
+                         data-width="${safeWidth}">
+
+                        <div class="seq-drag-handle">
+                            <i class="bi bi-grip-vertical"></i>
+                        </div>
+
+                        <div class="seq-field-main">
+                            <div class="seq-display-label">
+                                ${escapeHtml(f.DisplayLabel || f.ColumnName)}
+                                ${isRequired ? `<span class="seq-required-star">*</span>` : ""}
+                            </div>
+
+                            <div class="seq-column-name">
+                                ${escapeHtml(f.ColumnName)}
+                                <span class="seq-column-input-type">
+                                    (${escapeHtml(f.InputType || "text")})
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="seq-field-tags">
+                            <div class="seq-width-selector width-${safeWidth}">
+                                <button type="button" class="seq-width-btn ${safeWidth === 1 ? "active" : ""}" data-width="1">1</button>
+                                <button type="button" class="seq-width-btn ${safeWidth === 2 ? "active" : ""}" data-width="2">2</button>
+                                <button type="button" class="seq-width-btn ${safeWidth === 3 ? "active" : ""}" data-width="3">3</button>
+                                <button type="button" class="seq-width-btn ${safeWidth === 4 ? "active" : ""}" data-width="4">4</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        $(document).on("click", ".seq-collapse-btn", function (e) {
+            e.stopPropagation();
+
+            const $section = $(this).closest(".seq-section-block");
+            $section.toggleClass("seq-collapsed");
+
+            const isCollapsed = $section.hasClass("seq-collapsed");
+
+            $(this).find("i")
+                .toggleClass("bi-chevron-up", !isCollapsed)
+                .toggleClass("bi-chevron-down", isCollapsed);
+        });
+
+        function initSortable() {
+
+            new Sortable(document.getElementById("sequenceContainer"), {
+                animation: 180,
+                handle: ".seq-section-header",
+                draggable: ".seq-section-block",
+                ghostClass: "sortable-ghost",
+                chosenClass: "sortable-chosen",
+                onEnd: recalculateSequencePreview
+            });
+
+            document.querySelectorAll(".seq-field-list").forEach(list => {
+                new Sortable(list, {
+                    group: "metadata-fields",
+                    animation: 180,
+                    draggable: ".seq-field-card",
+                    ghostClass: "sortable-ghost",
+                    chosenClass: "sortable-chosen",
+                    onEnd: recalculateSequencePreview
+                });
+            });
+        }
+
+
+        function recalculateSequencePreview() {
+            const $sections = $("#sequenceContainer .seq-section-block");
+            let normalSectionNo = 1;
+
+            $sections.each(function () {
+                const $section = $(this);
+                const originalSectionNo = Number($section.attr("data-section-number"));
+
+                const isSystemSection = originalSectionNo === 0 || originalSectionNo === 10;
+
+                let sectionNumber;
+
+                if (originalSectionNo === 0) {
+                    sectionNumber = 0;
+                }
+                else if (originalSectionNo === 10) {
+                    sectionNumber = 10;
+                }
+                else {
+                    sectionNumber = normalSectionNo++;
+                }
+
+                $section.attr("data-section-number", sectionNumber);
+                $section.find(".seq-section-number").text(sectionNumber);
+
+                const count = $section.find(".seq-field-card").length;
+                $section.find(".seq-field-count").text(count);
+            });
+        }
+
+        $(document).on("click", ".seq-width-btn", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const width = Number($(this).attr("data-width")) || 1;
+            const safeWidth = [1, 2, 3, 4].includes(width) ? width : 1;
+
+            const $card = $(this).closest(".seq-field-card");
+            const $selector = $(this).closest(".seq-width-selector");
+
+            $card.attr("data-width", safeWidth);
+
+            $selector
+                .removeClass("width-1 width-2 width-3,  width-4")
+                .addClass("width-" + safeWidth);
+
+            $selector.find(".seq-width-btn").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $("#saveSequenceBtn").on("click", function () {
+            const payload = [];
+            let normalSectionNo = 1;
+
+            $("#sequenceContainer .seq-section-block").each(function () {
+                const sectionName = $(this).find(".seq-section-name-input").val() || "";
+                const originalSectionNo = Number($(this).attr("data-section-number"));
+
+                let sectionNumber;
+
+                if (originalSectionNo === 0) {
+                    sectionNumber = 0;
+                }
+                else if (originalSectionNo === 10) {
+                    sectionNumber = 10;
+                }
+                else {
+                    sectionNumber = normalSectionNo++;
+                }
+
+                $(this).find(".seq-field-card").each(function (fieldIndex) {
+                    payload.push({
+                        UID: $(this).data("uid"),
+                        ColumnName: $(this).data("column"),
+                        SectionNumber: sectionNumber,
+                        SectionName: sectionName,
+                        SortOrder: fieldIndex + 1,
+                        Width: Number($(this).attr("data-width") || 1)
+                    });
+                });
+            });
+
+            if (!payload.length) {
+                showSequenceMessage("warning", "No fields found to save.");
+                return;
+            }
+
+            const $btn = $("#saveSequenceBtn");
+            const oldHtml = $btn.html();
+
+            $btn.prop("disabled", true).html(`
+                    <span class="spinner-border spinner-border-sm me-1"></span>
+                    Saving...
+                `);
+
+            $.ajax({
+                url: apiUrl("/api/super/column/sort"),
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    Table: $("#uid").val(),
+                    Fields: payload
+                }),
+                success: function (response) {
+                    if(response.Success)
+                        showSequenceMessage("success", response.Message || "Field sequence saved successfully.");
+                    else
+                        showSequenceMessage("danger", response.Message || "Unable to save sequence.");
+
+                },
+                error: function (xhr) {
+                    showSequenceMessage("danger", xhr.responseText || "Unable to save sequence.");
+                },
+                complete: function () {
+                    $btn.prop("disabled", false).html(oldHtml);
+                }
+            });
+        });
+
+        $(document).on("input", "#sequenceSearch", function () {
+            const term = ($(this).val() || "").toLowerCase();
+
+            $(".seq-field-card").each(function () {
+                const text = $(this).text().toLowerCase();
+                $(this).toggle(text.includes(term));
+            });
+        });
+
+        function showSequenceMessage(type, message) {
+            $("#sequenceMessage").html(`
+                    <div class="alert alert-${type} py-2 px-3">
+                        ${escapeHtml(message)}
+                    </div>
+                `);
+        }
+
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return "";
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+}

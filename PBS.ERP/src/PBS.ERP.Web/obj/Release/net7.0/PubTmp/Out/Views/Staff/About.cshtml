@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "_Staff";
+    ViewData["Title"] = "About ERP";
+    ViewBag.Menu = "About";
+    <style>
+        .breadcrumbparent {
+            display: none;
+        }
+    </style>
+}
+
+<div class="container-fluid d-flex align-items-center justify-content-center" style="min-height:80vh;">
+
+    <div class="text-center">
+
+        <!-- Icon -->
+        <div class="mb-4">
+            <i class="bi bi-rocket-takeoff-fill text-primary" style="font-size:4rem;"></i>
+        </div>
+
+        <!-- Title -->
+        <h1 class="fw-bold mb-3">
+            ERP Survey Solution Launch
+        </h1>
+
+        <!-- Subtitle -->
+        <h5 class="text-muted mb-4">
+            Pakistan Demographic & Health Survey (PDHS 2026)
+        </h5>
+
+        <!-- Launch Date -->
+        <div class="mb-4">
+            <span class="badge bg-dark fs-6 px-3 py-2">
+                Launch Date: 01 September 2026
+            </span>
+        </div>
+
+        <!-- Countdown -->
+        <div class="row justify-content-center mb-4" id="countdown">
+
+            <div class="col-3 col-md-3">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h3 id="days">0</h3>
+                        <small class="text-muted">Days</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-md-3">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h3 id="hours">0</h3>
+                        <small class="text-muted">Hours</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-md-3">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h3 id="minutes">0</h3>
+                        <small class="text-muted">Minutes</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-md-3">
+                <div class="card shadow border-0">
+                    <div class="card-body">
+                        <h3 id="seconds">0</h3>
+                        <small class="text-muted">Seconds</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Message -->
+        <p class="text-muted">
+            A modern digital platform for efficient data collection, monitoring, and reporting.<br />
+            Stay tuned for the official launch.
+        </p>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        function updateCountdown() {
+
+            const launchDate = new Date("2026-09-01T00:00:00").getTime();
+            const now = new Date().getTime();
+
+            const diff = launchDate - now;
+
+            if (diff <= 0) {
+                document.getElementById("countdown").innerHTML =
+                    "<h4 class='text-success'>🚀 System is Live Now!</h4>";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+}

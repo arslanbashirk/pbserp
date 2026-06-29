@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PBS.ERP.Infrastructure;
 using PBS.ERP.Infrastructure.Interfaces;
-using PBS.ERP.Modules.Core.Services;
 using PBS.ERP.Shared;
 using PBS.ERP.Shared.Models;
 using System.Data;
@@ -18,23 +17,21 @@ namespace PBS.ERP.Modules.Core.Controllers;
 /// Keep JWT away from view actions. MVC users authenticate through Identity cookie.
 /// All API/data endpoints are in PBS.ERP.Modules.Api.Controllers.CrudApiController.
 /// </summary>
+[ApiExplorerSettings(IgnoreApi = true)]
 [Authorize(AuthenticationSchemes = Constants.Identity_Application_Scheme)]
 [Route("Crud")]
 public class CrudController : Controller
 {
     protected readonly ApplicationDbContext _context;
     protected readonly IConfiguration _configuration;
-    protected readonly IDatabaseService _databaseService;
 
     public CrudController(
         ApplicationDbContext context,
         IConfiguration configuration,
-        IDatabaseService databaseService,
         ISuperInterface tableService)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        _databaseService = databaseService ?? throw new ArgumentNullException(nameof(databaseService));
     }
 
     protected async Task<DbConnection> GetConnectionAsync()
@@ -305,10 +302,12 @@ public class CrudController : Controller
 
         model.fields = form
             .Where(q => q.Key != "id" && !q.Key.EndsWith("_Text"))
+            .Where(q => q.Key != "__RequestVerificationToken")
             .ToDictionary(
                 q => q.Key,
                 q => q.Value.ToString()
             );
+
 
         model.Reference = form
             .Where(q => q.Key.EndsWith("_Text"))

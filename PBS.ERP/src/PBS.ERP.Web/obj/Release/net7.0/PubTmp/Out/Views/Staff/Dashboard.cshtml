@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "_Staff";
+    ViewData["Title"] = "Dashboard";
+    ViewBag.Menu = "Dashboard";
+    <style>
+        .breadcrumb {
+            background-color: #f8f9fa;
+            font-size: 0.95rem;
+        }
+
+        
+    </style>
+}
+
+<input type="hidden" id="uid" value="@ViewBag.Table" />
+<!-- Welcome Card -->
+    
+
+<!-- Dashboards -->
+<div class="row g-4" id="dashboard-cards">
+    <!-- Cards will be injected here via JS -->
+</div>
+
+@section Scripts {
+
+    <script src="~/js/save-data.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            window.PbsErp.call("crud.list", {
+                table: $("#uid").val(),
+                filter: ""
+            }, {
+                success: function (res) {
+
+                    let container = $('#dashboard-cards');
+                    container.empty();
+
+                    const data = res.Data || [];
+
+                    if (data && data.length > 0) {
+
+                        data.forEach(dash => {
+
+                            const link = dash.Link || dash.link || "";
+                            const url = link.startsWith("http")
+                                ? link
+                                : "https://" + link;
+
+                            const title = dash.Title || dash.title || "";
+                            const isPublic = dash.IsPublic === true || dash.isPublic === true;
+
+                            // Icon based on Public / Private
+                            const iconClass = isPublic ? "bi-globe2" : "bi-lock-fill";
+
+                            const card = `
+                            <div class="col-md-4 col-sm-6 mb-2">
+                                <div class="card shadow dashboard-card text-center">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                                        <div class="icon-wrapper">
+                                            <i class="bi ${iconClass} fs-3"></i>
+                                        </div>
+
+                                        <h5 class="card-title mb-3">${title}</h5>
+
+                                        <a href="${url}" target="_blank" class="btn btn-sm btn-light text-primary">
+                                            Open Dashboard
+                                        </a>
+                                    </div>
+
+                                    <div class="card-footer d-flex justify-content-center">
+                                        <span class="badge ${isPublic ? 'bg-success' : 'bg-danger'}">
+                                            ${isPublic ? "Public" : "Private"}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                            container.append(card);
+                        });
+
+                    } else {
+                        container.append(`
+                        <div class="col-lg-12">
+                            <div class="alert alert-warning text-center">
+                                No dashboards available.
+                            </div>
+                        </div>
+                    `);
+                    }
+                },
+
+                error: function (err) {
+                    $('#dashboard-cards').html(`
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger text-center">
+                            ${err.Message || "Failed to load dashboards."}
+                        </div>
+                    </div>
+                `);
+
+                    console.error("Dashboard list error:", err);
+                }
+            });
+        });
+    </script>
+}

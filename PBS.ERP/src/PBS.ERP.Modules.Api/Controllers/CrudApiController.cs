@@ -659,38 +659,69 @@ public sealed class CrudApiController : ControllerBase
 
         return $"CONCAT({string.Join(", ' - ', ", parts)})";
     }
-    private static string BuildDropdownOrderBy(string? orderBy, string alias, string defaultColumn)
+    private static string BuildDropdownOrderBy(
+    string? dropdownOrderBy,
+    string lookupAlias,
+    string fallbackColumn)
     {
-        if (string.IsNullOrWhiteSpace(orderBy))
-        {
-            if (string.IsNullOrWhiteSpace(defaultColumn))
-                return string.Empty;
+        if (string.IsNullOrWhiteSpace(dropdownOrderBy))
+            return "";
 
-            return $"ORDER BY {alias}.{Q(defaultColumn)}";
+        // Do not allow full ORDER BY keyword in metadata
+        if (Regex.IsMatch(dropdownOrderBy, @"\bORDER\s+BY\b", RegexOptions.IgnoreCase))
+            throw new InvalidOperationException($"Do not include ORDER BY in DropdownOrderBy: {dropdownOrderBy}");
+
+        var parts = dropdownOrderBy
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        var orderParts = new List<string>();
+
+        foreach (var part in parts)
+        {
+            var tokens = Regex.Split(part.Trim(), @"\s+")
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToArray();
+
+            if (tokens.Length < 1 || tokens.Length > 2)
+                throw new InvalidOperationException($"Invalid DropdownOrderBy: {dropdownOrderBy}");
+
+            var columnExpression = tokens[0].Trim();
+
+            // Allow:
+            // Code
+            // [Code]
+            // {alias}.Code
+            // {alias}.[Code]
+            columnExpression = columnExpression
+                .Replace("{alias}.", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("{alias}", "", StringComparison.OrdinalIgnoreCase)
+                .Trim();
+
+            if (columnExpression.StartsWith("."))
+                columnExpression = columnExpression[1..];
+
+            var column = columnExpression.Trim('[', ']');
+
+            if (!Regex.IsMatch(column, @"^[A-Za-z_][A-Za-z0-9_]*$"))
+                throw new InvalidOperationException($"Invalid column in DropdownOrderBy: {column}");
+
+            var direction = "ASC";
+
+            if (tokens.Length == 2)
+            {
+                direction = tokens[1].ToUpperInvariant();
+
+                if (direction != "ASC" && direction != "DESC")
+                    throw new InvalidOperationException($"Invalid sort direction in DropdownOrderBy: {dropdownOrderBy}");
+            }
+
+            orderParts.Add($"{lookupAlias}.{Q(column)} {direction}");
         }
 
-        var cleanOrder = NormalizeAlias(orderBy, alias).Trim();
-
-        // Important fix:
-        // If metadata already contains "ORDER BY Name",
-        // do not generate "ORDER BY ORDER BY Name".
-        if (cleanOrder.StartsWith("ORDER BY ", StringComparison.OrdinalIgnoreCase))
-            cleanOrder = cleanOrder.Substring(9).Trim();
-
-        if (string.IsNullOrWhiteSpace(cleanOrder))
-            return string.Empty;
-
-        var parts = SplitSqlCsv(cleanOrder)
-            .Select(p => BuildOrderPart(p, alias))
-            .Where(p => !string.IsNullOrWhiteSpace(p))
-            .ToList();
-
-        if (parts.Count == 0)
-            return string.Empty;
-
-        return "ORDER BY " + string.Join(", ", parts);
+        return orderParts.Any()
+            ? "ORDER BY " + string.Join(", ", orderParts)
+            : "";
     }
-
     private static string BuildOrderPart(string item, string alias)
     {
         item = item.Trim();
@@ -1062,8 +1093,8 @@ public sealed class CrudApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "List2 failed for table {Table}. SQL={Sql}", table, sql);
-            return Ok(FailResponse("List2 failed.", new { ex.Message, sql }));
+            _logger.LogError(ex, "List failed for table {Table}. SQL={Sql}", table, sql);
+            return Ok(FailResponse("List failed.", new { ex.Message, sql }));
         }
     }
 
@@ -1137,11 +1168,27 @@ public sealed class CrudApiController : ControllerBase
         data["UID"] = uid;
         data["CreatedTime"] = now;
         data["CreatedBy"] = user;
-        data["IsActive"] = true;
         data["IsDeleted"] = false;
+        data["IsActive"] = true;
 
-        if (fieldsInput.ContainsKey("Remarks"))
-            data["Remarks"] = ConvertToStringValue(fieldsInput["Remarks"]);
+        var input = new Dictionary<string, object?>(
+            fieldsInput,
+            StringComparer.OrdinalIgnoreCase
+        );
+
+        if (input.TryGetValue("IsActive", out var isActiveValue))
+        {
+            data["IsActive"] = ConvertToBoolValue(isActiveValue);
+        }
+        else
+        {
+            data["IsActive"] = true;
+        }
+
+        if (input.TryGetValue("Remarks", out var remarksValue))
+        {
+            data["Remarks"] = ConvertToStringValue(remarksValue);
+        }
 
         SurveyInsert? surveyDatabaseWork = null;
         FormInsert? formTableWork = null;
@@ -1255,9 +1302,9 @@ public sealed class CrudApiController : ControllerBase
         data["UID"] = uid;
 
         var sql = $@"
-    UPDATE {tableName}
-    SET {setClause}
-    WHERE UID = @UID AND IsDeleted = 0";
+        UPDATE {tableName}
+        SET {setClause}
+        WHERE UID = @UID AND IsDeleted = 0";
 
         try
         {
@@ -1295,10 +1342,10 @@ public sealed class CrudApiController : ControllerBase
         }
     }
 
-    [HttpPost("{table}/bulk-save")]
+    [HttpPost("bulksave")]
     public async Task<IActionResult> SaveBulk(string table, [FromBody] CrudBulkSaveRequest request)
     {
-        if (request?.Rows == null || request.Rows.Count == 0)
+        if (request?.Fields == null || request.Fields.Count == 0)
             return Ok(FailResponse("No rows found."));
 
         await using var con = await GetConnectionAsync();
@@ -1328,9 +1375,9 @@ public sealed class CrudApiController : ControllerBase
         var preparedUpdates = new List<(string UID, Dictionary<string, object?> Data)>();
         var rowErrors = new List<object>();
 
-        for (var i = 0; i < request.Rows.Count; i++)
+        for (var i = 0; i < request.Fields.Count; i++)
         {
-            var row = request.Rows[i];
+            var row = request.Fields[i];
 
             var uid = row.ContainsKey("UID")
                 ? row["UID"]?.ToString()
@@ -1445,7 +1492,7 @@ public sealed class CrudApiController : ControllerBase
 
             return Ok(OkResponse(new
             {
-                totalRows = request.Rows.Count,
+                totalRows = request.Fields.Count,
                 insertedRows,
                 updatedRows
             }, "Bulk save completed successfully."));
@@ -1960,6 +2007,61 @@ public sealed class CrudApiController : ControllerBase
         }
     }
 
+    private static bool ConvertToBoolValue(object? value)
+    {
+        if (value == null)
+            return false;
+
+        if (value is bool b)
+            return b;
+
+        if (value is int i)
+            return i == 1;
+
+        if (value is long l)
+            return l == 1;
+
+        if (value is string s)
+        {
+            s = s.Trim();
+
+            if (bool.TryParse(s, out var boolResult))
+                return boolResult;
+
+            if (int.TryParse(s, out var intResult))
+                return intResult == 1;
+
+            return s.Equals("yes", StringComparison.OrdinalIgnoreCase)
+                || s.Equals("on", StringComparison.OrdinalIgnoreCase)
+                || s.Equals("active", StringComparison.OrdinalIgnoreCase);
+        }
+
+        if (value is System.Text.Json.JsonElement json)
+        {
+            if (json.ValueKind == System.Text.Json.JsonValueKind.True)
+                return true;
+
+            if (json.ValueKind == System.Text.Json.JsonValueKind.False)
+                return false;
+
+            if (json.ValueKind == System.Text.Json.JsonValueKind.Number &&
+                json.TryGetInt32(out var jsonInt))
+                return jsonInt == 1;
+
+            if (json.ValueKind == System.Text.Json.JsonValueKind.String)
+            {
+                var str = json.GetString();
+
+                if (bool.TryParse(str, out var jsonBool))
+                    return jsonBool;
+
+                if (int.TryParse(str, out var jsonStringInt))
+                    return jsonStringInt == 1;
+            }
+        }
+
+        return false;
+    }
     private static string? BuildAggregateSelectClause(
         string column,
         string function,
@@ -2468,6 +2570,8 @@ public sealed class CrudApiController : ControllerBase
                 "Failed to restore Survey DatabaseName after database rename failure. UID {UID}.",
                 uid);
         }
+
+
     }
     private sealed class SurveyInsert
     {

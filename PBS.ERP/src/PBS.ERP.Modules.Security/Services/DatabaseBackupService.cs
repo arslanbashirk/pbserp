@@ -1,32 +1,31 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using PBS.ERP.Modules.Security.Models;
 
 namespace PBS.ERP.Modules.Security.Services
 {
     public class DatabaseBackupService
     {
         private readonly string _connectionString;
-        private readonly BackupSettings _settings;
+        private readonly string _backupFolder;
 
-        public DatabaseBackupService(
-            IConfiguration configuration,
-            IOptions<BackupSettings> options)
+        public DatabaseBackupService(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("MasterDb")!;
-            _settings = options.Value;
+            _connectionString = configuration.GetConnectionString("MasterDb")
+                ?? throw new Exception("MasterDb connection string is missing.");
+
+            _backupFolder = configuration["BackupSettings:BackupFolder"]
+                ?? throw new Exception("BackupSettings:BackupFolder is missing.");
         }
 
         public async Task<List<string>> GetAllowedDatabasesAsync()
         {
             const string sql = @"
-SELECT DISTINCT [Database]
-FROM ERPCORE.dbo.Entity
-WHERE (IsDeleted = 0 OR IsDeleted IS NULL)
-  AND [Database] IS NOT NULL
-  AND LTRIM(RTRIM([Database])) <> ''
-ORDER BY [Database];";
+            SELECT DISTINCT [Database]
+            FROM ERPCORE.dbo.Entity
+            WHERE (IsDeleted = 0 OR IsDeleted IS NULL)
+              AND [Database] IS NOT NULL
+              AND LTRIM(RTRIM([Database])) <> ''
+            ORDER BY [Database];";
 
             var databases = new List<string>();
 
@@ -64,7 +63,7 @@ ORDER BY [Database];";
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new Exception("Database name is required.");
 
-            Directory.CreateDirectory(_settings.BackupFolder);
+            Directory.CreateDirectory(_backupFolder);
 
             await using var con = new SqlConnection(_connectionString);
             await con.OpenAsync();
@@ -75,7 +74,7 @@ ORDER BY [Database];";
             string safeDbName = databaseName.Replace("]", "]]");
 
             string fileName = $"{databaseName}_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
-            string backupPath = Path.Combine(_settings.BackupFolder, fileName);
+            string backupPath = Path.Combine(_backupFolder, fileName);
 
             string sql = $@"
                 BACKUP DATABASE [{safeDbName}]
@@ -96,7 +95,7 @@ ORDER BY [Database];";
 
         public List<string> GetBackupFiles()
         {
-            var folder = _settings.BackupFolder?.Trim();
+            var folder = _backupFolder?.Trim();
 
             if (string.IsNullOrWhiteSpace(folder))
                 throw new Exception("BackupFolder setting is empty.");
@@ -121,7 +120,7 @@ ORDER BY [Database];";
 
             fileName = Path.GetFileName(fileName);
 
-            string fullPath = Path.Combine(_settings.BackupFolder, fileName);
+            string fullPath = Path.Combine(_backupFolder, fileName);
 
             if (!File.Exists(fullPath))
                 throw new FileNotFoundException("Backup file not found.");

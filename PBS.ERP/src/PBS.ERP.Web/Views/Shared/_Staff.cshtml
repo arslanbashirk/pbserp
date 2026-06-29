@@ -1,0 +1,375 @@
+﻿@* File: Views/Shared/_Staff.cshtml *@
+@using Microsoft.AspNetCore.Identity
+@using PBS.ERP.Shared.Identity
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var loginUrl = Url.Action("Login", "Account") ?? "/Account/Login";
+    var logoutUrl = Url.Action("Logout", "Account") ?? "/Account/Logout";
+    var accessDeniedUrl = Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied";
+    var apiBaseUrl = Configuration["ApiSettings:BaseUrl"] ?? "";
+    var refreshUrl = "/api/auth/refresh";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PBS ERP Survey Solution</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        html, body {
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar-custom {
+            background: linear-gradient(90deg,#198754,#157347);
+        }
+
+        .logo-img {
+            height: 38px;
+        }
+
+        .brand-text {
+            line-height: 1.1;
+            font-size: 1rem;
+        }
+
+        .brand-text span {
+            font-size: .75rem;
+            display: block;
+        }
+
+        .username {
+            margin-left: 5px;
+        }
+
+        /* MAIN */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        #sidebar-wrapper {
+            width: 220px;
+            min-width: 220px;
+            background: #198754;
+            color: #fff;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        }
+
+        #sidebar-wrapper.collapsed {
+            width: 70px;
+            min-width: 70px;
+        }
+
+        #sidebar-wrapper.collapsed span {
+            display: none;
+        }
+
+        /* MOBILE SIDEBAR */
+        @@media (max-width: 768px) {
+            #sidebar-wrapper {
+                position: fixed;
+                left: -220px;
+                top: 0;
+                height: 100%;
+                z-index: 1050;
+            }
+
+            #sidebar-wrapper.show {
+                left: 0;
+            }
+
+            .brand-text,
+            .username {
+                display: none;
+            }
+
+            .logo-img {
+                height: 32px;
+            }
+        }
+
+        /* MENU */
+        .list-group-item {
+            background: transparent;
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .list-group-item:hover {
+            background: #0d6332;
+        }
+
+        .list-group-item.active {
+            background: #0b5a36 !important;
+            border-left: 4px solid #fff;
+        }
+
+        /* CONTENT */
+        #page-content-wrapper {
+            flex: 1;
+            padding: 1.5rem;
+            background: #f8f9fa;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        /* FOOTER */
+        .footer-custom {
+            background: linear-gradient(90deg,#198754,#157347);
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        #sidebar-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1040;
+            display: none;
+        }
+
+            #sidebar-backdrop.show {
+                display: block;
+            }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
+        <div class="container-fluid">
+
+            <!-- Toggle -->
+            <button class="btn btn-light me-2" id="menu-toggle" aria-label="Toggle Menu">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="javascript:void(0)" onclick="goToUserHome()">
+                <img src="~/images/pbslogo.png" class="logo-img me-2" />
+                <div class="brand-text">
+                    ERP Survey Solution
+                    <span>Pakistan Bureau of Statistics</span>
+                </div>
+            </a>
+
+            <!-- Mobile toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="username">@User.Identity.Name</span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("Profile","Staff")">
+                                        <i class="bi bi-person"></i> Profile
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li>
+                                    <form method="post"
+                                          asp-controller="Account"
+                                          asp-action="Logout"
+                                          class="d-inline"
+                                          onsubmit="clearPbsErpLogin();">
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="bi bi-box-arrow-right"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+
+        <!-- SIDEBAR -->
+        <div id="sidebar-wrapper">
+
+            <div class="list-group list-group-flush">
+
+                <a href="@Url.Action("Index","Staff")"
+                   class="list-group-item @(ViewBag.Menu == "Index" || ViewBag.Menu == null ? "active" : "")">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Home</span>
+                </a>
+
+
+                <a href="@Url.Action("Dashboard","Staff")"
+                   class="list-group-item @(ViewBag.Menu=="Dashboard"?"active":"")">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="@Url.Action("Survey","Staff")"
+                   class="list-group-item @(ViewBag.Menu=="Survey"?"active":"")">
+                    <i class="bi bi-clipboard-data-fill"></i>
+                    <span>Survey</span>
+                </a>
+
+                <a href="#"
+                   class="list-group-item @(ViewBag.Menu=="Proforma"?"active":"")">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Online Proforma</span>
+                </a>
+
+                <a href="@Url.Action("Task","Staff")"
+                   class="list-group-item @(ViewBag.Menu=="Tasks"?"active":"")">
+                    <i class="bi bi-kanban-fill"></i>
+                    <span>Tasks</span>
+                </a>
+
+                <a href="@Url.Action("Profile","Staff")"
+                   class="list-group-item @(ViewBag.Menu=="Profile"?"active":"")">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a href="@Url.Action("About","Staff")"
+                   class="list-group-item @(ViewBag.Menu=="About"?"active":"")">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <span>About</span>
+                </a>
+
+
+                <a href="@Url.Action("Survey","Subject")"
+                   class="list-group-item @(ViewBag.Menu=="Subject"?"active":"")">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Subject Team</span>
+                </a>
+
+                <a href="#"
+                   class="list-group-item @(ViewBag.Menu=="Settings"?"active":"")">
+                    <i class="bi bi-gear-fill"></i>
+                    <span>Setting</span>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <nav aria-label="breadcrumb" class="breadcrumbParent">
+                            <ol class="breadcrumb bg-white p-2 rounded shadow-sm mb-2">
+                                <li class="breadcrumb-item">
+                                    <a href="/staff" class="text-decoration-none text-primary">Staff</a>
+                                </li>
+                                <li class="breadcrumb-item active">@ViewBag.Menu</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-custom text-center py-3">
+        <div>© @DateTime.Now.Year Pakistan Bureau of Statistics</div>
+        <div>ERP Survey Solution | Government of Pakistan</div>
+    </footer>
+    <div id="sidebar-backdrop"></div>
+
+    <!-- jQuery must load before pbs-erp-auth.js and before Staff pages use PbsErp.call / $.ajax -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.PbsErpConfig = {
+            loginUrl: '@(Url.Action("Login", "Account") ?? "/Account/Login")',
+            accessDeniedUrl: '@(Url.Action("AccessDenied", "Account") ?? "/Account/AccessDenied")'
+        };
+
+        window.PBS_ERP_API_BASE_URL = "@apiBaseUrl".replace(/\/$/, "");
+
+        window.apiUrl = function (path) {
+            const baseUrl = window.PBS_ERP_API_BASE_URL || "";
+            if (!path) {
+                return baseUrl;
+            }
+
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+            return baseUrl + path;
+        };
+
+        window.goToUserHome = function () {
+            const homeUrl =
+                localStorage.getItem("pbs_erp_redirect_url") ||
+                "/Home/Index";
+
+            window.location.href = homeUrl;
+        };
+    </script>
+    <!-- PBS ERP request helper / JWT helper -->
+    <script src="~/js/pbs-erp-auth.js" asp-append-version="true"></script>
+
+  
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

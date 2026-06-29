@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "WG4Qr2dtHyLpg25MYkdJfwZVRFo+MOZ4Q496CGqJaS0=",
+  "Source": "PBS.ERP.Modules.Survey",
+  "BasePath": "_content/PBS.ERP.Modules.Survey",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

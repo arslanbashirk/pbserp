@@ -1,0 +1,324 @@
+﻿@using System.IO;
+@model PBS.ERP.Shared.Models.SurveyModel.SurveyViewModel;
+
+@{
+    ViewData["Title"] = "Survey Dashboard";
+    Layout = "_SurveyLayout";
+
+    var root = Directory.GetCurrentDirectory();
+
+    string ResolveImage(string relativePathWithoutExt, string folder, string type)
+    {
+        var png = $"/images/survey/{folder}/{relativePathWithoutExt}.png";
+        var jpg = $"/images/survey/{folder}/{relativePathWithoutExt}.jpg";
+
+        var pngFull = System.IO.Path.Combine(root, "wwwroot", png.TrimStart('/'));
+        var jpgFull = System.IO.Path.Combine(root, "wwwroot", jpg.TrimStart('/'));
+
+        if (System.IO.File.Exists(pngFull))
+            return png;
+
+        if (System.IO.File.Exists(jpgFull))
+            return jpg;
+
+        return $"/images/survey/{folder}/default_{type}.png";
+    }
+
+    var bannerPath = ResolveImage($"{Model.DatabaseName}_banner", "banners", "banner");
+    var iconPath = ResolveImage($"{Model.DatabaseName}_icon", "icons", "icon");
+}
+
+<style>
+    .banner {
+        height: 200px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        background: #ddd;
+    }
+
+    .banner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .survey-header {
+        position: relative;
+        margin-bottom: 70px;
+    }
+
+    .banner-upload {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    .survey-icon-wrapper {
+        position: absolute;
+        bottom: -50px;
+        left: 30px;
+    }
+
+    .survey-icon {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 4px solid white;
+        overflow: hidden;
+        background: white;
+    }
+
+        .survey-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .icon-upload {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #198754;
+        color: white;
+        border-radius: 50%;
+        padding: 6px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .tree ul {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    .tree li {
+        margin: 6px 0;
+    }
+
+    .toggle {
+        cursor: pointer;
+        margin-right: 5px;
+        color: #0d6efd;
+        font-weight: bold;
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="survey-header">
+    <input type="hidden" id="surveyUid" value="@Model.UID" />
+    <div class="banner">
+        <img src="@bannerPath" class="banner-img" />
+
+        <label class="banner-upload">
+            <i class="bi bi-camera"></i> Change Banner
+            <input type="file" id="bannerFile" hidden />
+        </label>
+
+        <button id="btnUploadBanner" class="d-none"></button>
+    </div>
+
+    <div class="survey-icon-wrapper">
+        <div class="survey-icon">
+            <img src="@iconPath" />
+        </div>
+
+        <label class="icon-upload">
+            <i class="bi bi-pencil"></i>
+            <input type="file" id="iconFile" hidden />
+        </label>
+
+        <button id="btnUploadIcon" class="d-none"></button>
+    </div>
+
+</div>
+
+<div style="margin-top:60px;"></div>
+
+<!-- SURVEY INFO -->
+<div class="card mb-3">
+    <div class="card-body">
+        <h4>@Model.ShortVersion</h4>
+        <p><b>Full Description:</b> @Model.Name</p>
+
+        <div class="row">
+            <div class="col-md-3"><b>Execution Year:</b> @Model.ExecutionYear</div>
+            <div class="col-md-3"><b>Reference Period:</b> @Model.ReferencePeriod</div>
+            <div class="col-md-3">
+                <b>Status:</b>
+                @if (Model.IsActive)
+                {
+                    <span class="badge bg-success">Active</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Inactive</span>
+                }
+            </div>
+            <div class="col-md-3">
+                <b>Created:</b> @Model.CreatedTime.ToShortDateString()
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DATABASE -->
+<div class="card mb-3">
+    <div class="card-body">
+        <h6>Database</h6>
+        <span class="badge bg-info">@Model.DatabaseName</span>
+    </div>
+</div>
+
+<!-- HIERARCHY -->
+<div class="card mb-3">
+    <div class="card-body">
+        <h6>Survey Structure</h6>
+
+        <div class="tree">
+            <ul>
+                @foreach (var q in Model.Questionnaires)
+                {
+                    <li>
+                        <span class="toggle">▶</span>
+                        <b>📘 @q.Type (@q.Version)</b>
+
+                        <ul class="nested">
+                            @foreach (var s in q.Sections.OrderBy(x => x.SortOrder))
+                            {
+                                <li>
+                                    <span class="toggle">▶</span>
+                                    📂 Section: @s.Title
+
+                                    <ul class="nested">
+                                        @foreach (var f in s.Forms.OrderBy(x => x.SortOrder))
+                                        {
+                                            <li>
+                                                🧾 Form-@f.SortOrder : @f.Heading
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelectorAll(".toggle").forEach(toggle => {
+
+                toggle.addEventListener("click", function (e) {
+
+                    e.stopPropagation(); // prevent bubbling issues
+
+                    // get ONLY direct child UL
+                    const nested = this.parentElement.querySelector(":scope > .nested");
+
+                    if (nested) {
+                        nested.classList.toggle("active");
+
+                        this.textContent = nested.classList.contains("active") ? "▼" : "▶";
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $(".banner-upload input").on("change", function () {
+                $("#btnUploadBanner").click();
+            });
+            $(".icon-upload input").on("change", function () {
+                $("#btnUploadIcon").click();
+            });
+            $("#btnUploadIcon").click(function () {
+
+                var fileInput = $("#iconFile")[0];
+                var file = fileInput.files[0];
+                var uid = $("#surveyUid").val();
+
+                if (!file) {
+                    alert("Please select an icon file");
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("uid", uid);
+                formData.append("file", file);
+
+                $.ajax({
+                    url: '/Survey/UploadIcon',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        alert("Icon uploaded successfully");
+                        location.reload(); // simplest fix
+                    },
+                    error: function () {
+                        alert("Error uploading icon");
+                    }
+                });
+            });
+
+            // Upload Banner
+            $("#btnUploadBanner").click(function () {
+
+                var fileInput = $("#bannerFile")[0];
+                var file = fileInput.files[0];
+                var uid = $("#surveyUid").val();
+
+                if (!file) {
+                    alert("Please select a banner file");
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("uid", uid);
+                formData.append("file", file);
+
+                $.ajax({
+                    url: '/Survey/UploadBanner',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        alert("Banner uploaded successfully");
+                        location.reload(); // simplest fix
+                    },
+                    error: function () {
+                        alert("Error uploading banner");
+                    }
+                });
+            });
+
+        });
+    </script>
+}

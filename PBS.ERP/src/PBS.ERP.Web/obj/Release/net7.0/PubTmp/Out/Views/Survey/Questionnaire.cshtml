@@ -1,0 +1,144 @@
+﻿@using static PBS.ERP.Shared.Models.SurveyModel
+@model SurveyViewModel
+
+@{
+    ViewData["Title"] = "Survey Questionnaire";
+}
+
+<style>
+    .erp-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+    .erp-header {
+        background: linear-gradient(90deg, #198754 0%, #157347 100%);
+        color: #fff;
+        padding: 12px 16px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .section-header {
+        background: #f3f4f6;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 10px 14px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+        .form-row:hover {
+            background: #f9fafb;
+        }
+
+    .sort-badge {
+        min-width: 40px;
+        text-align: center;
+    }
+
+    .chevron {
+        transition: transform 0.2s ease;
+    }
+
+    .collapsed .chevron {
+        transform: rotate(-90deg);
+    }
+</style>
+
+<div class="container-fluid mt-3">
+    <div class="erp-header mb-5">
+        <div>
+            <h2 class="erp-title">
+                <i class="fas fa-user-shield"></i>
+                @Model.Name (@Model.ShortVersion)
+            </h2>
+            <h6 class="erp-subtitle">
+                <span><b>Execution Year: </b>@Model.ExecutionYear</span>
+                <span> | </span>
+                <span><b>Reference Period: </b>@Model.ReferencePeriod</span>
+            </h6>
+        </div>
+    </div>
+    @foreach (var questionnaire in Model.Questionnaires.OrderBy(q => q.Type))
+    {
+        <div class="erp-card mb-4">
+
+            <!-- Questionnaire Header -->
+            <div class="erp-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    @questionnaire.Type
+                </h5>
+
+                <span class="badge bg-light text-dark">
+                    Version @questionnaire.Version
+                </span>
+            </div>
+
+            <div class="p-3">
+
+                @foreach (var sec in questionnaire.Sections.OrderBy(s => s.SortOrder))
+                {
+                    var collapseId = $"sec_{questionnaire.Type}_{sec.SortOrder}";
+
+                    <div class="mb-3 border rounded">
+
+                        <!-- Section Header (Clickable) -->
+                        <div class="section-header d-flex justify-content-between align-items-center"
+                             data-bs-toggle="collapse"
+                             data-bs-target="#@collapseId"
+                             aria-expanded="true">
+
+                            <div>
+                                <strong>
+                                    SECTION @sec.SortOrder
+                                </strong>
+                            </div>
+
+                            <span class="chevron">▼</span>
+                        </div>
+
+                        <!-- Collapsible Body -->
+                        <div id="@collapseId" class="collapse show">
+
+                            @foreach (var form in sec.Forms.OrderBy(f => f.SortOrder))
+                            {
+                                <div class="form-row bg-white">
+                                    <div class="sort-badge">
+                                        <span class="badge bg-primary">
+                                            @form.SortOrder 
+                                        </span>
+                                    </div>
+
+                                    <div class="flex-grow-1">
+                                        <span class="fw-semibold">
+                                            @form.Heading.ToUpper()
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <a href="/Entry/Form?form=@form.UID"
+                                           class="btn btn-sm btn-primary"
+                                           style="min-width:80px">
+                                            Fill Form
+                                        </a>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+
+</div>

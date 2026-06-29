@@ -1,0 +1,408 @@
+﻿@{
+    ViewData["Title"] = "Survey Home";
+}
+
+<style>
+
+    /* =========================
+       SURVEY HERO HEADER
+    ========================= */
+
+    .survey-hero {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid #e4e7ec;
+        border-radius: 20px;
+        padding: 22px;
+        box-shadow: 0 1px 3px rgba(16,24,40,.05), 0 8px 24px rgba(16,24,40,.06);
+    }
+
+    .survey-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #101828;
+    }
+
+    .survey-subtitle {
+        color: #667085;
+        font-size: .95rem;
+    }
+
+    .survey-meta span {
+        margin-right: 10px;
+        color: #475467;
+        font-size: .9rem;
+    }
+
+    /* =========================
+       KPI CARDS (PBS STYLE)
+    ========================= */
+
+    .metric-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid #eef1f6;
+        box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 8px 24px rgba(16,24,40,.06);
+        transition: all .25s ease;
+    }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(16,24,40,.12);
+        }
+
+    .metric-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .metric-label {
+        font-size: .78rem;
+        color: #667085;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: .04em;
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #101828;
+    }
+
+    /* COLORS */
+    .q {
+        background: #eef4ff;
+        color: #3366ff;
+    }
+
+    .s {
+        background: #ecfdf3;
+        color: #12b76a;
+    }
+
+    .f {
+        background: #fff6ed;
+        color: #f79009;
+    }
+
+    .fl {
+        background: #f4f3ff;
+        color: #7a5af8;
+    }
+
+    .st {
+        background: #ecfdf9;
+        color: #0f9d8a;
+    }
+
+    .as {
+        background: #fff1f3;
+        color: #f04438;
+    }
+
+    /* =========================
+       MODULE CARDS
+    ========================= */
+
+    .module-card {
+        background: #fff;
+        border: 1px solid #e4e7ec;
+        border-radius: 18px;
+        padding: 20px;
+        height: 100%;
+        box-shadow: 0 1px 3px rgba(16,24,40,.05);
+        transition: all .25s ease;
+        cursor: pointer;
+    }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(16,24,40,.12);
+        }
+
+    .module-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .module-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #101828;
+    }
+
+    .module-desc {
+        color: #667085;
+        font-size: .9rem;
+    }
+
+    /* COLORS MODULE */
+    .m1 .module-icon {
+        background: #eef4ff;
+        color: #3366ff;
+    }
+
+    .m2 .module-icon {
+        background: #ecfdf3;
+        color: #12b76a;
+    }
+
+    .m3 .module-icon {
+        background: #fff6ed;
+        color: #f79009;
+    }
+
+    .m4 .module-icon {
+        background: #f4f3ff;
+        color: #7a5af8;
+    }
+
+    .m5 .module-icon {
+        background: #ecfdf9;
+        color: #0f9d8a;
+    }
+
+    .m6 .module-icon {
+        background: #fff1f3;
+        color: #f04438;
+    }
+
+    /* =========================
+       RIGHT PANEL STYLE BOX
+    ========================= */
+
+    .info-box {
+        background: #fff;
+        border: 1px solid #e4e7ec;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(16,24,40,.05);
+    }
+
+    .info-title {
+        font-size: .85rem;
+        font-weight: 600;
+        color: #667085;
+        text-transform: uppercase;
+    }
+
+    .info-value {
+        font-weight: 700;
+        color: #101828;
+        margin-bottom: 10px;
+    }
+
+</style>
+
+<!-- =========================
+     SURVEY HERO HEADER
+========================= -->
+
+<div class="survey-hero mb-4">
+
+    <div class="d-flex justify-content-between align-items-start">
+
+        <div>
+            <div class="survey-subtitle">
+                Household Survey • SURV-LFS-2025
+            </div>
+
+            <div class="survey-title">
+                Labour Force Survey 2025
+            </div>
+
+            <div class="survey-meta mt-2">
+                <span>Execution Year: 2025</span>
+                <span>•</span>
+                <span>Reference: Jan–Dec 2025</span>
+                <span>•</span>
+                <span>Database: LFS_2025</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="badge bg-success px-3 py-2">
+                Active
+            </span>
+
+            <div class="mt-3 text-end">
+                <button class="btn btn-primary btn-sm">Publish</button>
+                <button class="btn btn-outline-secondary btn-sm">Settings</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     KPI ROW
+========================= -->
+
+<div class="row g-3 mb-4">
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon q"><i class="bi bi-ui-checks-grid"></i></div>
+            <div>
+                <div class="metric-label">Questionnaires</div>
+                <div class="metric-value">12</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon s"><i class="bi bi-folder2-open"></i></div>
+            <div>
+                <div class="metric-label">Sections</div>
+                <div class="metric-value">47</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon f"><i class="bi bi-file-earmark-text"></i></div>
+            <div>
+                <div class="metric-label">Forms</div>
+                <div class="metric-value">143</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon fl"><i class="bi bi-input-cursor-text"></i></div>
+            <div>
+                <div class="metric-label">Fields</div>
+                <div class="metric-value">2491</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon st"><i class="bi bi-people"></i></div>
+            <div>
+                <div class="metric-label">Staff</div>
+                <div class="metric-value">38</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-md-4">
+        <div class="metric-card">
+            <div class="metric-icon as"><i class="bi bi-clipboard-check"></i></div>
+            <div>
+                <div class="metric-label">Assignments</div>
+                <div class="metric-value">124</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- =========================
+     MODULE GRID (MAIN WORKSPACE)
+========================= -->
+
+<div class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <div class="module-card m1">
+            <div class="module-icon"><i class="bi bi-ui-checks"></i></div>
+            <div class="module-title">Questionnaire Design</div>
+            <div class="module-desc">Build questionnaires, sections, forms and metadata.</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="module-card m2">
+            <div class="module-icon"><i class="bi bi-map"></i></div>
+            <div class="module-title">Sampling & Area Frame</div>
+            <div class="module-desc">Define sampling frames and selection logic.</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="module-card m3">
+            <div class="module-icon"><i class="bi bi-people"></i></div>
+            <div class="module-title">Survey Staff</div>
+            <div class="module-desc">Manage enumerators, supervisors and teams.</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="module-card m4">
+            <div class="module-icon"><i class="bi bi-clipboard-check"></i></div>
+            <div class="module-title">Assignments</div>
+            <div class="module-desc">Distribute workload and track field progress.</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="module-card m5">
+            <div class="module-icon"><i class="bi bi-graph-up"></i></div>
+            <div class="module-title">Statistics & Monitoring</div>
+            <div class="module-desc">Real-time survey analytics and quality checks.</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="module-card m6">
+            <div class="module-icon"><i class="bi bi-gear"></i></div>
+            <div class="module-title">Survey Configuration</div>
+            <div class="module-desc">Setup rules, workflows and system configuration.</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- =========================
+     RIGHT SUMMARY (INLINE, NO SIDEBAR)
+========================= -->
+
+<div class="row g-3">
+
+    <div class="col-md-4">
+        <div class="info-box">
+            <div class="info-title">Survey Status</div>
+            <div class="info-value">Active</div>
+
+            <div class="info-title">Version</div>
+            <div class="info-value">25.1</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-box">
+            <div class="info-title">Recent Activity</div>
+            <div class="info-value">3 updates today</div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="info-box">
+            <div class="info-title">Data Quality</div>
+            <div class="info-value">98.2%</div>
+        </div>
+    </div>
+
+</div>

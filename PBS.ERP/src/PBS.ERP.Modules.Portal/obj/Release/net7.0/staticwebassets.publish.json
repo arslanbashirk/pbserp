@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "gvS3ZSwk/AQ6mRfXnLplTcxzcIBLUsFf7u7br16YqBI=",
+  "Source": "PBS.ERP.Modules.Portal",
+  "BasePath": "_content/PBS.ERP.Modules.Portal",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

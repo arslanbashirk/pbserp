@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PBS.ERP.Infrastructure;
-using PBS.ERP.Shared.Identity; // For EF queries
+using PBS.ERP.Shared.Identity;
+using PBS.ERP.Shared.Models; // For EF queries
 
 namespace PBS.ERP.Modules.Security.Controllers
 {
-    [Authorize(Roles = "Root,Super,Admin")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("Team")]
+    [Authorize(AuthenticationSchemes = Constants.Identity_Application_Scheme)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class TeamController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -92,7 +93,7 @@ namespace PBS.ERP.Modules.Security.Controllers
             ViewBag.Module = "Team";
             ViewBag.FieldActivity = fieldActivity;
 
-            return View("~/Views/Team/Member.cshtml",ehr);
+            return View(ehr);
         }
 
         public async Task<List<FieldUserActivityDto>> GetFieldActivityByUserAsync(

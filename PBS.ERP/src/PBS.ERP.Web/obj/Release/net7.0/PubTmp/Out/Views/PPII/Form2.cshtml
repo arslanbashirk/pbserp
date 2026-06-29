@@ -1,0 +1,757 @@
+﻿@model PBS.ERP.Shared.Models.Entity;
+@{
+    ViewBag.Title = "Dynamic CRUD";
+    Layout = "_Staff";
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+            <style>
+                .mb-3 {
+                    margin-bottom: 15px;
+                }
+
+                thead {
+                    background-color: blue !important;
+                    color: white;
+                }
+
+                .select2-container .select2-selection--single {
+                    height: 36px;
+                }
+
+                .select2-container--default .select2-selection--single .select2-selection__rendered {
+                    line-height: 36px;
+                }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow {
+                    height: 36px;
+                }
+            </style>
+
+}
+
+
+<div class="card bg-white">
+    <div class="card-body">
+        <h2 class="mb-3 text-capitalize" id="table">@Model.Name (@Model.Description)</h2>
+        <input type="hidden" id="uid" value="@Model.UID" />
+        <input type="hidden" id="aapsic" value="@ViewBag.PSIC" />
+        <input type="hidden" id="aacode" value="@ViewBag.Code" />
+        <input type="hidden" id="aawhere" value="@ViewBag.Where" />
+        <input type="hidden" id="path" value="@ViewBag.Path" />
+        <hr />
+
+        <!-- ===================== FORM ===================== -->
+        <div id="form-container">
+            <form id="dynamicForm" class="row">
+            </form>
+            <div class="mt-3" style="margin-top:10px">
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                <button id="btnSave" type="button" class="btn btn-primary" onclick="save()">Save and Add More Items</button>
+
+            </div>
+        </div>
+
+        <hr />
+        <p>If Added All Items then Proceed to Next Section</p>
+        <button type="button" class="btn btn-danger"
+                onclick="location.href='@Url.Action("Form3", "PPII", new { code = ViewBag.Code })'">
+            Goto Next Section
+        </button>
+        
+    </div>
+</div>
+<div>
+    <hr />
+    <!-- ===================== GRID ===================== -->
+    <div class="table-stripped">
+        <table class="table table-bordered table-striped" id="grid">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/save-data.js" asp-append-version="true"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+            const uid = $("#uid").val();
+            const code = $("#aacode").val();
+            const where = $("#aawhere").val();
+            const PATH = $("#path").val();
+            const table = $("#table").text();
+            let metadata = [];
+            loadMetadata()
+            function loadMetadata() {
+                window.PbsErp.call("metadata.get", { table: uid }, {
+                    success: function (response) {
+                        if (!response.Success) {
+                            alert(response.Message || "Failed to load metadata.");
+                            return;
+                        }
+
+                        metadata = response.Data || [];
+
+                        buildForm(metadata);
+                        loadGrid();
+                    },
+                    error: function (err) {
+                        alert(err.Message || "Server error while loading metadata.");
+                    }
+                });
+            }
+
+            function buildForm(fields) {
+                const $form = $('#dynamicForm');
+                $form.empty();
+                $form.append('<input type="hidden" id="UID" name="UID"/>');
+
+                let currentSection = null;
+
+                let currentSectionKey = null;
+                let $sectionFields = null;
+
+                // Optional but strongly recommended
+                fields = fields.sort((a, b) => {
+                    const s1 = a.SectionNumber ?? 9999;
+                    const s2 = b.SectionNumber ?? 9999;
+
+                    if (s1 !== s2) return s1 - s2;
+
+                    return (a.SortOrder ?? 0) - (b.SortOrder ?? 0);
+                });
+
+                fields.forEach(f => {
+
+                    if (f.IsReadonly) return;
+                    if (f.ColumnName === "AreaCode") return;
+
+                    // ---------- SECTION CONTAINER ----------
+                    const sectionKey = f.SectionNumber ?? "__default";
+
+                    if (sectionKey !== currentSectionKey) {
+                        currentSectionKey = sectionKey;
+
+                        const sectionName = f.SectionName ?? "";
+
+                        const $section = $(`
+                    <div class="col-md-12 section-container mb-4" data-section="${sectionKey}">
+                        ${sectionName
+                                ? `<h3 class="mt-3">${sectionName}</h3><hr />`
+                                : ``
+                            }
+
+                        <div class="row section-fields"></div>
+                    </div>
+                `);
+
+                        $form.append($section);
+
+                        // Important: fields will now be appended inside this section only
+                        $sectionFields = $section.find(".section-fields");
+                    }
+
+                    // ---------- INPUT HTML ----------
+                    let inputHtml = '';
+                    const required = f.IsRequired ? 'required' : '';
+                    const readonly = f.IsReadonly ? 'readonly' : '';
+                    const placeholder = f.Placeholder ?? '';
+
+                    if (f.InputType === 'boolean') {
+                        inputHtml = `
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="${f.ColumnName}"
+                                   id="${f.ColumnName}_true"
+                                   value="true"
+                                   ${required}
+                                   checked>
+
+                            <label class="form-check-label" for="${f.ColumnName}_true">
+                                ${f.TrueLabel ?? 'True'}
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline ms-3">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="${f.ColumnName}"
+                                   id="${f.ColumnName}_false"
+                                   value="false">
+
+                            <label class="form-check-label" for="${f.ColumnName}_false">
+                                ${f.FalseLabel ?? 'False'}
+                            </label>
+                        </div>
+                    </div>`;
+                    }
+                    else {
+                        switch (f.InputType) {
+                            case 'text':
+                            case 'number':
+                            case 'email':
+                            case 'url':
+                            case 'tel':
+                            case 'password':
+                            case 'color':
+                            case 'range':
+                            case 'month':
+                            case 'week':
+                            case 'search':
+                            case 'time':
+                            case 'datetime-local':
+                                inputHtml = `
+                            <input type="${f.InputType}"
+                                   class="form-control"
+                                   name="${f.ColumnName}"
+                                   placeholder="${placeholder}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+
+                            case 'date':
+                                inputHtml = `
+                            <input type="date"
+                                   class="form-control"
+                                   name="${f.ColumnName}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+
+                            case 'textarea':
+                                inputHtml = `
+                            <textarea class="form-control"
+                                      name="${f.ColumnName}"
+                                      placeholder="${placeholder}"
+                                      ${required}
+                                      ${readonly}></textarea>`;
+                                break;
+
+                            case 'checkbox':
+                                inputHtml = `
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="${f.ColumnName}"
+                                       value="1" />
+
+                                <label class="form-check-label">
+                                    ${f.DisplayLabel ?? f.ColumnName}
+                                </label>
+                            </div>`;
+                                break;
+
+                            case 'radio':
+                                inputHtml = `<div id="radioContainer_${f.ColumnName}"></div>`;
+                                break;
+
+                            case 'select':
+                                inputHtml = `
+                            <select class="form-select"
+                                    name="${f.ColumnName}"
+                                    id="${f.ColumnName}"
+                                    ${required}>
+                                <option value="">-- Select --</option>
+                            </select>`;
+                                break;
+
+                            case 'file':
+                                inputHtml = `
+                            <input type="file"
+                                   class="form-control"
+                                   name="${f.ColumnName}"
+                                   ${required} />`;
+                                break;
+
+                            default:
+                                inputHtml = `
+                            <input type="text"
+                                   class="form-control"
+                                   name="${f.ColumnName}"
+                                   placeholder="${placeholder}"
+                                   ${required}
+                                   ${readonly} />`;
+                                break;
+                        }
+                    }
+
+                    // ---------- FIELD CONTAINER ----------
+                    const fieldHtml = `
+                <div class="col-md-4 mb-3">
+                    ${f.InputType !== 'checkbox'
+                            ? `
+                            <label class="form-label">
+                                ${f.DisplayLabel ?? f.ColumnName}
+                                ${f.IsRequired ? '<span class="text-danger">*</span>' : ''}
+                            </label>
+                          `
+                            : ``
+                        }
+
+                    ${inputHtml}
+
+                    ${f.Tooltip ? `<small class="text-muted">${f.Tooltip}</small>` : ''}
+                </div>
+            `;
+
+                    // Important: append field inside current section, not directly to $form
+                    $sectionFields.append(fieldHtml);
+
+                    // ---------- LOAD DROPDOWN / RADIO DATA ----------
+                    if ((f.InputType === 'select' || f.InputType === 'radio') && f.DropdownSourceTable) {
+
+                        window.PbsErp.call("lookup.get", {
+                            table: f.DropdownSourceTable,
+                            valueCol: f.DropdownValueColumn,
+                            textCol: f.DropdownTextColumn,
+                            where: f.ColumnName === 'Category'
+                                ? "PSIC='" + $("#aapsic").val() + "'"
+                                : f.DropdownWhere,
+                            order: f.DropdownOrderBy
+                        }, {
+                            success: function (response) {
+
+                                if (!response.Success) {
+                                    alert(response.Message || "Failed to load lookup data.");
+                                    return;
+                                }
+
+                                const rows = response.Data || [];
+
+                                if (f.InputType === 'select') {
+                                    rows.forEach(r => {
+                                        $('#' + f.ColumnName).append(`
+                                    <option value="${r.value}">${r.text}</option>
+                                `);
+                                    });
+                                }
+                                else if (f.InputType === 'radio') {
+                                    const $container = $(`#radioContainer_${f.ColumnName}`);
+
+                                    rows.forEach(r => {
+                                        const radioHtml = `
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="${f.ColumnName}"
+                                               value="${r.value}"
+                                               id="${f.ColumnName}_${r.value}" />
+
+                                        <label class="form-check-label" for="${f.ColumnName}_${r.value}">
+                                            ${r.text}
+                                        </label>
+                                    </div>
+                                `;
+
+                                        $container.append(radioHtml);
+                                    });
+                                }
+                            },
+                            error: function (err) {
+                                alert(err.Message || "Server error while loading lookup data.");
+                            }
+                        });
+                    }
+                });
+                $("#VerificationStatus").closest(".section-container").hide();
+                numberFormatting();
+            }
+
+
+
+
+            window.save = function () {
+                $("#btnSave").prop("disabled", true);
+
+                var code = $('#aacode').val();
+                var id = $('#UID').val();
+                var data = {};
+                const isUpdate = id && id != '';
+
+                $('#dynamicForm').find('input, select, textarea').each(function () {
+                    if (this.type === 'checkbox') {
+                        data[this.name] = this.checked ? 1 : 0;
+                    }
+                    else if (this.type === 'radio') {
+                        // Only set value if this radio button is checked
+                        if (this.checked) {
+                            data[this.name] = this.value;
+                        }
+                    }
+                    else if ($(this).val() != "") {
+                        data[this.name] = $(this).val();
+                    }
+                });
+
+                let vs=$("#VerificationStatus").val();
+                if(vs==2 || vs==1){
+                    alert("Enumerator [VerificationStatus] Must be 'Re Submit'");
+                    return;
+                }
+
+                data['AreaCode'] = code;
+
+                window.PbsErp.call("crud.save", {
+                    table: uid,
+                    id: isUpdate ? id : null,
+                    fields: data
+                }, {
+                    success: function (res) {
+                        $("#btnSave").prop("disabled", false);
+
+                        if (res.Success) {
+                            alert(isUpdate ? 'Updated successfully' : 'Saved successfully');
+                            resetForm();
+                            loadGrid();
+                        }
+                        else {
+                            alert(res.Message || "Save failed.");
+                        }
+                    },
+                    error: function (err) {
+                        $("#btnSave").prop("disabled", false);
+                        alert("Network or Server Error: " + (err.Message || "Unknown error"));
+                    }
+                });
+            }
+
+            window.resetForm = function () {
+                $('#dynamicForm')[0].reset();
+                $('#UID').val('');
+                $('.select2-hidden-accessible').val(null).trigger('change');
+            }
+
+            function loadGrid() {
+                window.PbsErp.call("crud.list", {
+                    table: uid,
+                    filter: " {alias}.AreaCode='" + code + "'"
+                }, {
+                    success: function (res) {
+
+                        if (!res.Success) {
+                            alert(res.Message || "Failed to load grid data.");
+                            return;
+                        }
+
+                        const rows = res.Data || [];
+
+                        const $grid = $('#grid');
+
+                        $grid.find('thead').empty();
+                        $grid.find('tbody').empty();
+
+                        if (!rows || rows.length === 0) {
+                            $grid.find('thead').html('<tr><th>No data</th></tr>');
+                            return;
+                        }
+
+                        const convertedRows = rows; // already an array of objects
+
+                        let headerHtml = '<tr><th></th>';
+                        metadata.filter(f => f.ShowInList).forEach(f => {
+                            headerHtml += `<th>${f.DisplayName ?? f.ColumnName}</th>`;
+                        });
+                        headerHtml += '<th></th></tr>';
+                        $grid.find('thead').html(headerHtml);
+
+                        let bodyHtml = '';
+                        convertedRows.forEach(r => {
+                            bodyHtml += '<tr>';
+                            bodyHtml += `<td>`;
+                            bodyHtml += `<button class="btn btn-sm btn-info edit-btn" data-id="${r.UID}" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                                    </button>`;
+                            bodyHtml += `</td>`;
+
+                            metadata.filter(f => f.ShowInList).forEach(f => {
+                                let val = r[f.ColumnName] ?? '';
+
+                                // Parse .NET date format
+                                if (typeof val === 'string' && val.startsWith('/Date(')) {
+                                    val = formatDotNetDate(val);
+                                } else if (typeof val === 'object') {
+                                    val = JSON.stringify(val);
+                                }
+
+                                bodyHtml += `<td>${val}</td>`;
+                            });
+
+                            bodyHtml += `<td>`;
+
+                            bodyHtml += `
+                                <button class="btn btn-sm btn-danger delete-btn" data-id="${r.UID}" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>`;
+
+                            bodyHtml += '</td>';
+                            bodyHtml += '</tr>';
+                        });
+
+                        $grid.find('tbody').html(bodyHtml);
+                    },
+                    error: function (err) {
+                        alert(err.Message || "Server error while loading grid data.");
+                    }
+                });
+            }
+
+            function makeExplanationReadonly() {
+                $('textarea[name="Explanation"]')
+                    .prop("readonly", true)
+                    .addClass("bg-light");
+            }
+
+            function applyAddonTypeRule($addonType) {
+                const $container = $addonType.closest("form, #dynamicForm, .section-container");
+                const $discount = $container.find('input[name="Discount"]');
+
+                if ($addonType.val() === "5") {
+                    $discount
+                        .val(0)
+                        .prop("readonly", true)
+                        .addClass("bg-light");
+                } else {
+                    $discount
+                        .prop("readonly", false)
+                        .removeClass("bg-light");
+                }
+            }
+
+            // For dynamically generated AddonType select
+            $(document).on("change", "#AddonType", function () {
+                applyAddonTypeRule($(this));
+            });
+
+
+            // Event delegation for dynamically generated buttons
+            $('#grid tbody').on('click', '.edit-btn', function () {
+                editRecord($(this).data('id'));
+            });
+
+            $('#grid tbody').on('click', '.delete-btn', function () {
+                deleteRecord($(this).data('id'));
+            });
+
+
+            function setDateInput(name, val) {
+                if (!val) {
+                    $(`[name='${name}']`).val('');
+                    return;
+                }
+
+                let dateStr = '';
+
+                // Handle /Date(1532400000000)/ format
+                if (val.startsWith('/Date(')) {
+                    const timestamp = parseInt(val.replace(/\/Date\((\d+)\)\//, '$1'));
+                    const dateObj = new Date(timestamp);
+                    const yyyy = dateObj.getFullYear();
+                    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                    const dd = String(dateObj.getDate()).padStart(2, '0');
+                    dateStr = `${yyyy}-${mm}-${dd}`;
+                }
+                // Handle yyyy-MM-dd or ISO string
+                else {
+                    const dateObj = new Date(val);
+                    if (isNaN(dateObj)) {
+                        dateStr = '';
+                    } else {
+                        const yyyy = dateObj.getFullYear();
+                        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const dd = String(dateObj.getDate()).padStart(2, '0');
+                        dateStr = `${yyyy}-${mm}-${dd}`;
+                    }
+                }
+
+                $(`[name='${name}']`).val(dateStr);
+            }
+
+
+            function parseDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const match = /\/Date\((\d+)\)\//.exec(dotNetDateStr);
+                if (match) {
+                    const timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            function formatDotNetDate(dotNetDateStr) {
+                // Example input: "/Date(1532458800000)/"
+                const timestamp = parseInt(dotNetDateStr.replace(/\/Date\((\d+)\)\//, '$1'), 10);
+                const date = new Date(timestamp);
+
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const dd = String(date.getDate()).padStart(2, '0');
+                const yyyy = date.getFullYear();
+
+                return `${mm}/${dd}/${yyyy}`;
+            }
+
+           
+
+            $(document).on("input", "input[type='number']", function () {
+                let val = $(this).val();
+                let small = $(this).siblings("small");
+
+                if (val !== "" && !isNaN(val)) {
+                    small.text("Value: " + Number(val).toLocaleString());
+                } else {
+                    small.text(small.data("default"));
+                }
+            });
+
+
+            // ----------------- EDIT RECORD -----------------
+            function editRecord(id) {
+                window.PbsErp.call("crud.record", {
+                    table: uid,
+                    id: id
+                }, {
+                    success: function (res) {
+
+                        if (!res.Success) {
+                            alert(res.Message || "Failed to load record.");
+                            return;
+                        }
+
+                        const recordArr = res.Data || {};
+                        const record = {};
+
+                        Object.keys(recordArr).forEach(key => {
+                            record[key] = recordArr[key];
+                        });
+
+                        $('#UID').val(record.UID);
+
+                        metadata.forEach(f => {
+                            let val = record[f.ColumnName];
+                            let $el = $(`[name='${f.ColumnName}']`);
+
+                            if (!$el.length) return; // safety check
+
+                            if (f.InputType === 'checkbox') {
+                                $el.prop('checked', val == 1 || val === true);
+                            }
+                            else if (f.InputType === 'boolean') {
+                                const name = f.ColumnName;
+
+                                let boolValue = null;
+                                if (val === true) {
+                                    boolValue = "true";
+                                }
+                                else if (val === false) {
+                                    boolValue = "false";
+                                }
+
+                                // Clear all first, then check the correct radio
+                                $(`input[name='${name}']`).prop("checked", false);
+
+                                if (boolValue !== null) {
+                                    $(`input[name='${name}'][value='${boolValue}']`).prop("checked", true);
+                                }
+                            }
+                            else if (f.InputType === 'date') {
+                                setDateInput(f.ColumnName, val);
+                            }
+                            else if (f.InputType === 'select') {
+                                if (typeof val === 'boolean') {
+                                    val = val ? 'True' : 'False';
+                                }
+
+                                $el.val(val).trigger('change');
+                            }
+                            else {
+                                $el.val(val);
+                            }
+
+                            if (f.ColumnName == 'VerificationStatus') {
+                                if (val === 2 || val === 3) {
+                                    $("#VerificationStatus").closest(".section-container").show();
+                                    $("#VerificationStatus")
+                                        .closest(".section-container")
+                                        .show()
+                                        .css("background-color", "#fff9db");
+                                }
+                            }
+                        });
+                        
+                        $('#dynamicForm').find('input,select,textarea')
+                            .filter(':visible:not([readonly]):not([disabled])')
+                            .first()
+                            .focus();
+
+                        numberFormatting();
+                        makeExplanationReadonly();
+                    },
+                    error: function (err) {
+                        alert(err.Message || "Server error while loading record.");
+                    }
+                });
+            }
+
+            // ----------------- DELETE -----------------
+            function deleteRecord(id) {
+                if (!confirm('Are you sure?')) return;
+
+                window.PbsErp.call("crud.delete", {
+                    table: uid,
+                    id: id
+                }, {
+                    success: function (res) {
+
+                        if (!res.Success) {
+                            alert(res.Message || 'Error');
+                            return;
+                        }
+
+                        alert('Deleted successfully');
+
+                        if ($("#path").val() == "form") {
+                            dropTable(id);
+                        }
+                        else {
+                            loadGrid();
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.Message || "Server error while deleting record.");
+                    }
+                });
+            }
+            function numberFormatting() {
+                $("input[type='number']").each(function () {
+                    let $input = $(this);
+                    let $small = $input.siblings("small");
+
+                    // Create <small> if missing
+                    if ($small.length === 0) {
+                        $small = $("<small class='text-muted'></small>");
+                        $input.after($small);
+                    }
+
+                    // Store default text once
+                    if ($small.data("default") === undefined) {
+                        $small.data("default", $small.text());
+                    }
+
+                    // Handle already filled values (edit form case)
+                    let val = $input.val();
+
+                    if (val !== "" && !isNaN(val)) {
+                        $small.text("Value: " + Number(val).toLocaleString());
+                    } else {
+                        $small.text($small.data("default"));
+                    }
+                });
+            }
+            
+        });
+
+    </script>
+}

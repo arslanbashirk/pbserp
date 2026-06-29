@@ -101,6 +101,7 @@ namespace PBS.ERP.Shared.Models
             // From BasicInfo (b)
             public string? Form1 { get; set; }
             public string? Form2 { get; set; }
+            public int? ReferBack { get; set; }
             public string? Respondent { get; set; }
             public DateTime? CreatedTime { get; set; }
             public DateTime? ModifiedTime { get; set; }

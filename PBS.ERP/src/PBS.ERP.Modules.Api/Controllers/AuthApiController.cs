@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using PBS.ERP.Infrastructure.Services;
+using PBS.ERP.Infrastructure.Interfaces;
 using PBS.ERP.Shared.Auth;
 using PBS.ERP.Shared.Models;
+using System.Security.Claims;
 
 namespace PBS.ERP.Modules.Api.Controllers;
 
 [ApiController]
 [Route("api/auth")]
-[AllowAnonymous]
 public sealed class AuthApiController : ControllerBase
 {
     private const string RefreshCookiePath = "/api/auth";
@@ -36,7 +37,9 @@ public sealed class AuthApiController : ControllerBase
     // POST /api/auth/login
     // POST /api/authenticate
     [HttpPost("login")]
+    [HttpPost("authenticate")]
     [HttpPost("~/api/authenticate")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         if (!ModelState.IsValid)
@@ -68,6 +71,7 @@ public sealed class AuthApiController : ControllerBase
     //
     // POST /api/auth/token
     [HttpPost("token")]
+    [AllowAnonymous]
     public async Task<IActionResult> TokenOnly([FromBody] LoginRequest request)
     {
         if (!ModelState.IsValid)
@@ -95,6 +99,7 @@ public sealed class AuthApiController : ControllerBase
 
     // POST /api/auth/refresh
     [HttpPost("refresh")]
+    [AllowAnonymous]
     public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest? request)
     {
         var refreshToken =
@@ -130,6 +135,7 @@ public sealed class AuthApiController : ControllerBase
 
     // POST /api/auth/register
     [HttpPost("register")]
+    [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
         if (!ModelState.IsValid)
@@ -230,6 +236,7 @@ public sealed class AuthApiController : ControllerBase
 
     // GET /api/auth/ping
     [HttpGet("ping")]
+    [AllowAnonymous]
     public IActionResult Ping()
     {
         return Ok(new
@@ -257,6 +264,35 @@ public sealed class AuthApiController : ControllerBase
             success = false,
             message = result.Error ?? "Invalid login attempt."
         });
+    }
+
+    [HttpPut("profile")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> UpdateProfile(
+        [FromBody] UpdateProfileRequest model,
+        CancellationToken cancellationToken)
+    {
+        var userId =
+            User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue("sub")
+            ?? User.FindFirstValue("uid");
+
+        var response = await _authService.UpdateProfileAsync(
+            userId,
+            model,
+            cancellationToken);
+
+        if (response.Success)
+        {
+            return Ok(response);
+        }
+
+        if (response.Message == "Unauthorized")
+        {
+            return Unauthorized(response);
+        }
+
+        return BadRequest(response);
     }
 
     private void AppendRefreshTokenCookie(

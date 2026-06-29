@@ -1,0 +1,115 @@
+﻿@model List<PBS.ERP.Shared.Models.SurveyModel.SurveyViewModel>
+
+@{
+    ViewData["Title"] = "Survey List";
+    Layout = "_Staff";
+    ViewBag.Menu = "Survey";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    .survey-card {
+        border: none;
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+        .survey-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+    .badge-active {
+        background-color: #28a745;
+    }
+
+    .badge-inactive {
+        background-color: #dc3545;
+    }
+
+    .meta {
+        font-size: 13px;
+        color: #6c757d;
+    }
+</style>
+
+<div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="fa fa-chart-bar"></i> Survey List</h3>
+    </div>
+
+    <div class="row">
+        @if (Model!=null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card survey-card p-3 h-100 shadow-sm">
+
+                        <!-- Header -->
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="mb-1">
+                                    @if (item.ShortVersion.Equals("PPII"))
+                                    {
+                                        <a href="@Url.Action("Home", "PPII", new { id = item.UID })"
+                                           class="text-decoration-none text-primary fw-semibold">
+                                            @item.ShortVersion
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#"
+                                           class="text-decoration-none text-primary fw-semibold">
+                                            @item.ShortVersion
+                                        </a>
+                                    }
+                                </h5>
+                                <small class="text-muted">@item.Name</small>
+                            </div>
+
+                            <span class="badge @(item.IsActive ? "badge-active" : "badge-inactive") px-2 py-1">
+                                @(item.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </div>
+
+                        <hr class="my-2" />
+
+                        <!-- Metadata (single line) -->
+                        <div class="d-flex flex-wrap gap-3 text-muted small">
+                            <div>
+                                <i class="fa fa-calendar me-1"></i>
+                                <span>Execution Year:</span>
+                                <strong class="text-dark">@item.ExecutionYear</strong>
+                            </div>
+
+                            <div>
+                                <i class="fa fa-clock me-1"></i>
+                                <span>Reference Period:</span>
+                                <strong class="text-dark">@item.ReferencePeriod</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="status-body">
+                <h5 class="text-danger fw-bold">Survey Not Assigned</h5>
+                <p class="text-muted mt-2">
+                    You currently do not have any survey assigned to your account.
+                </p>
+
+                <div class="alert alert-warning mt-3" role="alert">
+                    Please contact <strong>Survey Manager</strong> or <strong>Administrator</strong>.
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>

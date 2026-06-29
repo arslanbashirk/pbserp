@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "_Staff";
+    ViewData["Title"] = "Tasks";
+    ViewBag.Menu = "Tasks";
+
+    var table = ViewBag.Table;
+}
+
+<div>
+
+    <input type="hidden" id="VisibleToRole" value="Staff" />
+    <input type="hidden" id="tableName" value="@table" />
+
+    <!-- Task List -->
+    <div class="row">
+        <div class="col-12">
+            <h2>List of Upload Facility</h2>
+            <div id="taskContainer" class="row g-3">
+                <!-- Dynamic cards -->
+            </div>
+
+            <div id="loading" class="text-center text-muted mt-3">
+                Loading tasks...
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/save-data.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+
+            var uid = $('#tableName').val();
+
+            window.PbsErp.call("crud.list", {
+                table: uid,
+                filter: ""
+            }, {
+                success: function (res) {
+
+                    $('#loading').hide();
+
+                    const data = res.Data || [];
+                    const container = $('#taskContainer');
+
+                    container.empty();
+
+                    if (!data || data.length === 0) {
+                        container.append('<div class="text-muted">No records found.</div>');
+                        return;
+                    }
+
+                    const role = $("#VisibleToRole").val();
+                    let found = false;
+
+                    $.each(data, function (i, row) {
+
+                        const visibleToRole = row.VisibleToRole || row.visibleToRole || "";
+
+                        if (visibleToRole == role) {
+
+                            found = true;
+
+                            const title = row.Title || row.title || "";
+                            const id = row.UID || row.uid || row.Id || row.id;
+
+                            const subtitle = row.Description || row.description || row.SubTitle || row.subTitle || "";
+                            const date = row.CreatedTime || row.createdTime || "";
+
+                            const url = '/Crud/Grid?id=' + encodeURIComponent(id);
+
+                            const card = `
+                            <div class="col-md-6 col-lg-6">
+                                <a href="${url}" class="text-decoration-none">
+                                    <div class="card shadow-sm border-0 h-100 task-card">
+                                        <div class="card-body">
+
+                                            <div class="d-flex justify-content-between align-items-start">
+
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold text-primary">${title}</h6>
+                                                    ${subtitle ? `<div class="text-muted small">${subtitle}</div>` : ''}
+                                                </div>
+
+                                                <i class="bi bi-chevron-right text-primary"></i>
+
+                                            </div>
+
+                                            ${date ? `<div class="text-muted small mt-2">
+                                                <i class="bi bi-clock"></i> ${date}
+                                            </div>` : ''}
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+
+                            container.append(card);
+                        }
+                    });
+
+                    if (!found) {
+                        container.append('<div class="text-muted">No records found for your role.</div>');
+                    }
+                },
+
+                error: function (err) {
+                    $('#loading').text(err.Message || 'Failed to load tasks.');
+                    console.error("Task list error:", err);
+                }
+            });
+
+        });
+    </script>
+}
+<style>
+    .task-card {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .task-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+</style>
