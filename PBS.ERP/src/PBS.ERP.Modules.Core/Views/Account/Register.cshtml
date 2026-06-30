@@ -23,7 +23,21 @@
                         Create Your Account
                     </h5>
 
+                    <!-- Validation Errors -->
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger mt-4">
+                            <ul class="mb-0">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
                     <form method="post" asp-controller="Account" asp-action="Register">
+                        @Html.AntiForgeryToken()
                         <div class="mb-3">
                             <label for="cnic" class="form-label fw-semibold">
                                 CNIC Number 
@@ -99,7 +113,7 @@
                                    placeholder="Enter secure password"
                                    required />
                             <div class="form-text">
-                                Password must contain at least 8 characters.
+                                Must contain at least 8 characters and one digit (0-9).
                             </div>
                         </div>
 
@@ -118,35 +132,19 @@
 
                         <!-- Submit -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-success btn-lg">
+                            <button type="submit"
+                                    id="registerBtn"
+                                    class="btn btn-success btn-lg">
                                 Register Account
                             </button>
                         </div>
 
+
                     </form>
 
-                    <!-- Validation Errors -->
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="alert alert-danger mt-4">
-                            <ul class="mb-0">
-                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                                {
-                                    <li>@error.ErrorMessage</li>
-                                }
-                            </ul>
-                        </div>
-                    }
 
                     <!-- Login Link -->
-                    <div class="text-center mt-4">
-                        <span class="text-muted">Already have an account?</span>
-                        <a href="@Url.Action("Login", "Account")"
-                           class="fw-semibold text-success">
-                            Login here
-                        </a>
-                    </div>
-
+                    
                 </div>
             </div>
 
@@ -154,3 +152,57 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script>
+        (function () {
+
+            const form = document.querySelector("form");
+            const button = document.getElementById("registerBtn");
+
+            let isSubmitting = false;
+
+            function setLoading(state) {
+                if (state) {
+                    button.disabled = true;
+                    button.innerHTML = `
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Creating Account...
+                        `;
+                    form.classList.add("pe-none"); // blocks clicks inside form
+                } else {
+                    button.disabled = false;
+                    button.innerHTML = "Register Account";
+                    form.classList.remove("pe-none");
+                }
+            }
+
+            form.addEventListener("submit", function (e) {
+
+                if (isSubmitting) {
+                    e.preventDefault();
+                    return;
+                }
+
+                isSubmitting = true;
+                setLoading(true);
+
+                // safety fallback (if server fails, re-enable after 15s)
+                setTimeout(() => {
+                    if (isSubmitting) {
+                        isSubmitting = false;
+                        setLoading(false);
+                    }
+                }, 15000);
+            });
+
+            // prevent Enter key spam double submit
+            form.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" && isSubmitting) {
+                    e.preventDefault();
+                }
+            });
+
+        })();
+    </script>
+}

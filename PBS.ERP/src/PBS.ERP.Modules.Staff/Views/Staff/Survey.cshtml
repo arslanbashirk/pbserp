@@ -59,6 +59,13 @@
                                             @item.ShortVersion
                                         </a>
                                     }
+                                    else if (item.ShortVersion.Equals("PRICE2026"))
+                                    {
+                                        <a href="@Url.Action("Task", "Staff", new { id = item.UID })"
+                                           class="text-decoration-none text-primary fw-semibold">
+                                            @item.ShortVersion
+                                        </a>
+                                    }
                                     else
                                     {
                                         <a href="#"

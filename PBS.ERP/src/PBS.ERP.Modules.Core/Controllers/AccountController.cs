@@ -90,10 +90,7 @@ namespace PBS.ERP.Modules.Core.Controllers
                 return View();
             }
 
-            if (result.User?.Roles.Contains("Staff") == true)
-                return RedirectToAction("Index", "Staff");
-
-            return RedirectToAction("Anonymous", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]

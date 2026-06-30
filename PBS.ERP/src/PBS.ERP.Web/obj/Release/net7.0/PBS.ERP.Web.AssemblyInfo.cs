@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32ae16643b9e232bc91064e5bc1ce8b945bde4f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6add1dfdca99525f2e8ed9a780c5804d612bd2d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

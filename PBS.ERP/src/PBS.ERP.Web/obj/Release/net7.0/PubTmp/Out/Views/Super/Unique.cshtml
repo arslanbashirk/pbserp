@@ -1,0 +1,349 @@
+﻿@model List<PBS.ERP.Shared.Models.Field>
+
+@{
+    var groups = Model
+        .Where(x => !string.IsNullOrWhiteSpace(x.UniqueGroup))
+        .GroupBy(x => x.UniqueGroup!)
+        .ToList();
+
+    var available = Model
+        .Where(x => string.IsNullOrWhiteSpace(x.UniqueGroup))
+        .ToList();
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="row g-3">
+
+    <!-- LEFT: AVAILABLE -->
+    <div class="col-md-4">
+
+        <h4 id="tableName">@ViewBag.Table</h4>
+        <input type="hidden" id="table" value="@ViewBag.UID" />
+
+        <div class="card">
+            <div class="card-header fw-bold">
+                All Fields
+            </div>
+
+            <div class="card-body">
+                <div id="availableFields" class="drop-zone p-2 border rounded">
+
+                    @foreach (var field in available)
+                    {
+                        <div class="field-item card p-2 mb-2"
+                             data-column="@field.ColumnName">
+
+                            <div class="fw-semibold">
+                                @field.DisplayLabel
+                            </div>
+
+                            <small class="text-muted">
+                                @field.ColumnName
+                            </small>
+
+                            <input type="hidden" class="field-column" value="@field.ColumnName" />
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT: CONSTRAINTS -->
+    <div class="col-md-8">
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+
+            <h5 class="m-0">Constraints</h5>
+
+            <button type="button"
+                    class="btn btn-primary btn-sm"
+                    onclick="addConstraintGroup()">
+                + Add Constraint
+            </button>
+
+        </div>
+
+        <button type="button"
+                class="btn btn-success btn-sm mb-2"
+                onclick="updateConstraints()">
+            Save Constraints
+        </button>
+
+        <div id="constraintContainer">
+
+            @foreach (var grp in groups)
+            {
+                <div class="card mb-3 constraint-group">
+
+                    <div class="card-header d-flex justify-content-between">
+
+                        <span class="fw-semibold constraint-label">
+                            @grp.Key
+                        </span>
+
+                        <button type="button"
+                                class="btn btn-outline-danger btn-sm"
+                                onclick="removeGroup(this)">
+                            Remove
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="group-fields drop-zone p-2 border rounded">
+
+                            @foreach (var field in grp)
+                            {
+                                <div class="field-item card p-2 mb-2"
+                                     data-column="@field.ColumnName">
+
+                                    <div class="fw-semibold">
+                                        @field.DisplayLabel
+                                    </div>
+
+                                    <small class="text-muted">
+                                        @field.ColumnName
+                                    </small>
+
+                                    <input type="hidden" class="field-column" value="@field.ColumnName" />
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+
+    <script>
+
+        // ================================
+        // AUTO CONSTRAINT NAME BUILDER
+        // UX_Table_Column1_Column2
+        // ================================
+        function buildConstraintName(table, fields) {
+
+            const cleanTable = table.replace(/[^a-zA-Z0-9]/g, "");
+
+            const cleanFields = fields.map(f =>
+                f.replace(/[^a-zA-Z0-9]/g, "")
+            );
+
+            return `UX_${cleanTable}_${cleanFields.join("_")}`;
+        }
+
+        // ================================
+        // SORTABLE INIT
+        // ================================
+        function initSortable(el) {
+
+            new Sortable(el, {
+                group: "constraints",
+                animation: 150,
+
+                onAdd: refreshConstraintLabels,
+                onRemove: refreshConstraintLabels,
+                onUpdate: refreshConstraintLabels
+            });
+        }
+
+        // ================================
+        // UPDATE LABELS LIVE
+        // ================================
+        function refreshConstraintLabels() {
+
+            const table = $("#tableName").html();
+
+            document.querySelectorAll(".constraint-group").forEach(group => {
+
+                let fields = [];
+
+                group.querySelectorAll(".field-item").forEach(f => {
+                    fields.push(f.querySelector(".field-column").value);
+                });
+
+                const name = buildConstraintName(table, fields);
+
+                const label = group.querySelector(".constraint-label");
+
+                if (label) {
+                    label.innerText = name;
+                }
+            });
+        }
+
+        // ================================
+        // PAYLOAD BUILDER
+        // ================================
+        function getPayload() {
+
+            const table = $("#table").val();
+
+            const groups = [];
+
+            document.querySelectorAll(".constraint-group").forEach(group => {
+
+                let fields = [];
+
+                group.querySelectorAll(".field-item").forEach(f => {
+                    fields.push(f.querySelector(".field-column").value);
+                });
+
+                if (fields.length > 0) {
+
+                    const uniqueGroup = buildConstraintName(table, fields);
+
+                    groups.push({
+                        Table: table,
+                        UniqueGroup: uniqueGroup,
+                        Fields: fields
+                    });
+                }
+            });
+
+            return groups;
+        }
+
+        // ================================
+        // SAVE CONSTRAINTS (200 response safe)
+        // ================================
+        function updateConstraints() {
+
+            const groups = getPayload();
+
+            if (!groups.length) {
+                showSequenceMessage("warning", "No constraints defined");
+                return;
+            }
+
+            let requests = groups.map(g => {
+
+                return $.ajax({
+                    url: "/api/super/table/unique",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(g)
+                }).then(response => {
+
+                    if (!response.Success) {
+                        throw new Error(response.Message || "Save failed");
+                    }
+
+                    return response;
+                });
+
+            });
+
+            Promise.all(requests)
+                .then(() => {
+                    showSequenceMessage("success", "All constraints saved successfully.");
+                })
+                .catch(err => {
+                    showSequenceMessage("danger", err.message || "Failed to save constraints.");
+                });
+        }
+
+        // ================================
+        // ADD GROUP
+        // ================================
+        function addConstraintGroup() {
+
+            const html = `
+                <div class="card mb-3 constraint-group">
+
+                    <div class="card-header d-flex justify-content-between">
+
+                        <span class="fw-semibold constraint-label">
+                            Auto Constraint
+                        </span>
+
+                        <button type="button"
+                                class="btn btn-outline-danger btn-sm"
+                                onclick="removeGroup(this)">
+                            Remove
+                        </button>
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="group-fields drop-zone p-2 border rounded"></div>
+                    </div>
+
+                </div>`;
+
+            const div = document.createElement("div");
+            div.innerHTML = html;
+
+            const group = div.firstElementChild;
+
+            document.getElementById("constraintContainer").appendChild(group);
+
+            initSortable(group.querySelector(".group-fields"));
+        }
+
+        // ================================
+        // REMOVE GROUP
+        // ================================
+        function removeGroup(btn) {
+
+            const group = btn.closest(".constraint-group");
+
+            const available = document.getElementById("availableFields");
+
+            group.querySelectorAll(".field-item").forEach(item => {
+                available.appendChild(item);
+            });
+
+            group.remove();
+
+            refreshConstraintLabels();
+        }
+
+        // ================================
+        // NOTIFICATIONS
+        // ================================
+        function showSequenceMessage(type, message) {
+
+            const alertClass =
+                type === "success" ? "alert-success" :
+                    type === "danger" ? "alert-danger" :
+                        type === "warning" ? "alert-warning" :
+                            "alert-info";
+
+            const html = `
+                    <div class="alert ${alertClass} alert-dismissible fade show mt-2" role="alert">
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+            $("#constraintContainer").prepend(html);
+        }
+
+        // ================================
+        // INIT
+        // ================================
+        document.addEventListener("DOMContentLoaded", function () {
+
+            initSortable(document.getElementById("availableFields"));
+
+            document.querySelectorAll(".group-fields").forEach(initSortable);
+        });
+
+    </script>
+}
