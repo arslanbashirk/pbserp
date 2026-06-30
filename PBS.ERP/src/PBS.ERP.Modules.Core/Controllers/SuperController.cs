@@ -143,7 +143,30 @@ namespace PBS.ERP.Modules.Core.Controllers
             return View();
         }
 
-        
+
+        [HttpGet("Unique")]
+        public async Task<IActionResult> Unique(string? id)
+        {
+            var name = await _context.Entities
+               .Where(m => m.UID == id)
+               .Select(m => m.Name)
+               .FirstOrDefaultAsync();
+
+            var fields = await _context.Fields
+               .Where(m => m.Entity == id)
+               .ToListAsync();
+
+            if (string.IsNullOrWhiteSpace(name))
+                return NotFound("Table metadata not found.");
+
+            ViewBag.Table = name;
+            ViewBag.UID = id;
+
+            return View(fields);
+        }
+
+
+
         [HttpGet("Fields")]
         public async Task<IActionResult> Fields(string? id)
         {

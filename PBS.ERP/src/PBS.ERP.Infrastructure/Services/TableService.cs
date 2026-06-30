@@ -1417,6 +1417,228 @@ namespace PBS.ERP.Infrastructure.Services
             };
         }
 
+        public async Task<ServiceResult> SetUniqueKeyAsync(UniqueRequest request, string user)
+        {
+            if (request == null ||
+                string.IsNullOrWhiteSpace(request.Table) ||
+                string.IsNullOrWhiteSpace(request.UniqueGroup) ||
+                request.Fields == null ||
+                !request.Fields.Any())
+            {
+                return Fail("Table, UniqueGroup and Fields are required");
+            }
+
+            /*
+            ================================
+            STEP 1 — Load Entity (Table Info)
+            ================================
+            */
+
+            var entity = await _context.Entities
+                .Where(m => m.UID == request.Table)
+                .Select(m => new
+                {
+                    m.UID,
+                    m.Name,
+                    m.Schema,
+                    m.Database
+                })
+                .FirstOrDefaultAsync();
+
+            if (entity == null)
+                return Fail("Entity not found");
+
+            /*
+            ================================
+            STEP 2 — Validate Identifiers
+            ================================
+            */
+
+            if (!IsValidSqlIdentifier(entity.Name) ||
+                !IsValidSqlIdentifier(entity.Schema) ||
+                !IsValidSqlIdentifier(entity.Database))
+            {
+                return Fail("Invalid entity identifier");
+            }
+
+            var cleanFields = request.Fields
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim())
+                .ToList();
+
+            foreach (var f in cleanFields)
+            {
+                if (!IsValidSqlIdentifier(f))
+                    return Fail($"Invalid column identifier: {f}");
+            }
+
+            /*
+            ================================
+            STEP 3 — Open Connection + Transaction
+            ================================
+            */
+
+            var dbConnection = _context.Database.GetDbConnection();
+
+            if (dbConnection.State != ConnectionState.Open)
+                await dbConnection.OpenAsync();
+
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            var dbTransaction = transaction.GetDbTransaction();
+
+            try
+            {
+                var fullTableName =
+                    $"[{entity.Database}].[{entity.Schema}].[{entity.Name}]";
+
+                /*
+                ================================
+                STEP 4 — Confirm Columns Exist
+                ================================
+                */
+
+                var existingColumns = await GetExistingColumnsAsync(
+                    dbConnection,
+                    dbTransaction,
+                    entity.Database,
+                    entity.Schema,
+                    entity.Name);
+
+                var missing = cleanFields
+                    .Where(f => !existingColumns.Contains(f))
+                    .ToList();
+
+                if (missing.Any())
+                {
+                    await transaction.RollbackAsync();
+                    return Fail($"Missing columns: {string.Join(", ", missing)}");
+                }
+
+                /*
+                ================================
+                STEP 5 — Check Existing Duplicate Data
+                ================================
+                */
+
+                var columnListSql = string.Join(", ", cleanFields.Select(c => $"[{c}]"));
+
+                var duplicateCheckSql = $@"
+                SELECT COUNT(*) 
+                FROM (
+                    SELECT {columnListSql}, COUNT(*) AS Cnt
+                    FROM {fullTableName}
+                    GROUP BY {columnListSql}
+                    HAVING COUNT(*) > 1
+                ) AS X";
+
+                var duplicates = await dbConnection.ExecuteScalarAsync<int>(
+                    duplicateCheckSql,
+                    transaction: dbTransaction);
+
+                if (duplicates > 0)
+                {
+                    await transaction.RollbackAsync();
+                    return Fail("Cannot create unique constraint. Duplicate data exists.");
+                }
+
+                /*
+                ================================
+                STEP 6 — Drop Existing Constraint (if exists)
+                ================================
+                */
+
+                var constraintName =
+                    $"UX_{entity.Name}_{request.UniqueGroup}"
+                    .Replace(" ", "_");
+
+                var dropSql = $@"
+                IF EXISTS (
+                    SELECT * FROM sys.objects
+                    WHERE type = 'UQ'
+                    AND name = '{constraintName}'
+                )
+                BEGIN
+                    ALTER TABLE {fullTableName}
+                    DROP CONSTRAINT [{constraintName}]
+                END";
+
+                await dbConnection.ExecuteAsync(
+                    dropSql,
+                    transaction: dbTransaction);
+
+                /*
+                ================================
+                STEP 7 — Create Unique Constraint
+                ================================
+                */
+
+                var createSql = $@"
+                ALTER TABLE {fullTableName}
+                ADD CONSTRAINT [{constraintName}]
+                UNIQUE ({columnListSql});";
+
+                await dbConnection.ExecuteAsync(
+                    createSql,
+                    transaction: dbTransaction);
+
+                /*
+                ================================
+                STEP 8 — Update Metadata (Fields table)
+                ================================
+                */
+
+                await dbConnection.ExecuteAsync(
+                    $@"
+                    UPDATE {Constants.FieldTable}
+                    SET UniqueGroup = @UniqueGroup,
+                        ModifiedBy = @User,
+                        ModifiedTime = @Now
+                    WHERE Entity = @TableUid
+                    AND ColumnName IN @Columns;",
+                    new
+                    {
+                        UniqueGroup = request.UniqueGroup,
+                        User = string.IsNullOrWhiteSpace(user) ? "system" : user,
+                        Now = DateTime.Now,
+                        TableUid = request.Table,
+                        Columns = cleanFields
+                    },
+                    transaction: dbTransaction);
+
+                /*
+                ================================
+                STEP 9 — Commit
+                ================================
+                */
+
+                await transaction.CommitAsync();
+
+                return new ServiceResult
+                {
+                    Success = true,
+                    Message = $"Unique constraint '{request.UniqueGroup}' applied successfully",
+                    Column = string.Join(",", cleanFields)
+                };
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    await transaction.RollbackAsync();
+                }
+                catch
+                {
+                    // safe ignore
+                }
+
+                return new ServiceResult
+                {
+                    Success = false,
+                    Message = "Error applying unique constraint: " +
+                              (ex.InnerException?.Message ?? ex.Message)
+                };
+            }
+        }
 
         public async Task<List<ServiceResult>> BulkUploadColumnsAsync(IFormFile file,string tableUid,string user)
         {

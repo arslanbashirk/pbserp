@@ -126,6 +126,9 @@ namespace PBS.ERP.Shared.Models
         [StringLength(100)]
         public string? DeletedBy { get; set; }
 
+        [StringLength(100)]
+        public string? UniqueGroup { get; set; }
+
         public DateTime? DeletedTime { get; set; }
 
         public bool? IsDeleted { get; set; } = false;

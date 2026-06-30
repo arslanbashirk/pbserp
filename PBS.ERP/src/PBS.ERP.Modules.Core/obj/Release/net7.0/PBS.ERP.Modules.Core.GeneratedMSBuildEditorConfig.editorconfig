@@ -69,3 +69,7 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Core/Views/Super/Order.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJcT3JkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Core/Views/Super/Unique.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwZXJcVW5pcXVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

@@ -17,7 +17,7 @@ namespace PBS.ERP.Modules.Subject.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize(
         AuthenticationSchemes = Constants.Identity_Application_Scheme,
-        Roles = "Root,Super,Admin,Subject")]
+        Roles = "Root,Super,Admin,Staff")]
     public class SubjectController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

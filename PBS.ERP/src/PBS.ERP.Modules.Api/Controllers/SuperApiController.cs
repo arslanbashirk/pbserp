@@ -128,6 +128,19 @@ namespace PBS.ERP.Modules.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("table/unique")]
+        public async Task<IActionResult> SetUniqueKey(
+            [FromBody] UniqueRequest model)
+        {
+            var user = GetCurrentUser();
+
+            var result = await _tableService.SetUniqueKeyAsync(
+                model,
+                user);
+
+            return Ok(result);
+        }
+
         [HttpPost("column/upload")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> BulkUploadColumns(

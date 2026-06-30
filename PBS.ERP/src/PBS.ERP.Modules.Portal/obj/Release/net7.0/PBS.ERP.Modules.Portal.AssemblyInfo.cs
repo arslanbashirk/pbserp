@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Modules.Portal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc361eb662139e43458187a56d2ecffff02ad33b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32ae16643b9e232bc91064e5bc1ce8b945bde4f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Modules.Portal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Modules.Portal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

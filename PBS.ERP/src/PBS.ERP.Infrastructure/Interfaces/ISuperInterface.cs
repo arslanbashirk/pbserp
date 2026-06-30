@@ -13,6 +13,7 @@ namespace PBS.ERP.Infrastructure.Interfaces
         Task<ServiceResult> AlterColumnAsync(AlterTableRequest request, string user);
         Task<ServiceResult> DropTableAsync(DropTableRequest request, string user);
         Task<ServiceResult> DropColumnAsync(DropColumnRequest request, string user);
+        Task<ServiceResult> SetUniqueKeyAsync(UniqueRequest model, string user);
         Task<ServiceResult> LayoutFieldAsync(FieldSortRequest model, string user);
         Task<List<ServiceResult>> BulkUploadColumnsAsync(IFormFile file, string tableUid, string user);
     }

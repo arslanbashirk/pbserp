@@ -467,8 +467,8 @@ C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.
 C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\appsettings.Production.json
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\appsettings.Development.json
-C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\appsettings.Production.json
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\appsettings.json
+C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\appsettings.Production.json
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Web.staticwebassets.runtime.json
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Web.exe
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Web.deps.json

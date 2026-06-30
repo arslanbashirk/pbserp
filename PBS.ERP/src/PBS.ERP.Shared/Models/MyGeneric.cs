@@ -76,6 +76,15 @@ namespace PBS.ERP.Shared.Models
         public string Column { get; set; }
     }
 
+    public class UniqueRequest
+    {
+        public string Table { get; set; } = null!;
+
+        public string UniqueGroup { get; set; } = null!;
+
+        public List<string> Fields { get; set; } = new();
+    }
+
     public class GenericSaveRequest
     {
         public string table { get; set; }
