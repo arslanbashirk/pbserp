@@ -14,6 +14,7 @@
     <!-- ================== Insert / Update Form ================== -->
     <div class="card mb-4">
         <div class="card-body">
+            @Html.AntiForgeryToken()
             <h5 id="formTitle">Add Role</h5>
             <form id="roleForm">
                 <input type="hidden" id="uid" />
@@ -67,8 +68,10 @@
 
     let parentRoles = [];
     let table;
+    const token = $('input[name="__RequestVerificationToken"]').val();
 
     $(document).ready(function () {
+        const token = $('input[name="__RequestVerificationToken"]').val();
         // Initialize DataTable
         table = $('#roleTable').DataTable({
             dom: 'Bfrtip',
@@ -202,10 +205,14 @@
         $.ajax({
             url: url,
             type: "POST",
+            headers: {
+                RequestVerificationToken: token
+            },
             data: JSON.stringify(data),
             contentType: "application/json",
             success: function (res) {
                 if (res.success) {
+                    alert("Saved");
                     resetForm();
                     loadRoles();
                 } else {
@@ -218,9 +225,19 @@
     // ================== Delete Role ==================
     function deleteRole(uid) {
         if (!confirm("Delete role?")) return;
-        $.post("/Role/Delete", { uid: uid }, function (res) {
-            if (res.success) loadRoles();
-            else alert(res.error);
+        $.ajax({
+            url: "/Role/Delete",
+            type: "POST",
+            headers: {
+                RequestVerificationToken: token
+            },
+            data: {
+                uid: uid
+            },
+            success: function(){
+                if (res.success) loadRoles();
+                else alert(res.error);
+            }
         });
     }
 </script>

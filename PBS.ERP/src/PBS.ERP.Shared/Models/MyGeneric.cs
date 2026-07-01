@@ -76,12 +76,12 @@ namespace PBS.ERP.Shared.Models
         public string Column { get; set; }
     }
 
-    public class UniqueRequest
+    public sealed class UniqueRequest
     {
-        public string Table { get; set; } = null!;
-
-        public string UniqueGroup { get; set; } = null!;
-
+        public string Table { get; set; } = ""; 
+        public string UniqueGroup { get; set; } = ""; 
+        public string? OriginalUniqueGroup { get; set; }
+        public bool IsDelete { get; set; }
         public List<string> Fields { get; set; } = new();
     }
 

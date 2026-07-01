@@ -7,7 +7,7 @@ using PBS.ERP.Shared.Identity;
 
 namespace PBS.ERP.Modules.Security.Controllers
 {
-    [Route("[controller]")]
+    [Route("User")]
     [Authorize(Roles = "Super,Root")]
     [ApiExplorerSettings(IgnoreApi = true)]
 
@@ -52,10 +52,8 @@ namespace PBS.ERP.Modules.Security.Controllers
             if (user == null)
                 return NotFound();
 
-            // Generate reset token
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            // Set new password (you can change this default)
             var newPassword = "Temp@12345";
 
             var result = await _userManager.ResetPasswordAsync(user, token, newPassword);

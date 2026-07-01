@@ -479,10 +479,16 @@
             Hide System Columns
         </button>
         <button type="button" class="structure-toggle-btn ms-2"
+                onclick="gotoUnique('@ViewBag.UID')">
+            <i class="bi bi-shield-lock me-1"></i>
+            Unique Keys
+        </button>
+        <button type="button" class="structure-toggle-btn ms-2"
                 onclick="goToOrder('@ViewBag.UID')">
             <i class="bi bi-sort-up me-1"></i>
             Field Layout
         </button>
+
     </div>
     <style>
         .app-loading-container {
@@ -559,6 +565,9 @@
     <script src="~/js/field_metadata.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script>
+        function gotoUnique(id) {
+            window.location.href = "/Super/Unique?id=" + id;
+        }
         function goToOrder(id) {
             window.location.href = "/Super/Order?id=" + id;
         }

@@ -43,7 +43,7 @@
                             @string.Join(", ", userWithRoles.Roles)
                         </td>
                         <td>
-                            <form asp-action="Reset" method="post">
+                            <form asp-action="Reset" asp-controller="User" method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="userId" value="@userWithRoles.User.Id" />
                                 <button type="submit" class="btn btn-sm btn-info">Reset Password</button>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Modules.Training")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6add1dfdca99525f2e8ed9a780c5804d612bd2d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+740b58a4758acd908a5f5b06cc4c8a8368ddb38c")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Modules.Training")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Modules.Training")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

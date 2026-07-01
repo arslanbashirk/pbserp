@@ -1421,16 +1421,47 @@ namespace PBS.ERP.Infrastructure.Services
         {
             if (request == null ||
                 string.IsNullOrWhiteSpace(request.Table) ||
-                string.IsNullOrWhiteSpace(request.UniqueGroup) ||
-                request.Fields == null ||
-                !request.Fields.Any())
+                string.IsNullOrWhiteSpace(request.UniqueGroup))
             {
-                return Fail("Table, UniqueGroup and Fields are required");
+                return Fail("Table and UniqueGroup are required");
+            }
+
+            var currentUser = string.IsNullOrWhiteSpace(user) ? "system" : user;
+            var now = DateTime.Now;
+
+            var uniqueGroup = request.UniqueGroup.Trim().Replace(" ", "_");
+
+            var originalGroup = string.IsNullOrWhiteSpace(request.OriginalUniqueGroup)
+                ? uniqueGroup
+                : request.OriginalUniqueGroup.Trim().Replace(" ", "_");
+
+            if (!IsValidSqlIdentifier(uniqueGroup))
+                return Fail($"Invalid unique group name: {uniqueGroup}");
+
+            if (!IsValidSqlIdentifier(originalGroup))
+                return Fail($"Invalid original unique group name: {originalGroup}");
+
+            if (!request.IsDelete &&
+                (request.Fields == null || !request.Fields.Any()))
+            {
+                return Fail("Fields are required");
+            }
+
+            var cleanFields = request.Fields?
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList() ?? new List<string>();
+
+            foreach (var f in cleanFields)
+            {
+                if (!IsValidSqlIdentifier(f))
+                    return Fail($"Invalid column identifier: {f}");
             }
 
             /*
             ================================
-            STEP 1 — Load Entity (Table Info)
+            STEP 1 — Load Entity
             ================================
             */
 
@@ -1448,12 +1479,6 @@ namespace PBS.ERP.Infrastructure.Services
             if (entity == null)
                 return Fail("Entity not found");
 
-            /*
-            ================================
-            STEP 2 — Validate Identifiers
-            ================================
-            */
-
             if (!IsValidSqlIdentifier(entity.Name) ||
                 !IsValidSqlIdentifier(entity.Schema) ||
                 !IsValidSqlIdentifier(entity.Database))
@@ -1461,20 +1486,9 @@ namespace PBS.ERP.Infrastructure.Services
                 return Fail("Invalid entity identifier");
             }
 
-            var cleanFields = request.Fields
-                .Where(x => !string.IsNullOrWhiteSpace(x))
-                .Select(x => x.Trim())
-                .ToList();
-
-            foreach (var f in cleanFields)
-            {
-                if (!IsValidSqlIdentifier(f))
-                    return Fail($"Invalid column identifier: {f}");
-            }
-
             /*
             ================================
-            STEP 3 — Open Connection + Transaction
+            STEP 2 — Open Connection + Transaction
             ================================
             */
 
@@ -1489,11 +1503,45 @@ namespace PBS.ERP.Infrastructure.Services
             try
             {
                 var fullTableName =
-                    $"[{entity.Database}].[{entity.Schema}].[{entity.Name}]";
+                    $"{Q(entity.Database)}.{Q(entity.Schema)}.{Q(entity.Name)}";
 
                 /*
                 ================================
-                STEP 4 — Confirm Columns Exist
+                DELETE UNIQUE CONSTRAINT
+                ================================
+                */
+
+                if (request.IsDelete)
+                {
+                    await DropUniqueObjectAsync(
+                        dbConnection,
+                        dbTransaction,
+                        entity.Database,
+                        entity.Schema,
+                        entity.Name,
+                        uniqueGroup);
+
+                    await RemoveUniqueGroupTokenAsync(
+                        dbConnection,
+                        dbTransaction,
+                        request.Table,
+                        uniqueGroup,
+                        currentUser,
+                        now);
+
+                    await transaction.CommitAsync();
+
+                    return new ServiceResult
+                    {
+                        Success = true,
+                        Message = $"Unique constraint '{uniqueGroup}' removed successfully",
+                        Column = uniqueGroup
+                    };
+                }
+
+                /*
+                ================================
+                STEP 3 — Confirm Columns Exist
                 ================================
                 */
 
@@ -1516,20 +1564,20 @@ namespace PBS.ERP.Infrastructure.Services
 
                 /*
                 ================================
-                STEP 5 — Check Existing Duplicate Data
+                STEP 4 — Check Duplicate Data
                 ================================
                 */
 
-                var columnListSql = string.Join(", ", cleanFields.Select(c => $"[{c}]"));
+                var columnListSql = string.Join(", ", cleanFields.Select(Q));
 
                 var duplicateCheckSql = $@"
-                SELECT COUNT(*) 
-                FROM (
-                    SELECT {columnListSql}, COUNT(*) AS Cnt
-                    FROM {fullTableName}
-                    GROUP BY {columnListSql}
-                    HAVING COUNT(*) > 1
-                ) AS X";
+        SELECT COUNT(*)
+        FROM (
+            SELECT {columnListSql}, COUNT(*) AS Cnt
+            FROM {fullTableName}
+            GROUP BY {columnListSql}
+            HAVING COUNT(*) > 1
+        ) AS X;";
 
                 var duplicates = await dbConnection.ExecuteScalarAsync<int>(
                     duplicateCheckSql,
@@ -1543,28 +1591,35 @@ namespace PBS.ERP.Infrastructure.Services
 
                 /*
                 ================================
-                STEP 6 — Drop Existing Constraint (if exists)
+                STEP 5 — Drop Old Constraint if Renamed
                 ================================
                 */
 
-                var constraintName =
-                    $"UX_{entity.Name}_{request.UniqueGroup}"
-                    .Replace(" ", "_");
+                if (!originalGroup.Equals(uniqueGroup, StringComparison.OrdinalIgnoreCase))
+                {
+                    await DropUniqueObjectAsync(
+                        dbConnection,
+                        dbTransaction,
+                        entity.Database,
+                        entity.Schema,
+                        entity.Name,
+                        originalGroup);
+                }
 
-                var dropSql = $@"
-                IF EXISTS (
-                    SELECT * FROM sys.objects
-                    WHERE type = 'UQ'
-                    AND name = '{constraintName}'
-                )
-                BEGIN
-                    ALTER TABLE {fullTableName}
-                    DROP CONSTRAINT [{constraintName}]
-                END";
+                /*
+                ================================
+                STEP 6 — Drop Current Constraint if Exists
+                This allows update of same group.
+                ================================
+                */
 
-                await dbConnection.ExecuteAsync(
-                    dropSql,
-                    transaction: dbTransaction);
+                await DropUniqueObjectAsync(
+                    dbConnection,
+                    dbTransaction,
+                    entity.Database,
+                    entity.Schema,
+                    entity.Name,
+                    uniqueGroup);
 
                 /*
                 ================================
@@ -1573,9 +1628,9 @@ namespace PBS.ERP.Infrastructure.Services
                 */
 
                 var createSql = $@"
-                ALTER TABLE {fullTableName}
-                ADD CONSTRAINT [{constraintName}]
-                UNIQUE ({columnListSql});";
+        ALTER TABLE {fullTableName}
+        ADD CONSTRAINT {Q(uniqueGroup)}
+        UNIQUE ({columnListSql});";
 
                 await dbConnection.ExecuteAsync(
                     createSql,
@@ -1583,40 +1638,28 @@ namespace PBS.ERP.Infrastructure.Services
 
                 /*
                 ================================
-                STEP 8 — Update Metadata (Fields table)
+                STEP 8 — Update Metadata
+                Keep existing Field.UniqueGroup column.
+                Store multiple groups as comma-separated values.
                 ================================
                 */
 
-                await dbConnection.ExecuteAsync(
-                    $@"
-                    UPDATE {Constants.FieldTable}
-                    SET UniqueGroup = @UniqueGroup,
-                        ModifiedBy = @User,
-                        ModifiedTime = @Now
-                    WHERE Entity = @TableUid
-                    AND ColumnName IN @Columns;",
-                    new
-                    {
-                        UniqueGroup = request.UniqueGroup,
-                        User = string.IsNullOrWhiteSpace(user) ? "system" : user,
-                        Now = DateTime.Now,
-                        TableUid = request.Table,
-                        Columns = cleanFields
-                    },
-                    transaction: dbTransaction);
-
-                /*
-                ================================
-                STEP 9 — Commit
-                ================================
-                */
+                await SaveUniqueGroupTokensAsync(
+                    dbConnection,
+                    dbTransaction,
+                    request.Table,
+                    originalGroup,
+                    uniqueGroup,
+                    cleanFields,
+                    currentUser,
+                    now);
 
                 await transaction.CommitAsync();
 
                 return new ServiceResult
                 {
                     Success = true,
-                    Message = $"Unique constraint '{request.UniqueGroup}' applied successfully",
+                    Message = $"Unique constraint '{uniqueGroup}' applied successfully",
                     Column = string.Join(",", cleanFields)
                 };
             }
@@ -1639,6 +1682,247 @@ namespace PBS.ERP.Infrastructure.Services
                 };
             }
         }
+
+        private static string Q(string name)
+        {
+            return "[" + name.Replace("]", "]]") + "]";
+        }
+
+        private static List<string> SplitUniqueGroups(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return new List<string>();
+
+            return value
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        private static string? JoinUniqueGroups(IEnumerable<string> groups)
+        {
+            var value = string.Join(",",
+                groups
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x => x.Trim())
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(x => x));
+
+            return string.IsNullOrWhiteSpace(value) ? null : value;
+        }
+
+        private async Task SaveUniqueGroupTokensAsync(
+    DbConnection con,
+    DbTransaction tx,
+    string tableUid,
+    string originalGroup,
+    string uniqueGroup,
+    List<string> selectedColumns,
+    string user,
+    DateTime now)
+        {
+            var selectedSet = selectedColumns
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            var fields = await con.QueryAsync<FieldUniqueRow>(
+                $@"
+                SELECT UID, ColumnName, UniqueGroup
+                FROM {Constants.FieldTable}
+                WHERE Entity = @TableUid
+                AND (IsDeleted = 0 OR IsDeleted IS NULL);",
+                new
+                {
+                    TableUid = tableUid
+                },
+                transaction: tx);
+
+            foreach (var field in fields)
+            {
+                var groups = SplitUniqueGroups(field.UniqueGroup);
+
+                var before = JoinUniqueGroups(groups);
+
+                // Remove old/current token first.
+                // This is important for update case.
+                groups.RemoveAll(x =>
+                    x.Equals(originalGroup, StringComparison.OrdinalIgnoreCase) ||
+                    x.Equals(uniqueGroup, StringComparison.OrdinalIgnoreCase));
+
+                // Add token only to selected fields.
+                if (selectedSet.Contains(field.ColumnName))
+                {
+                    groups.Add(uniqueGroup);
+                }
+
+                var after = JoinUniqueGroups(groups);
+
+                if (!string.Equals(before, after, StringComparison.OrdinalIgnoreCase))
+                {
+                    await con.ExecuteAsync(
+                        $@"
+                        UPDATE {Constants.FieldTable}
+                        SET UniqueGroup = @UniqueGroup,
+                            ModifiedBy = @User,
+                            ModifiedTime = @Now
+                        WHERE UID = @UID;",
+                        new
+                        {
+                            UID = field.UID,
+                            UniqueGroup = after,
+                            User = user,
+                            Now = now
+                        },
+                        transaction: tx);
+                }
+            }
+        }
+
+        private async Task RemoveUniqueGroupTokenAsync(
+    DbConnection con,
+    DbTransaction tx,
+    string tableUid,
+    string uniqueGroup,
+    string user,
+    DateTime now)
+        {
+            var fields = await con.QueryAsync<FieldUniqueRow>(
+                $@"
+        SELECT UID, ColumnName, UniqueGroup
+        FROM {Constants.FieldTable}
+        WHERE Entity = @TableUid
+        AND UniqueGroup IS NOT NULL
+        AND LTRIM(RTRIM(UniqueGroup)) <> ''
+        AND (IsDeleted = 0 OR IsDeleted IS NULL);",
+                new
+                {
+                    TableUid = tableUid
+                },
+                transaction: tx);
+
+            foreach (var field in fields)
+            {
+                var groups = SplitUniqueGroups(field.UniqueGroup);
+
+                var before = JoinUniqueGroups(groups);
+
+                groups.RemoveAll(x =>
+                    x.Equals(uniqueGroup, StringComparison.OrdinalIgnoreCase));
+
+                var after = JoinUniqueGroups(groups);
+
+                if (!string.Equals(before, after, StringComparison.OrdinalIgnoreCase))
+                {
+                    await con.ExecuteAsync(
+                        $@"
+                UPDATE {Constants.FieldTable}
+                SET UniqueGroup = @UniqueGroup,
+                    ModifiedBy = @User,
+                    ModifiedTime = @Now
+                WHERE UID = @UID;",
+                        new
+                        {
+                            UID = field.UID,
+                            UniqueGroup = after,
+                            User = user,
+                            Now = now
+                        },
+                        transaction: tx);
+                }
+            }
+        }
+
+        private async Task DropUniqueObjectAsync(
+    DbConnection con,
+    DbTransaction tx,
+    string database,
+    string schema,
+    string table,
+    string uniqueGroup)
+        {
+            if (string.IsNullOrWhiteSpace(uniqueGroup))
+                return;
+
+            if (!IsValidSqlIdentifier(uniqueGroup))
+                throw new Exception($"Invalid unique constraint name: {uniqueGroup}");
+
+            var fullTableName = $"{Q(database)}.{Q(schema)}.{Q(table)}";
+
+            /*
+            Drop UNIQUE CONSTRAINT if exists
+            */
+
+            var constraintExists = await con.ExecuteScalarAsync<int>(
+                $@"
+                SELECT COUNT(1)
+                FROM {Q(database)}.sys.key_constraints kc
+                INNER JOIN {Q(database)}.sys.tables t
+                    ON kc.parent_object_id = t.object_id
+                INNER JOIN {Q(database)}.sys.schemas s
+                    ON t.schema_id = s.schema_id
+                WHERE kc.[type] = 'UQ'
+                AND kc.[name] = @UniqueGroup
+                AND t.[name] = @TableName
+                AND s.[name] = @SchemaName;",
+                new
+                {
+                    UniqueGroup = uniqueGroup,
+                    TableName = table,
+                    SchemaName = schema
+                },
+                transaction: tx);
+
+            if (constraintExists > 0)
+            {
+                var dropConstraintSql = $@"
+                ALTER TABLE {fullTableName}
+                DROP CONSTRAINT {Q(uniqueGroup)};";
+
+                await con.ExecuteAsync(
+                    dropConstraintSql,
+                    transaction: tx);
+
+                return;
+            }
+
+            /*
+            Also drop UNIQUE INDEX if it exists with same name.
+            This is safe and useful if any old implementation created index instead of constraint.
+            */
+
+            var indexExists = await con.ExecuteScalarAsync<int>(
+                $@"
+                SELECT COUNT(1)
+                FROM {Q(database)}.sys.indexes i
+                INNER JOIN {Q(database)}.sys.tables t
+                    ON i.object_id = t.object_id
+                INNER JOIN {Q(database)}.sys.schemas s
+                    ON t.schema_id = s.schema_id
+                WHERE i.[name] = @UniqueGroup
+                AND i.is_unique = 1
+                AND t.[name] = @TableName
+                AND s.[name] = @SchemaName;",
+                new
+                {
+                    UniqueGroup = uniqueGroup,
+                    TableName = table,
+                    SchemaName = schema
+                },
+                transaction: tx);
+
+            if (indexExists > 0)
+            {
+                var dropIndexSql = $@"
+                DROP INDEX {Q(uniqueGroup)}
+                ON {fullTableName};";
+
+                await con.ExecuteAsync(
+                    dropIndexSql,
+                    transaction: tx);
+            }
+        }
+
+
 
         public async Task<List<ServiceResult>> BulkUploadColumnsAsync(IFormFile file,string tableUid,string user)
         {
@@ -2091,5 +2375,12 @@ namespace PBS.ERP.Infrastructure.Services
         public string? Table { get; set; }
         public string? Column { get; set; }
         public int? Updated { get; set; }
+    }
+
+    public class FieldUniqueRow
+    {
+        public string UID { get; set; } = "";
+        public string ColumnName { get; set; } = "";
+        public string? UniqueGroup { get; set; }
     }
 }

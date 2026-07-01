@@ -3,123 +3,632 @@
 @{
     var groups = Model
         .Where(x => !string.IsNullOrWhiteSpace(x.UniqueGroup))
-        .GroupBy(x => x.UniqueGroup!)
+        .SelectMany(field =>
+            field.UniqueGroup!
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(group => new
+                {
+                    UniqueGroup = group,
+                    Field = field
+                }))
+        .GroupBy(x => x.UniqueGroup)
+        .OrderBy(x => x.Key)
         .ToList();
 
     var available = Model
-        .Where(x => string.IsNullOrWhiteSpace(x.UniqueGroup))
+        .GroupBy(x => x.ColumnName)
+        .Select(g => g.First())
+        .OrderBy(x => x.SectionNumber)
+        .ThenBy(x => x.SortOrder)
         .ToList();
+
+    var totalFields = Model.Count;
+    var totalConstraints = groups.Count;
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
 
-<div class="row g-3">
+<style>
+    :root {
+        --pbs-primary: #0f3d5e;
+        --pbs-primary-soft: #eaf3f8;
+        --pbs-accent: #0d6efd;
+        --pbs-border: #dbe4ea;
+        --pbs-muted: #64748b;
+        --pbs-bg: #f6f8fb;
+        --pbs-card: #ffffff;
+        --pbs-danger-soft: #fff1f2;
+        --pbs-success-soft: #ecfdf3;
+    }
 
-    <!-- LEFT: AVAILABLE -->
-    <div class="col-md-4">
+    body {
+        background: var(--pbs-bg);
+    }
 
-        <h4 id="tableName">@ViewBag.Table</h4>
-        <input type="hidden" id="table" value="@ViewBag.UID" />
+    .constraint-page {
+        padding: 18px;
+    }
 
-        <div class="card">
-            <div class="card-header fw-bold">
-                All Fields
+    .constraint-hero {
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 18px;
+        padding: 22px 24px;
+        background: linear-gradient(135deg, #18613f 55%, #198754 0%, #04c36b 100%);
+        color: #fff;
+        box-shadow: 0 18px 45px rgba(15, 61, 94, .20);
+        margin-bottom: 18px;
+    }
+
+        .constraint-hero h3 {
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: .2px;
+        }
+
+        .constraint-hero .subtitle {
+            color: rgba(255,255,255,.82);
+            margin-top: 6px;
+            font-size: .94rem;
+        }
+
+    .hero-badge {
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.25);
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: .85rem;
+        backdrop-filter: blur(6px);
+    }
+
+    .stat-card {
+        border: 1px solid var(--pbs-border);
+        border-radius: 16px;
+        background: var(--pbs-card);
+        padding: 14px 16px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+    }
+
+    .stat-label {
+        font-size: .78rem;
+        color: var(--pbs-muted);
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        font-weight: 700;
+    }
+
+    .stat-value {
+        font-size: 1.55rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1;
+        margin-top: 6px;
+    }
+
+    .panel-card {
+        border: 1px solid var(--pbs-border);
+        border-radius: 18px;
+        background: var(--pbs-card);
+        box-shadow: 0 12px 32px rgba(15, 23, 42, .06);
+        overflow: hidden;
+    }
+
+    .panel-header {
+        padding: 15px 18px;
+        border-bottom: 1px solid var(--pbs-border);
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    .panel-title {
+        margin: 0;
+        font-weight: 800;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .panel-title i {
+            color: var(--pbs-primary);
+        }
+
+    .panel-subtitle {
+        color: var(--pbs-muted);
+        font-size: .85rem;
+        margin-top: 3px;
+    }
+
+    .panel-body {
+        padding: 16px;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pbs-muted);
+            font-size: .9rem;
+        }
+
+        .search-box input {
+            padding-left: 36px;
+            border-radius: 12px;
+            border-color: var(--pbs-border);
+        }
+
+    .drop-zone {
+        min-height: 170px;
+        border: 1.5px dashed #cbd5e1;
+        border-radius: 16px;
+        background: #f8fafc;
+        padding: 12px;
+        transition: all .18s ease-in-out;
+    }
+
+        .drop-zone.sortable-active,
+        .drop-zone:hover {
+            border-color: #7ab7dd;
+            background: #f2f9fd;
+        }
+
+        .drop-zone.empty-zone::after {
+            content: "Drag fields here";
+            display: flex;
+            min-height: 95px;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-weight: 700;
+            border-radius: 12px;
+        }
+
+    #availableFields.empty-zone::after {
+        content: "No fields found";
+    }
+
+    .field-item {
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        background: #ffffff;
+        padding: 10px 11px;
+        margin-bottom: 10px;
+        box-shadow: 0 5px 14px rgba(15, 23, 42, .045);
+        cursor: grab;
+        transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+        .field-item:hover {
+            transform: translateY(-1px);
+            border-color: #bfd7e8;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, .08);
+        }
+
+        .field-item:active {
+            cursor: grabbing;
+        }
+
+    .field-main {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .drag-handle {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #64748b;
+        background: #f1f5f9;
+        flex: 0 0 auto;
+        cursor: grab;
+    }
+
+    .field-label {
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.15;
+    }
+
+    .field-column {
+        display: inline-flex;
+        margin-top: 4px;
+        font-size: .78rem;
+        color: #64748b;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        padding: 2px 8px;
+        max-width: 100%;
+        word-break: break-all;
+    }
+
+    .constraint-group {
+        border: 1px solid var(--pbs-border);
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, .055);
+        overflow: hidden;
+        margin-bottom: 14px;
+    }
+
+    .constraint-group-header {
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--pbs-border);
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .constraint-name {
+        font-weight: 900;
+        color: #0f172a;
+        word-break: break-all;
+        line-height: 1.25;
+    }
+
+    .constraint-meta {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 6px;
+    }
+
+    .soft-badge {
+        border-radius: 999px;
+        padding: 4px 9px;
+        font-size: .75rem;
+        font-weight: 800;
+        border: 1px solid #dbeafe;
+        color: #1d4ed8;
+        background: #eff6ff;
+    }
+
+    .constraint-group-body {
+        padding: 14px;
+        background: #fbfdff;
+    }
+
+    .btn-rounded {
+        border-radius: 999px;
+        font-weight: 700;
+    }
+
+    .btn-add {
+        background: #ffffff;
+        color: var(--pbs-primary);
+        border: 1px solid rgba(255,255,255,.35);
+    }
+
+        .btn-add:hover {
+            background: rgba(255,255,255,.92);
+            color: var(--pbs-primary);
+        }
+
+    .save-bar {
+        position: sticky;
+        top: 10px;
+        z-index: 20;
+        border: 1px solid var(--pbs-border);
+        background: rgba(255,255,255,.92);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 12px;
+        margin-bottom: 14px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
+    }
+
+    .sortable-ghost {
+        opacity: .45;
+        background: #e0f2fe;
+        border: 1px dashed #0284c7;
+    }
+
+    .sortable-chosen {
+        box-shadow: 0 16px 30px rgba(15, 61, 94, .18);
+    }
+
+    .message-area .alert {
+        border: 0;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+    }
+
+    .hidden-by-search {
+        display: none !important;
+    }
+
+    .empty-state {
+        border: 1px dashed #cbd5e1;
+        border-radius: 18px;
+        background: #f8fafc;
+        color: #64748b;
+        text-align: center;
+        padding: 34px 20px;
+    }
+
+        .empty-state i {
+            font-size: 2rem;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+    @@media (max-width: 767px) {
+        .constraint-page {
+            padding: 10px;
+        }
+
+        .constraint-hero {
+            padding: 18px;
+        }
+
+        .save-bar {
+            position: static;
+        }
+    }
+</style>
+
+<div class="constraint-page">
+
+    <div class="constraint-hero">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+            <div>
+                <h3>
+                    <i class="bi bi-shield-lock me-2"></i>
+                    Unique Constraints Designer
+                </h3>
+                <div class="subtitle">
+                    Drag fields into constraint groups to define professional unique combinations.
+                </div>
             </div>
 
-            <div class="card-body">
-                <div id="availableFields" class="drop-zone p-2 border rounded">
+            <div class="d-flex gap-2 flex-wrap">
+                <span class="hero-badge">
+                    <i class="bi bi-table me-1"></i>
+                    <span id="tableName">@ViewBag.Table</span>
+                </span>
 
-                    @foreach (var field in available)
-                    {
-                        <div class="field-item card p-2 mb-2"
-                             data-column="@field.ColumnName">
-
-                            <div class="fw-semibold">
-                                @field.DisplayLabel
-                            </div>
-
-                            <small class="text-muted">
-                                @field.ColumnName
-                            </small>
-
-                            <input type="hidden" class="field-column" value="@field.ColumnName" />
-                        </div>
-                    }
-
-                </div>
+                <button type="button"
+                        class="btn btn-add btn-rounded"
+                        onclick="addConstraintGroup()">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Add Constraint
+                </button>
             </div>
         </div>
 
+        <input type="hidden" id="table" value="@ViewBag.UID" />
     </div>
 
-    <!-- RIGHT: CONSTRAINTS -->
-    <div class="col-md-8">
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-label">Total Fields</div>
+                <div class="stat-value" id="totalFieldCount">@totalFields</div>
+            </div>
+        </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-label">Available Fields</div>
+                <div class="stat-value" id="availableFieldCount">@available.Count</div>
+            </div>
+        </div>
 
-            <h5 class="m-0">Constraints</h5>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-label">Constraint Groups</div>
+                <div class="stat-value" id="constraintGroupCount">@totalConstraints</div>
+            </div>
+        </div>
+    </div>
 
-            <button type="button"
-                    class="btn btn-primary btn-sm"
-                    onclick="addConstraintGroup()">
-                + Add Constraint
-            </button>
+    <div class="message-area" id="constraintMessageArea"></div>
+
+    <div class="row g-3">
+
+        <div class="col-lg-4">
+
+            <div class="panel-card">
+                <div class="panel-header">
+                    <div class="d-flex justify-content-between align-items-start gap-2">
+                        <div>
+                            <h5 class="panel-title">
+                                <i class="bi bi-list-check"></i>
+                                All Fields
+                            </h5>
+                            <div class="panel-subtitle">
+                                Search and drag fields into a constraint group.
+                            </div>
+                        </div>
+
+                        <span class="soft-badge">
+                            <span id="availableFieldBadge">@available.Count</span> available
+                        </span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="search-box mb-3">
+                        <i class="bi bi-search"></i>
+                        <input type="text"
+                               id="fieldSearch"
+                               class="form-control"
+                               placeholder="Search field or column..." />
+                    </div>
+
+                    <div id="availableFields" class="drop-zone">
+
+                        @foreach (var field in available)
+                        {
+                            <div class="field-item"
+                                 data-column="@field.ColumnName"
+                                 data-label="@field.DisplayLabel">
+
+                                <div class="field-main">
+                                    <span class="drag-handle">
+                                        <i class="bi bi-grip-vertical"></i>
+                                    </span>
+
+                                    <div class="flex-grow-1">
+                                        <div class="field-label">
+                                            @field.DisplayLabel
+                                        </div>
+
+                                        <span class="field-column">
+                                            @field.ColumnName
+                                        </span>
+
+                                        <input type="hidden"
+                                               class="field-column-value"
+                                               value="@field.ColumnName" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
 
         </div>
 
-        <button type="button"
-                class="btn btn-success btn-sm mb-2"
-                onclick="updateConstraints()">
-            Save Constraints
-        </button>
+        <div class="col-lg-8">
 
-        <div id="constraintContainer">
-
-            @foreach (var grp in groups)
-            {
-                <div class="card mb-3 constraint-group">
-
-                    <div class="card-header d-flex justify-content-between">
-
-                        <span class="fw-semibold constraint-label">
-                            @grp.Key
-                        </span>
-
-                        <button type="button"
-                                class="btn btn-outline-danger btn-sm"
-                                onclick="removeGroup(this)">
-                            Remove
-                        </button>
-
+            <div class="save-bar">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div>
+                        <div class="fw-bold text-dark">
+                            Constraint Configuration
+                        </div>
+                        <div class="small text-muted">
+                            Existing constraints will be updated safely. New constraints will be created.
+                        </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button"
+                                class="btn btn-outline-primary btn-rounded"
+                                onclick="addConstraintGroup()">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Add Group
+                        </button>
 
-                        <div class="group-fields drop-zone p-2 border rounded">
+                        <button type="button"
+                                id="btnSaveConstraints"
+                                class="btn btn-success btn-rounded"
+                                onclick="updateConstraints()">
+                            <span class="save-text">
+                                <i class="bi bi-check2-circle me-1"></i>
+                                Save Constraints
+                            </span>
+                            <span class="save-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-1"></span>
+                                Saving...
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-                            @foreach (var field in grp)
-                            {
-                                <div class="field-item card p-2 mb-2"
-                                     data-column="@field.ColumnName">
+            <div id="constraintContainer">
 
-                                    <div class="fw-semibold">
-                                        @field.DisplayLabel
-                                    </div>
+                @if (!groups.Any())
+                {
+                    <div class="empty-state" id="emptyConstraintState">
+                        <i class="bi bi-diagram-3"></i>
+                        <strong>No constraint group yet</strong>
+                        <div class="small mt-1">
+                            Click Add Group and drag fields here to create a unique constraint.
+                        </div>
+                    </div>
+                }
 
-                                    <small class="text-muted">
-                                        @field.ColumnName
-                                    </small>
+                @foreach (var grp in groups)
+                {
+                    <div class="constraint-group"
+                         data-persisted="true"
+                         data-original-group="@grp.Key">
 
-                                    <input type="hidden" class="field-column" value="@field.ColumnName" />
+                        <div class="constraint-group-header">
+                            <div class="flex-grow-1">
+                                <div class="constraint-name constraint-label">
+                                    @grp.Key
                                 </div>
-                            }
 
+                                <div class="constraint-meta">
+                                    <span class="soft-badge">
+                                        <i class="bi bi-columns-gap me-1"></i>
+                                        <span class="group-count">@grp.Count()</span> fields
+                                    </span>
+
+                                    <span class="soft-badge">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Saved
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button type="button"
+                                    class="btn btn-outline-danger btn-sm btn-rounded"
+                                    onclick="removeGroup(this)">
+                                <i class="bi bi-trash me-1"></i>
+                                Remove
+                            </button>
+                        </div>
+
+                        <div class="constraint-group-body">
+                            <div class="group-fields drop-zone">
+
+                                @foreach (var item in grp)
+                                {
+                                    var field = item.Field;
+
+                                    <div class="field-item"
+                                         data-column="@field.ColumnName"
+                                         data-label="@field.DisplayLabel">
+
+                                        <div class="field-main">
+                                            <span class="drag-handle">
+                                                <i class="bi bi-grip-vertical"></i>
+                                            </span>
+
+                                            <div class="flex-grow-1">
+                                                <div class="field-label">
+                                                    @field.DisplayLabel
+                                                </div>
+
+                                                <span class="field-column">
+                                                    @field.ColumnName
+                                                </span>
+
+                                                <input type="hidden"
+                                                       class="field-column-value"
+                                                       value="@field.ColumnName" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
                         </div>
 
                     </div>
+                }
 
-                </div>
-            }
+            </div>
 
         </div>
 
@@ -131,87 +640,375 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 
     <script>
+        const constraintEndpoint = "/api/super/table/unique";
 
-        // ================================
-        // AUTO CONSTRAINT NAME BUILDER
-        // UX_Table_Column1_Column2
-        // ================================
-        function buildConstraintName(table, fields) {
-
-            const cleanTable = table.replace(/[^a-zA-Z0-9]/g, "");
-
-            const cleanFields = fields.map(f =>
-                f.replace(/[^a-zA-Z0-9]/g, "")
-            );
-
-            return `UX_${cleanTable}_${cleanFields.join("_")}`;
+        function sanitizeIdentifier(value) {
+            return String(value || "")
+                .trim()
+                .replace(/[^a-zA-Z0-9_]/g, "");
         }
 
-        // ================================
-        // SORTABLE INIT
-        // ================================
+        function hashText(value) {
+            let hash = 0;
+            const text = String(value || "");
+
+            for (let i = 0; i < text.length; i++) {
+                hash = ((hash << 5) - hash) + text.charCodeAt(i);
+                hash |= 0;
+            }
+
+            return Math.abs(hash).toString(36).toUpperCase();
+        }
+
+        function trimSqlIdentifier(name) {
+            const maxLength = 128;
+
+            if (name.length <= maxLength) {
+                return name;
+            }
+
+            const hash = hashText(name);
+
+            return `${name.substring(0, maxLength - hash.length - 1)}_${hash}`;
+        }
+
+        function buildConstraintName(table, fields) {
+            const cleanTable = sanitizeIdentifier(table);
+
+            const cleanFields = fields
+                .map(sanitizeIdentifier)
+                .filter(Boolean);
+
+            if (!cleanTable || cleanFields.length === 0) {
+                return "Drop fields here";
+            }
+
+            return trimSqlIdentifier(`UX_${cleanTable}_${cleanFields.join("_")}`);
+        }
+
+        function getTableName() {
+            return $("#tableName").text().trim();
+        }
+
+        function getFieldColumn(fieldItem) {
+            return $(fieldItem).find(".field-column-value").val();
+        }
+
         function initSortable(el) {
+            if (!el || Sortable.get(el)) {
+                return;
+            }
+
+            const isAvailableList = el.id === "availableFields";
 
             new Sortable(el, {
-                group: "constraints",
-                animation: 150,
+                group: isAvailableList
+                    ? {
+                        name: "constraints",
+                        pull: "clone",
+                        put: false
+                    }
+                    : {
+                        name: "constraints",
+                        pull: true,
+                        put: true
+                    },
 
-                onAdd: refreshConstraintLabels,
-                onRemove: refreshConstraintLabels,
-                onUpdate: refreshConstraintLabels
-            });
-        }
+                sort: !isAvailableList,
+                animation: 180,
+                handle: ".drag-handle",
+                ghostClass: "sortable-ghost",
+                chosenClass: "sortable-chosen",
+                dragClass: "sortable-drag",
+                fallbackOnBody: true,
+                swapThreshold: 0.65,
 
-        // ================================
-        // UPDATE LABELS LIVE
-        // ================================
-        function refreshConstraintLabels() {
+                onClone: function (evt) {
+                    $(evt.clone).removeAttr("id");
+                },
 
-            const table = $("#tableName").html();
+                onStart: function () {
+                    $(".drop-zone").addClass("sortable-active");
+                },
 
-            document.querySelectorAll(".constraint-group").forEach(group => {
+                onEnd: function () {
+                    $(".drop-zone").removeClass("sortable-active");
 
-                let fields = [];
+                    removeDuplicateFieldsInsideSameGroup();
+                    refreshConstraintLabels();
+                    refreshCounters();
+                    refreshEmptyStates();
+                },
 
-                group.querySelectorAll(".field-item").forEach(f => {
-                    fields.push(f.querySelector(".field-column").value);
-                });
+                onAdd: function () {
+                    removeDuplicateFieldsInsideSameGroup();
+                    refreshConstraintLabels();
+                    refreshCounters();
+                    refreshEmptyStates();
+                },
 
-                const name = buildConstraintName(table, fields);
+                onRemove: function () {
+                    refreshConstraintLabels();
+                    refreshCounters();
+                    refreshEmptyStates();
+                },
 
-                const label = group.querySelector(".constraint-label");
-
-                if (label) {
-                    label.innerText = name;
+                onUpdate: function () {
+                    removeDuplicateFieldsInsideSameGroup();
+                    refreshConstraintLabels();
+                    refreshCounters();
+                    refreshEmptyStates();
                 }
             });
         }
 
-        // ================================
-        // PAYLOAD BUILDER
-        // ================================
-        function getPayload() {
+        function removeDuplicateFieldsInsideSameGroup() {
+            $(".constraint-group").each(function () {
+                const seen = new Set();
 
+                $(this).find(".field-item").each(function () {
+                    const column = getFieldColumn(this);
+
+                    if (seen.has(column)) {
+                        $(this).remove();
+
+                        showSequenceMessage(
+                            "warning",
+                            `Duplicate field "${column}" was removed from the same constraint group.`
+                        );
+                    } else {
+                        seen.add(column);
+                    }
+                });
+            });
+        }
+
+        function refreshConstraintLabels() {
+            const table = getTableName();
+
+            $(".constraint-group").each(function () {
+                const group = $(this);
+
+                const fields = group.find(".field-item").map(function () {
+                    return getFieldColumn(this);
+                }).get().filter(Boolean);
+
+                const name = buildConstraintName(table, fields);
+
+                group.find(".constraint-label").text(name);
+                group.find(".group-count").text(fields.length);
+            });
+        }
+
+        function refreshCounters() {
+            const availableCount = $("#availableFields .field-item").length;
+            const groupCount = $(".constraint-group").length;
+
+            $("#availableFieldCount").text(availableCount);
+            $("#availableFieldBadge").text(availableCount);
+            $("#constraintGroupCount").text(groupCount);
+        }
+
+        function refreshEmptyStates() {
+            $(".drop-zone").each(function () {
+                const hasFields = $(this).children(".field-item:not(.hidden-by-search)").length > 0;
+                $(this).toggleClass("empty-zone", !hasFields);
+            });
+
+            const hasGroups = $(".constraint-group").length > 0;
+
+            $("#emptyConstraintState").toggle(!hasGroups);
+        }
+
+        function sortAvailableFields() {
+            const container = $("#availableFields");
+            const items = container.children(".field-item").get();
+
+            items.sort(function (a, b) {
+                const aText = ($(a).data("label") || $(a).data("column") || "").toString().toLowerCase();
+                const bText = ($(b).data("label") || $(b).data("column") || "").toString().toLowerCase();
+
+                return aText.localeCompare(bText);
+            });
+
+            container.append(items);
+        }
+
+        function addConstraintGroup() {
+            $("#emptyConstraintState").remove();
+
+            const html = `
+                        <div class="constraint-group"
+                             data-persisted="false"
+                             data-original-group="">
+
+                            <div class="constraint-group-header">
+                                <div class="flex-grow-1">
+                                    <div class="constraint-name constraint-label">
+                                        Drop fields here
+                                    </div>
+
+                                    <div class="constraint-meta">
+                                        <span class="soft-badge">
+                                            <i class="bi bi-columns-gap me-1"></i>
+                                            <span class="group-count">0</span> fields
+                                        </span>
+
+                                        <span class="soft-badge">
+                                            <i class="bi bi-plus-circle me-1"></i>
+                                            New
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm btn-rounded"
+                                        onclick="removeGroup(this)">
+                                    <i class="bi bi-trash me-1"></i>
+                                    Remove
+                                </button>
+                            </div>
+
+                            <div class="constraint-group-body">
+                                <div class="group-fields drop-zone empty-zone"></div>
+                            </div>
+
+                        </div>`;
+
+            const group = $(html);
+
+            $("#constraintContainer").append(group);
+
+            initSortable(group.find(".group-fields")[0]);
+
+            refreshConstraintLabels();
+            refreshCounters();
+            refreshEmptyStates();
+
+            group[0].scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+        function removeGroup(btn) {
+            const group = $(btn).closest(".constraint-group");
+
+            const persisted = group.attr("data-persisted") === "true";
+            const originalGroup = group.attr("data-original-group") || "";
             const table = $("#table").val();
 
+            if (!persisted || !originalGroup) {
+                group.remove();
+                refreshAfterGroupRemove();
+                return;
+            }
+
+            if (!confirm(`Remove this saved unique constraint?\n\n${originalGroup}`)) {
+                return;
+            }
+
+            $.ajax({
+                url: constraintEndpoint,
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    Table: table,
+                    UniqueGroup: originalGroup,
+                    IsDelete: true
+                })
+            })
+                .then(function (response) {
+                    if (!isApiSuccess(response)) {
+                        throw new Error(getApiMessage(response, "Remove failed."));
+                    }
+
+                    group.remove();
+
+                    showSequenceMessage("success", "Unique constraint removed successfully.");
+
+                    refreshAfterGroupRemove();
+                })
+                .catch(function (err) {
+                    showSequenceMessage("danger", err.message || "Failed to remove unique constraint.");
+                });
+        }
+
+        function refreshAfterGroupRemove() {
+            if ($(".constraint-group").length === 0) {
+                $("#constraintContainer").append(`
+                            <div class="empty-state" id="emptyConstraintState">
+                                <i class="bi bi-diagram-3"></i>
+                                <strong>No constraint group yet</strong>
+                                <div class="small mt-1">
+                                    Click Add Group and drag fields here to create a unique constraint.
+                                </div>
+                            </div>
+                        `);
+            }
+
+            refreshConstraintLabels();
+            refreshCounters();
+            refreshEmptyStates();
+        }
+
+        function validatePayload(groups) {
+            const errors = [];
+
+            if (!groups.length) {
+                errors.push("No constraints defined. Please drag at least one field into a constraint group.");
+            }
+
+            const seen = new Set();
+
+            groups.forEach(function (group, index) {
+                if (!group.Fields || group.Fields.length === 0) {
+                    errors.push(`Constraint group ${index + 1} has no fields.`);
+                    return;
+                }
+
+                const duplicateFieldCheck = new Set(group.Fields.map(x => String(x).toLowerCase()));
+
+                if (duplicateFieldCheck.size !== group.Fields.length) {
+                    errors.push(`Constraint group ${index + 1} contains duplicate fields.`);
+                }
+
+                const signature = group.Fields
+                    .map(x => String(x).toLowerCase())
+                    .join("|");
+
+                if (seen.has(signature)) {
+                    errors.push(`Duplicate constraint detected for fields: ${group.Fields.join(", ")}.`);
+                }
+
+                seen.add(signature);
+            });
+
+            return errors;
+        }
+
+        function getPayload() {
+            const table = $("#table").val();
+            const tableName = getTableName();
             const groups = [];
 
-            document.querySelectorAll(".constraint-group").forEach(group => {
+            $(".constraint-group").each(function () {
+                const group = $(this);
 
-                let fields = [];
-
-                group.querySelectorAll(".field-item").forEach(f => {
-                    fields.push(f.querySelector(".field-column").value);
-                });
+                const fields = group.find(".field-item").map(function () {
+                    return getFieldColumn(this);
+                }).get().filter(Boolean);
 
                 if (fields.length > 0) {
-
-                    const uniqueGroup = buildConstraintName(table, fields);
+                    const uniqueGroup = buildConstraintName(tableName, fields);
+                    const originalGroup = group.attr("data-original-group") || "";
 
                     groups.push({
                         Table: table,
                         UniqueGroup: uniqueGroup,
-                        Fields: fields
+                        OriginalUniqueGroup: originalGroup,
+                        Fields: fields,
+                        IsDelete: false
                     });
                 }
             });
@@ -219,105 +1016,91 @@
             return groups;
         }
 
-        // ================================
-        // SAVE CONSTRAINTS (200 response safe)
-        // ================================
+        function markGroupsAsSaved() {
+            $(".constraint-group").each(function () {
+                const group = $(this);
+                const currentName = group.find(".constraint-label").text().trim();
+
+                group.attr("data-persisted", "true");
+                group.attr("data-original-group", currentName);
+
+                group.find(".constraint-meta .soft-badge:last").html(`
+                            <i class="bi bi-check-circle me-1"></i>
+                            Saved
+                        `);
+            });
+        }
+
+        function setSaveState(isSaving) {
+            const btn = $("#btnSaveConstraints");
+
+            btn.prop("disabled", isSaving);
+            btn.find(".save-text").toggleClass("d-none", isSaving);
+            btn.find(".save-loading").toggleClass("d-none", !isSaving);
+        }
+
+        function isApiSuccess(response) {
+            return response && (response.Success === true || response.success === true);
+        }
+
+        function getApiMessage(response, fallback) {
+            return response?.Message || response?.message || fallback;
+        }
+
         function updateConstraints() {
+            clearMessages();
 
             const groups = getPayload();
+            const validationErrors = validatePayload(groups);
 
-            if (!groups.length) {
-                showSequenceMessage("warning", "No constraints defined");
+            if (validationErrors.length > 0) {
+                showSequenceMessage("warning", validationErrors.join("<br/>"));
                 return;
             }
 
-            let requests = groups.map(g => {
+            setSaveState(true);
 
+            const requests = groups.map(function (group) {
                 return $.ajax({
-                    url: "/api/super/table/unique",
+                    url: constraintEndpoint,
                     type: "POST",
                     contentType: "application/json",
-                    data: JSON.stringify(g)
-                }).then(response => {
-
-                    if (!response.Success) {
-                        throw new Error(response.Message || "Save failed");
+                    data: JSON.stringify(group)
+                }).then(function (response) {
+                    if (!isApiSuccess(response)) {
+                        throw new Error(getApiMessage(response, "Save failed."));
                     }
 
                     return response;
                 });
-
             });
 
             Promise.all(requests)
-                .then(() => {
+                .then(function () {
+                    markGroupsAsSaved();
                     showSequenceMessage("success", "All constraints saved successfully.");
                 })
-                .catch(err => {
+                .catch(function (err) {
                     showSequenceMessage("danger", err.message || "Failed to save constraints.");
+                })
+                .finally(function () {
+                    setSaveState(false);
+                    refreshConstraintLabels();
+                    refreshCounters();
+                    refreshEmptyStates();
                 });
         }
 
-        // ================================
-        // ADD GROUP
-        // ================================
-        function addConstraintGroup() {
-
-            const html = `
-                <div class="card mb-3 constraint-group">
-
-                    <div class="card-header d-flex justify-content-between">
-
-                        <span class="fw-semibold constraint-label">
-                            Auto Constraint
-                        </span>
-
-                        <button type="button"
-                                class="btn btn-outline-danger btn-sm"
-                                onclick="removeGroup(this)">
-                            Remove
-                        </button>
-
-                    </div>
-
-                    <div class="card-body">
-                        <div class="group-fields drop-zone p-2 border rounded"></div>
-                    </div>
-
-                </div>`;
-
-            const div = document.createElement("div");
-            div.innerHTML = html;
-
-            const group = div.firstElementChild;
-
-            document.getElementById("constraintContainer").appendChild(group);
-
-            initSortable(group.querySelector(".group-fields"));
+        function clearMessages() {
+            $("#constraintMessageArea").empty();
         }
 
-        // ================================
-        // REMOVE GROUP
-        // ================================
-        function removeGroup(btn) {
-
-            const group = btn.closest(".constraint-group");
-
-            const available = document.getElementById("availableFields");
-
-            group.querySelectorAll(".field-item").forEach(item => {
-                available.appendChild(item);
-            });
-
-            group.remove();
-
-            refreshConstraintLabels();
-        }
-
-        // ================================
-        // NOTIFICATIONS
-        // ================================
         function showSequenceMessage(type, message) {
+            const icon =
+                type === "success" ? "bi-check-circle" :
+                    type === "danger" ? "bi-exclamation-octagon" :
+                        type === "warning" ? "bi-exclamation-triangle" :
+                            "bi-info-circle";
 
             const alertClass =
                 type === "success" ? "alert-success" :
@@ -326,24 +1109,46 @@
                             "alert-info";
 
             const html = `
-                    <div class="alert ${alertClass} alert-dismissible fade show mt-2" role="alert">
-                        ${message}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                `;
+                        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                            <div class="d-flex align-items-start gap-2">
+                                <i class="bi ${icon} fs-5"></i>
+                                <div class="flex-grow-1">${message}</div>
+                                <button type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                        </div>`;
 
-            $("#constraintContainer").prepend(html);
+            $("#constraintMessageArea").html(html);
         }
 
-        // ================================
-        // INIT
-        // ================================
-        document.addEventListener("DOMContentLoaded", function () {
+        $("#fieldSearch").on("input", function () {
+            const term = $(this).val().toLowerCase().trim();
 
-            initSortable(document.getElementById("availableFields"));
+            $("#availableFields .field-item").each(function () {
+                const label = ($(this).data("label") || "").toString().toLowerCase();
+                const column = ($(this).data("column") || "").toString().toLowerCase();
 
-            document.querySelectorAll(".group-fields").forEach(initSortable);
+                const match = !term || label.includes(term) || column.includes(term);
+
+                $(this).toggleClass("hidden-by-search", !match);
+            });
+
+            refreshEmptyStates();
         });
 
+        document.addEventListener("DOMContentLoaded", function () {
+            initSortable(document.getElementById("availableFields"));
+
+            document.querySelectorAll(".group-fields").forEach(function (el) {
+                initSortable(el);
+            });
+
+            sortAvailableFields();
+            refreshConstraintLabels();
+            refreshCounters();
+            refreshEmptyStates();
+        });
     </script>
 }

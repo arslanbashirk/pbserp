@@ -73,6 +73,7 @@ namespace   PBS.ERP.Modules.Security.Controllers
         }
 
         [HttpPost("Insert")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Insert([FromBody] ApplicationRole model)
         {
             ModelState.Remove("RowVersion");
@@ -100,6 +101,7 @@ namespace   PBS.ERP.Modules.Security.Controllers
         }
 
         [HttpPost("Update")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(string uid, [FromBody] ApplicationRole model)
         {
             if (model == null)
@@ -134,6 +136,7 @@ namespace   PBS.ERP.Modules.Security.Controllers
         }
 
         [HttpPost("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string uid)
         {
             if (string.IsNullOrEmpty(uid))
