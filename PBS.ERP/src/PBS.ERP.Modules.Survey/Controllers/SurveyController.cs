@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PBS.ERP.Infrastructure;
+using PBS.ERP.Infrastructure.Interfaces;
 using PBS.ERP.Shared.Models;
 using static PBS.ERP.Shared.Models.Constants;
 using static PBS.ERP.Shared.Models.SurveyModel;
@@ -20,12 +21,14 @@ namespace PBS.ERP.Modules.Survey.Controllers
     public class SurveyController : Controller
     {
 
+        private readonly ISuperInterface _tableService;
         protected readonly ApplicationDbContext _context;
         public SurveyController(
-        ApplicationDbContext context,
-        IConfiguration configuration)
+        ISuperInterface tableService,
+        ApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _tableService = tableService;
         }
 
         [HttpGet("All")]
@@ -824,9 +827,68 @@ namespace PBS.ERP.Modules.Survey.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+        [ValidateAntiForgeryToken]
+        [HttpPost("Survey/Create")]
+        public async Task<IActionResult> Create(SurveyTableCreate request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Survey) || string.IsNullOrWhiteSpace(request.TableName))
+                return BadRequest("Survey Table is required.");
+            string database;
+            try
+            {
+                using (var conn = new SqlConnection(_context.Database.GetConnectionString()))
+                {
+                    if (conn == null)
+                        return StatusCode(500, "Database connection could not be established.");
+
+                    await conn.OpenAsync();
+
+                    const string query = "SELECT [DatabaseName] FROM [Survey] WHERE UID = @Id";
+
+                    using (var cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", request.Survey);
+                        var result = await cmd.ExecuteScalarAsync();
+
+                        if (result == null || result == DBNull.Value)
+                            return NotFound("Survey not found or database not set.");
+
+                        database = result.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching survey database: {ex.Message}");
+            }
+            var user = User?.Identity?.Name ?? "system";
+
+            var create = new TableCreateRequest
+            {
+                Table = request.TableName,
+                Database = database,
+                TableType = "SLT",
+                TableDescription = request.TableDescription
+            };
+            var res = await _tableService.CreateTableAsync(create, user);
+            string message;
+            if (!res.Success)
+            {
+                message = $"Table creation failed, " + res.Message;
+            }
+            else
+            {
+                message = "Table created successfully";
+            }
+
+            return RedirectToAction("Entity", new { id = request.Survey, msg = message });
+        }
+
     }
 
-    
 
-    
+
+
 }

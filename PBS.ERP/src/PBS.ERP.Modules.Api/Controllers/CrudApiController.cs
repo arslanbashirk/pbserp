@@ -1624,51 +1624,63 @@ public sealed class CrudApiController : ControllerBase
     }
 
     private async Task<IActionResult> ImportOrUploadInternalAsync(
-        string table,
-        IFormFile file,
-        Dictionary<string, string>? mergeAttributes)
+    string table,
+    IFormFile file,
+    Dictionary<string, string>? mergeAttributes)
     {
         await using var con = await GetConnectionAsync();
 
-        if (!await IsAllowedTableAsync(con, table))
-            return Forbid();
-
-        var entity = await ResolveEntityAsync(table);
-
-        if (entity == null)
-            return NotFound(FailResponse("Invalid table mapping."));
-
-        var tableName = BuildFullTableName(entity);
-
-        var fields = (await GetFieldsAsync(con, table))
-            .Where(f => f.AllowInsert == true)
-            .ToList();
-
-        if (!fields.Any())
-            return Ok(FailResponse("No insertable fields found."));
-
-        var rows = await ReadRowsFromFileAsync(file);
-
-        if (rows.Count == 0)
-            return Ok(FailResponse("No rows found in uploaded file."));
-
-        var successCount = 0;
-        var errorRows = new List<object>();
-
-        await using var transaction = await con.BeginTransactionAsync(HttpContext.RequestAborted);
+        DbTransaction? transaction = null;
 
         try
         {
+            if (!await IsAllowedTableAsync(con, table))
+                return Forbid();
+
+            var entity = await ResolveEntityAsync(table);
+
+            if (entity == null)
+                return NotFound(FailResponse("Invalid table mapping."));
+
+            var tableName = BuildFullTableName(entity);
+
+            var fields = (await GetFieldsAsync(con, table))
+                .Where(f => f.AllowInsert == true)
+                .ToList();
+
+            if (!fields.Any())
+                return Ok(FailResponse("No insertable fields found."));
+
+            /*
+            IMPORTANT:
+            This must be inside try/catch.
+            Excel/CSV reading can throw exceptions.
+            */
+            var rows = await ReadRowsFromFileAsync(file);
+
+            if (rows.Count == 0)
+                return Ok(FailResponse("No rows found in uploaded file."));
+
+            var successCount = 0;
+            var errorRows = new List<object>();
+
+            transaction = await con.BeginTransactionAsync(HttpContext.RequestAborted);
+
             foreach (var row in rows)
             {
-                var merged = new Dictionary<string, string>(row, StringComparer.OrdinalIgnoreCase);
+                var merged = new Dictionary<string, string>(
+                    row,
+                    StringComparer.OrdinalIgnoreCase);
 
                 if (mergeAttributes != null)
                 {
                     foreach (var a in mergeAttributes)
                     {
-                        if (!merged.ContainsKey(a.Key) || string.IsNullOrWhiteSpace(merged[a.Key]))
+                        if (!merged.ContainsKey(a.Key) ||
+                            string.IsNullOrWhiteSpace(merged[a.Key]))
+                        {
                             merged[a.Key] = a.Value;
+                        }
                     }
                 }
 
@@ -1679,11 +1691,20 @@ public sealed class CrudApiController : ControllerBase
 
                 var form = new FormCollection(formDict);
 
-                var errors = await ValidateFormAsync(fields, form, true, con, transaction);
+                var errors = await ValidateFormAsync(
+                    fields,
+                    form,
+                    true,
+                    con,
+                    transaction);
 
                 if (errors.Any())
                 {
-                    errorRows.Add(new { row, errors });
+                    errorRows.Add(new
+                    {
+                        row,
+                        errors
+                    });
 
                     await transaction.RollbackAsync(HttpContext.RequestAborted);
 
@@ -1693,6 +1714,7 @@ public sealed class CrudApiController : ControllerBase
                 }
 
                 var data = BuildData(fields, form, true);
+
                 NormalizeNulls(data);
 
                 if (!data.Any())
@@ -1701,19 +1723,26 @@ public sealed class CrudApiController : ControllerBase
                 data["UID"] = Guid.NewGuid().ToString();
                 data["CreatedTime"] = DateTime.Now;
                 data["CreatedBy"] = CurrentUserName();
-                data["Remarks"] = row.ContainsKey("Remarks") && !string.IsNullOrWhiteSpace(row["Remarks"])
-                    ? row["Remarks"]
-                    : null;
+
+                data["Remarks"] =
+                    row.ContainsKey("Remarks") &&
+                    !string.IsNullOrWhiteSpace(row["Remarks"])
+                        ? row["Remarks"]
+                        : null;
+
                 data["IsDeleted"] = false;
                 data["IsActive"] = true;
 
                 var sql = $@"
-                    INSERT INTO {tableName}
-                    ({string.Join(",", data.Keys.Select(k => Q(k)))})
-                    VALUES
-                    ({string.Join(",", data.Keys.Select(k => "@" + k))})";
+                INSERT INTO {tableName}
+                ({string.Join(",", data.Keys.Select(k => Q(k)))})
+                VALUES
+                ({string.Join(",", data.Keys.Select(k => "@" + k))})";
 
-                await con.ExecuteAsync(sql, ToParameters(data), transaction);
+                await con.ExecuteAsync(
+                    sql,
+                    ToParameters(data),
+                    transaction);
 
                 successCount++;
             }
@@ -1727,12 +1756,31 @@ public sealed class CrudApiController : ControllerBase
         }
         catch (Exception ex)
         {
-            await transaction.RollbackAsync(HttpContext.RequestAborted);
-            _logger.LogError(ex, "Import/upload failed for table {Table}.", table);
+            if (transaction != null)
+            {
+                try
+                {
+                    await transaction.RollbackAsync(HttpContext.RequestAborted);
+                }
+                catch
+                {
+                    // ignore rollback failure safely
+                }
+            }
+
+            _logger.LogError(
+                ex,
+                "Import/upload failed for table {Table}. File: {FileName}",
+                table,
+                file?.FileName);
 
             return Ok(FailResponse(
                 "Import failed. Transaction rolled back.",
-                new { ex.Message }));
+                new
+                {
+                    Message = ex.InnerException?.Message ?? ex.Message,
+                    FileName = file?.FileName
+                }));
         }
     }
 
@@ -1758,6 +1806,7 @@ public sealed class CrudApiController : ControllerBase
             var headers = headerLine
                 .Split(',')
                 .Select(h => h.Trim())
+                .Where(h => !string.IsNullOrWhiteSpace(h))
                 .ToList();
 
             while (!reader.EndOfStream)
@@ -1771,7 +1820,12 @@ public sealed class CrudApiController : ControllerBase
                 var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
                 for (var i = 0; i < headers.Count; i++)
-                    dict[headers[i]] = i < values.Length ? values[i].Trim() : string.Empty;
+                {
+                    dict[headers[i]] =
+                        i < values.Length
+                            ? values[i].Trim()
+                            : string.Empty;
+                }
 
                 rows.Add(dict);
             }
@@ -1779,22 +1833,37 @@ public sealed class CrudApiController : ControllerBase
             return rows;
         }
 
+        if (extension != ".xlsx")
+        {
+            throw new Exception("Only .xlsx and .csv files are supported.");
+        }
+
         using var workbook = new XLWorkbook(stream);
-        var worksheet = workbook.Worksheet(1);
+
+        var worksheet = workbook.Worksheets.FirstOrDefault();
+
+        if (worksheet == null)
+            return rows;
 
         var headerRow = worksheet.Row(1);
+
         var headersExcel = headerRow
-            .Cells()
+            .CellsUsed()
             .Select(c => c.Value.ToString().Trim())
             .Where(h => !string.IsNullOrWhiteSpace(h))
             .ToList();
+
+        if (!headersExcel.Any())
+            return rows;
 
         foreach (var row in worksheet.RowsUsed().Skip(1))
         {
             var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             for (var i = 0; i < headersExcel.Count; i++)
-                dict[headersExcel[i]] = row.Cell(i + 1).Value.ToString();
+            {
+                dict[headersExcel[i]] = row.Cell(i + 1).Value.ToString().Trim();
+            }
 
             rows.Add(dict);
         }

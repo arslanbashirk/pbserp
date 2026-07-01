@@ -101,22 +101,15 @@
 
         <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
 
-            <a asp-controller="Survey"
-               asp-action="Questionnaire"
-               asp-route-id="@ViewBag.Survey"
+            <a href="@Url.Action("Questionnaire", "Survey", new { id = "2f0227ed-af86-44f4-be5d-2407ab793052" })"
                class="btn btn-outline-secondary bg-dark text-white">
-
                 <i class="bi bi-database me-1"></i>
                 Questionnaire
-
             </a>
-            <a asp-controller="Subject"
-               asp-action="All"
+            <a href="@Url.Action("Questionnaire", "Survey")"
                class="btn btn-outline-secondary">
-
                 <i class="bi bi-arrow-left me-1"></i>
                 Back to Survey
-
             </a>
 
         </div>

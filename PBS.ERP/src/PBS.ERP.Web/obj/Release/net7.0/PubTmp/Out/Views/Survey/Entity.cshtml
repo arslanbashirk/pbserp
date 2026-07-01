@@ -103,8 +103,7 @@
                 @ViewBag.DatabaseName
             </span>
 
-            <a asp-controller="Survey"
-               asp-action="Index"
+            <a action="@Url.Action("Index", "Survey")"
                asp-route-id="@ViewBag.Survey"
                class="btn btn-outline-secondary">
 
@@ -181,10 +180,9 @@
 
         <div class="card-body">
 
-            <form asp-controller="Survey"
-                  asp-action="Create"
+            <form action="@Url.Action("Create", "Survey")"
                   method="post">
-
+                @Html.AntiForgeryToken()
                 <div class="row g-3 align-items-end">
 
                     <div class="col-md-4">
@@ -227,7 +225,7 @@
 
     @if (!string.IsNullOrEmpty(ViewBag.Message))
     {
-        <div class="alert alert-success shadow-sm">
+        <div class="alert alert-error shadow-sm">
             @ViewBag.Message
         </div>
     }
@@ -395,7 +393,7 @@
                     return;
 
                 $.ajax({
-                    url: '/api/uper/table/drop',
+                    url: '/api/super/table/drop',
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
