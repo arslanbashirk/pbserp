@@ -1710,7 +1710,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Infrastructure.dll": {}
+          "PBS.ERP.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Infrastructure.dll": {}
@@ -1723,7 +1726,10 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.3.11"
         },
         "runtime": {
-          "PBS.ERP.Shared.dll": {}
+          "PBS.ERP.Shared.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Shared.dll": {}

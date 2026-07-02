@@ -14,7 +14,7 @@ public sealed class GitHubDashboardController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly GitHubStatsSyncService _syncService;
-
+    
     public GitHubDashboardController(
         IConfiguration configuration,
         GitHubStatsSyncService syncService)
@@ -43,7 +43,7 @@ public sealed class GitHubDashboardController : ControllerBase
         var dateFrom = (from ?? DateTime.UtcNow.Date.AddDays(-30)).Date;
         var dateTo = (to ?? DateTime.UtcNow.Date).Date;
 
-        await using var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        await using var con = new SqlConnection(GetGitHubConnectionString());
 
         var data = await con.QueryFirstAsync("""
         SELECT
@@ -76,7 +76,7 @@ public sealed class GitHubDashboardController : ControllerBase
         var dateFrom = (from ?? DateTime.UtcNow.Date.AddDays(-30)).Date;
         var dateTo = (to ?? DateTime.UtcNow.Date).Date;
 
-        await using var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        await using var con = new SqlConnection(GetGitHubConnectionString());
 
         var rows = await con.QueryAsync("""
         SELECT
@@ -107,7 +107,7 @@ public sealed class GitHubDashboardController : ControllerBase
         var dateFrom = (from ?? DateTime.UtcNow.Date.AddDays(-30)).Date;
         var dateTo = (to ?? DateTime.UtcNow.Date).Date;
 
-        await using var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        await using var con = new SqlConnection(GetGitHubConnectionString());
 
         var rows = await con.QueryAsync("""
         SELECT TOP 20
@@ -147,7 +147,7 @@ public sealed class GitHubDashboardController : ControllerBase
         var dateFrom = (from ?? DateTime.UtcNow.Date.AddDays(-30)).Date;
         var dateTo = (to ?? DateTime.UtcNow.Date).Date;
 
-        await using var con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+        await using var con = new SqlConnection(GetGitHubConnectionString());
 
         var rows = await con.QueryAsync("""
         SELECT
@@ -186,5 +186,64 @@ public sealed class GitHubDashboardController : ControllerBase
             Data = rows,
             Errors = Array.Empty<string>()
         });
+    }
+
+    [HttpGet("debug-db")]
+    public async Task<IActionResult> DebugDb()
+    {
+        await using var con = new SqlConnection(GetGitHubConnectionString());
+
+        var summary = await con.QueryFirstAsync("""
+    SELECT
+        DB_NAME() AS CurrentDatabase,
+        (SELECT COUNT(*) FROM dbo.GitHubRepository) AS Repositories,
+        (SELECT COUNT(*) FROM dbo.GitHubDailyRepoStats) AS DailyRepoStats,
+        (SELECT COUNT(*) FROM dbo.GitHubDailyUserStats) AS DailyUserStats,
+        (SELECT COUNT(*) FROM dbo.GitHubSyncLog) AS SyncLogs,
+        (SELECT ISNULL(SUM(Commits), 0) FROM dbo.GitHubDailyRepoStats) AS TotalCommits,
+        (SELECT MAX(StatDate) FROM dbo.GitHubDailyRepoStats) AS LatestStatDate;
+    """);
+
+        var latestLogs = await con.QueryAsync("""
+    SELECT TOP 5
+        SyncType,
+        RepoFullName,
+        StartedAt,
+        FinishedAt,
+        Status,
+        Message,
+        RecordsAffected
+    FROM dbo.GitHubSyncLog
+    ORDER BY StartedAt DESC;
+    """);
+
+        var repositories = await con.QueryAsync("""
+    SELECT TOP 10
+        FullName,
+        DefaultBranch,
+        Language,
+        LastPushedAt,
+        LastSyncedAt
+    FROM dbo.GitHubRepository
+    ORDER BY LastSyncedAt DESC;
+    """);
+
+        return Ok(new
+        {
+            Message = "GitHub database debug loaded.",
+            Success = true,
+            Data = new
+            {
+                Summary = summary,
+                LatestLogs = latestLogs,
+                Repositories = repositories
+            },
+            Errors = Array.Empty<string>()
+        });
+    }
+    private string GetGitHubConnectionString()
+    {
+        return _configuration.GetConnectionString("GitHubDb")
+            ?? throw new InvalidOperationException("GitHubDb  connection string not found.");
     }
 }

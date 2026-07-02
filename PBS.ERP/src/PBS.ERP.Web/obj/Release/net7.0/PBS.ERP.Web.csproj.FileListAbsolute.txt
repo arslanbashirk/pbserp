@@ -936,3 +936,5 @@ C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\refi
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.pdb
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.genruntimeconfig.cache
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\ref\PBS.ERP.Web.dll
+C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.GitHub.dll
+C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.GitHub.pdb

@@ -6920,19 +6920,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PBS\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
       "projectName": "PBS.ERP.Web",
-      "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
-      "packagesPath": "C:\\Users\\PBS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PBS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6947,50 +6947,50 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj"
             },
-            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
-              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
+            "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj"
             }
           }
         }
@@ -7044,7 +7044,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   },

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Modules.Monitoring")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae3c3d6a07145637d212b8543be3e4f19a1fa212")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38d946f484e23b87b3fd39ffe6963d7dce4d4ba1")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Modules.Monitoring")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Modules.Monitoring")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

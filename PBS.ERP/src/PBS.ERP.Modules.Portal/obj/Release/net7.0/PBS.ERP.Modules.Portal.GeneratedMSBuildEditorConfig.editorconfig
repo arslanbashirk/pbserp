@@ -9,27 +9,27 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PBS.ERP.Modules.Portal
 build_property.RootNamespace = PBS.ERP.Modules.Portal
-build_property.ProjectDir = C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Modules.Portal\
+build_property.ProjectDir = C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Modules.Portal\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Modules.Portal
+build_property.MSBuildProjectDirectory = C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Modules.Portal
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form1.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form1.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUFBJSVxGb3JtMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form2.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUFBJSVxGb3JtMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form3.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Form3.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUFBJSVxGb3JtMy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Home.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Modules.Portal/Views/PPII/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUFBJSVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

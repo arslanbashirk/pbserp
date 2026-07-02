@@ -2045,7 +2045,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Infrastructure.dll": {}
+          "PBS.ERP.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Infrastructure.dll": {}
@@ -2059,7 +2062,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Api.dll": {}
+          "PBS.ERP.Modules.Api.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Api.dll": {}
@@ -2076,7 +2082,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Core.dll": {}
+          "PBS.ERP.Modules.Core.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Core.dll": {}
@@ -2088,7 +2097,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Frame.dll": {}
+          "PBS.ERP.Modules.Frame.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Frame.dll": {}
@@ -2101,7 +2113,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.GitHub.dll": {}
+          "PBS.ERP.Modules.GitHub.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.GitHub.dll": {}
@@ -2113,7 +2128,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.HR.dll": {}
+          "PBS.ERP.Modules.HR.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.HR.dll": {}
@@ -2124,7 +2142,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Inventory.dll": {}
+          "PBS.ERP.Modules.Inventory.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Inventory.dll": {}
@@ -2135,7 +2156,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Monitoring.dll": {}
+          "PBS.ERP.Modules.Monitoring.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Monitoring.dll": {}
@@ -2148,7 +2172,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Portal.dll": {}
+          "PBS.ERP.Modules.Portal.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Portal.dll": {}
@@ -2160,7 +2187,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Security.dll": {}
+          "PBS.ERP.Modules.Security.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Security.dll": {}
@@ -2172,7 +2202,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Staff.dll": {}
+          "PBS.ERP.Modules.Staff.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Staff.dll": {}
@@ -2184,7 +2217,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Subject.dll": {}
+          "PBS.ERP.Modules.Subject.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Subject.dll": {}
@@ -2199,7 +2235,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Survey.dll": {}
+          "PBS.ERP.Modules.Survey.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Survey.dll": {}
@@ -2210,7 +2249,10 @@
           "PBS.ERP.Shared": "1.0.0"
         },
         "runtime": {
-          "PBS.ERP.Modules.Training.dll": {}
+          "PBS.ERP.Modules.Training.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Modules.Training.dll": {}
@@ -2223,7 +2265,10 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.3.11"
         },
         "runtime": {
-          "PBS.ERP.Shared.dll": {}
+          "PBS.ERP.Shared.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         },
         "compile": {
           "PBS.ERP.Shared.dll": {}

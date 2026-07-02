@@ -20,14 +20,15 @@ public sealed class GitHubStatsSyncService
     {
         _client = client;
         _options = options.Value;
+
         _connectionString = configuration.GetConnectionString("GitHubDb")
-        ?? throw new InvalidOperationException("GitHubDb not found.");
+            ?? throw new InvalidOperationException("GitHubDb connection string not found.");
     }
 
-    public async Task SyncPhase1Async(int days = 30, CancellationToken ct = default)
+    public async Task SyncPhase1Async(int days = 90, CancellationToken ct = default)
     {
-        if (days <= 0 || days > 90)
-            days = 30;
+        if (days <= 0 || days > 365)
+            days = 90;
 
         var from = DateTime.UtcNow.Date.AddDays(-days);
         var to = DateTime.UtcNow.Date.AddDays(1);
@@ -43,6 +44,11 @@ public sealed class GitHubStatsSyncService
             var repoStats = new Dictionary<DateTime, RepoDayStats>();
             var userStats = new Dictionary<(DateTime Date, string Login), UserDayStats>();
 
+            // Important:
+            // This creates rows for every day in the selected period,
+            // even when there is no GitHub activity.
+            SeedRepoDateRange(repoStats, from, to);
+
             await CountCommitsAsync(repo, from, to, repoStats, userStats, ct);
             await CountPullRequestsAsync(repo, from, to, repoStats, userStats, ct);
             await CountWorkflowRunsAsync(repo, from, to, repoStats, userStats, ct);
@@ -51,18 +57,32 @@ public sealed class GitHubStatsSyncService
             await SaveRepoStatsAsync(repo.GitHubId, repoStats);
             await SaveUserStatsAsync(repo.GitHubId, userStats);
 
-            await LogAsync("Phase1", fullName, "Success", "GitHub Phase 1 sync completed.", repoStats.Count);
+            await LogAsync(
+                "Phase1",
+                fullName,
+                "Success",
+                "GitHub Phase 1 sync completed.",
+                repoStats.Count);
         }
         catch (Exception ex)
         {
-            await LogAsync("Phase1", fullName, "Failed", ex.ToString(), null);
+            await LogAsync(
+                "Phase1",
+                fullName,
+                "Failed",
+                ex.ToString(),
+                null);
+
             throw;
         }
     }
 
     private async Task<GitHubRepoDto> SyncRepositoryAsync(CancellationToken ct)
     {
-        using var doc = await _client.GetAsync($"/repos/{_options.Owner}/{_options.Repository}", ct);
+        using var doc = await _client.GetAsync(
+            $"/repos/{_options.Owner}/{_options.Repository}",
+            ct);
+
         var r = doc.RootElement;
 
         var repo = new GitHubRepoDto
@@ -138,13 +158,18 @@ public sealed class GitHubStatsSyncService
             if (commitDate == null)
                 continue;
 
+            if (commitDate.Value < from || commitDate.Value >= to)
+                continue;
+
             var date = commitDate.Value.Date;
             var login = GetCommitAuthorLogin(commit);
 
             GetRepoDay(repoStats, date).Commits++;
 
             if (!string.IsNullOrWhiteSpace(login))
+            {
                 GetUserDay(userStats, date, login).Commits++;
+            }
         }
     }
 
@@ -169,16 +194,20 @@ public sealed class GitHubStatsSyncService
             if (createdAt != null && createdAt.Value >= from && createdAt.Value < to)
             {
                 var date = createdAt.Value.Date;
+
                 GetRepoDay(repoStats, date).PullRequestsOpened++;
 
                 if (!string.IsNullOrWhiteSpace(author))
+                {
                     GetUserDay(userStats, date, author).PullRequestsOpened++;
+                }
             }
 
             var closedAt = TryGetNullableDateTime(pr, "closed_at");
             if (closedAt != null && closedAt.Value >= from && closedAt.Value < to)
             {
                 var date = closedAt.Value.Date;
+
                 GetRepoDay(repoStats, date).PullRequestsClosed++;
             }
 
@@ -186,10 +215,13 @@ public sealed class GitHubStatsSyncService
             if (mergedAt != null && mergedAt.Value >= from && mergedAt.Value < to)
             {
                 var date = mergedAt.Value.Date;
+
                 GetRepoDay(repoStats, date).PullRequestsMerged++;
 
                 if (!string.IsNullOrWhiteSpace(author))
+                {
                     GetUserDay(userStats, date, author).PullRequestsMerged++;
+                }
             }
         }
     }
@@ -221,10 +253,15 @@ public sealed class GitHubStatsSyncService
             var repoDay = GetRepoDay(repoStats, date);
             repoDay.WorkflowRuns++;
 
-            var isFailure = string.Equals(conclusion, "failure", StringComparison.OrdinalIgnoreCase);
+            var isFailure = string.Equals(
+                conclusion,
+                "failure",
+                StringComparison.OrdinalIgnoreCase);
 
             if (isFailure)
+            {
                 repoDay.WorkflowFailures++;
+            }
 
             if (!string.IsNullOrWhiteSpace(actor))
             {
@@ -232,7 +269,9 @@ public sealed class GitHubStatsSyncService
                 userDay.WorkflowRuns++;
 
                 if (isFailure)
+                {
                     userDay.WorkflowFailures++;
+                }
             }
         }
     }
@@ -254,7 +293,8 @@ public sealed class GitHubStatsSyncService
                 foreach (var item in views.EnumerateArray())
                 {
                     var date = TryGetNullableDateTime(item, "timestamp")?.Date;
-                    if (date == null) continue;
+                    if (date == null)
+                        continue;
 
                     var day = GetRepoDay(repoStats, date.Value);
                     day.Views = TryGetInt(item, "count");
@@ -272,7 +312,8 @@ public sealed class GitHubStatsSyncService
                 foreach (var item in clones.EnumerateArray())
                 {
                     var date = TryGetNullableDateTime(item, "timestamp")?.Date;
-                    if (date == null) continue;
+                    if (date == null)
+                        continue;
 
                     var day = GetRepoDay(repoStats, date.Value);
                     day.Clones = TryGetInt(item, "count");
@@ -280,10 +321,16 @@ public sealed class GitHubStatsSyncService
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Traffic needs sufficient repository permission.
-            // Keep Phase 1 sync successful even if traffic is unavailable.
+            // Traffic needs repository administration/read permission.
+            // We log the warning but do not fail the whole sync.
+            await LogAsync(
+                "Traffic",
+                repo.FullName,
+                "Warning",
+                ex.Message,
+                null);
         }
     }
 
@@ -296,9 +343,12 @@ public sealed class GitHubStatsSyncService
         const string sql = """
         MERGE dbo.GitHubDailyRepoStats AS T
         USING (
-            SELECT @StatDate AS StatDate, @RepoGitHubId AS RepoGitHubId
+            SELECT
+                @StatDate AS StatDate,
+                @RepoGitHubId AS RepoGitHubId
         ) AS S
-        ON T.StatDate = S.StatDate AND T.RepoGitHubId = S.RepoGitHubId
+        ON T.StatDate = S.StatDate
+           AND T.RepoGitHubId = S.RepoGitHubId
         WHEN MATCHED THEN UPDATE SET
             Commits = @Commits,
             PullRequestsOpened = @PullRequestsOpened,
@@ -321,7 +371,7 @@ public sealed class GitHubStatsSyncService
              @Clones, @UniqueClones, SYSUTCDATETIME());
         """;
 
-        foreach (var row in stats)
+        foreach (var row in stats.OrderBy(x => x.Key))
         {
             await con.ExecuteAsync(sql, new
             {
@@ -345,6 +395,9 @@ public sealed class GitHubStatsSyncService
         long repoGitHubId,
         Dictionary<(DateTime Date, string Login), UserDayStats> stats)
     {
+        if (stats.Count == 0)
+            return;
+
         await using var con = new SqlConnection(_connectionString);
 
         const string sql = """
@@ -373,7 +426,7 @@ public sealed class GitHubStatsSyncService
              @PullRequestsMerged, @WorkflowRuns, @WorkflowFailures, SYSUTCDATETIME());
         """;
 
-        foreach (var row in stats)
+        foreach (var row in stats.OrderBy(x => x.Key.Date).ThenBy(x => x.Key.Login))
         {
             await con.ExecuteAsync(sql, new
             {
@@ -400,9 +453,20 @@ public sealed class GitHubStatsSyncService
 
         await con.ExecuteAsync("""
         INSERT INTO dbo.GitHubSyncLog
-            (SyncType, RepoFullName, FinishedAt, Status, Message, RecordsAffected)
+            (SyncType, RepoFullName, StartedAt, FinishedAt, Status, Message, RecordsAffected)
         VALUES
-            (@SyncType, @RepoFullName, SYSUTCDATETIME(), @Status, @Message, @RecordsAffected);
+            (
+                @SyncType,
+                @RepoFullName,
+                SYSUTCDATETIME(),
+                CASE
+                    WHEN @Status = 'Started' THEN NULL
+                    ELSE SYSUTCDATETIME()
+                END,
+                @Status,
+                @Message,
+                @RecordsAffected
+            );
         """, new
         {
             SyncType = syncType,
@@ -413,7 +477,20 @@ public sealed class GitHubStatsSyncService
         });
     }
 
-    private static RepoDayStats GetRepoDay(Dictionary<DateTime, RepoDayStats> dict, DateTime date)
+    private static void SeedRepoDateRange(
+        Dictionary<DateTime, RepoDayStats> repoStats,
+        DateTime from,
+        DateTime to)
+    {
+        for (var date = from.Date; date < to.Date; date = date.AddDays(1))
+        {
+            GetRepoDay(repoStats, date);
+        }
+    }
+
+    private static RepoDayStats GetRepoDay(
+        Dictionary<DateTime, RepoDayStats> dict,
+        DateTime date)
     {
         date = date.Date;
 

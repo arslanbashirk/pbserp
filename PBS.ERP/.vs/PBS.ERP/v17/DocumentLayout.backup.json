@@ -3,6 +3,206 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\services\\githubstatssyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\services\\githubstatssyncservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\controllers\\githubdashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\controllers\\githubdashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\controllers\\githubtestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\controllers\\githubtestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\module\\githubmoduleserviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\module\\githubmoduleserviceextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\views\\github\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\views\\github\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\services\\githubauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\services\\githubauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\models\\githuboptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\models\\githuboptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\services\\githubapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\services\\githubapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\controllers\\githubcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\controllers\\githubcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\modulemarker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\modulemarker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\pbs.erp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\pbs.erp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.github\\pbs.erp.modules.github.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A890E94C-4AFA-49DA-9739-06C5CF4CAF7C}|src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj|solutionrelative:src\\pbs.erp.modules.github\\pbs.erp.modules.github.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\pbs.erp.modules.portal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|solutionrelative:src\\pbs.erp.modules.portal\\pbs.erp.modules.portal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{733643A5-43DD-42D0-9C44-93E115A5B7C7}|src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.frame\\pbs.erp.modules.frame.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{733643A5-43DD-42D0-9C44-93E115A5B7C7}|src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj|solutionrelative:src\\pbs.erp.modules.frame\\pbs.erp.modules.frame.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\views\\survey\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\views\\survey\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\superapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\superapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.subject\\views\\subject\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|solutionrelative:src\\pbs.erp.modules.subject\\views\\subject\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.infrastructure\\interfaces\\isuperinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|solutionrelative:src\\pbs.erp.infrastructure\\interfaces\\isuperinterface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\role\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\role\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\crudapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\crudapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\wwwroot\\js\\save-data.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\wwwroot\\js\\save-data.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\views\\ppii\\form2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|solutionrelative:src\\pbs.erp.modules.portal\\views\\ppii\\form2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\super\\alter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\alter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\super\\unique.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\unique.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.infrastructure\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|solutionrelative:src\\pbs.erp.infrastructure\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.shared\\models\\mygeneric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|solutionrelative:src\\pbs.erp.shared\\models\\mygeneric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\controllers\\supercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\controllers\\supercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\authapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\authapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\erpcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\erpcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\survey.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\survey.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.subject\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|solutionrelative:src\\pbs.erp.modules.subject\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\controllers\\ppiicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|solutionrelative:src\\pbs.erp.modules.portal\\controllers\\ppiicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.subject\\views\\subject\\table.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|solutionrelative:src\\pbs.erp.modules.subject\\views\\subject\\table.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\wwwroot\\js\\crud-grid-render.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\wwwroot\\js\\crud-grid-render.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\team\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\team\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\team\\member.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\team\\member.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\views\\ppii\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|solutionrelative:src\\pbs.erp.modules.portal\\views\\ppii\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -11,36 +211,8 @@
       "RelativeMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|solutionrelative:src\\pbs.erp.shared\\models\\surveymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\views\\ppii\\form2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|solutionrelative:src\\pbs.erp.modules.portal\\views\\ppii\\form2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\_staff.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\_staff.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\_surveylayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\_surveylayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5836CEC9-4A9C-4894-BF5A-77FC42FD5D88}|src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.portal\\views\\ppii\\form1.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -55,40 +227,8 @@
       "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\crud\\table.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\crudapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\crudapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\wwwroot\\js\\field_metadata.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\wwwroot\\js\\field_metadata.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\controllers\\crudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\controllers\\crudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\controllers\\supercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\controllers\\supercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\superapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\superapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\views\\survey\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\views\\survey\\entity.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.subject\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|solutionrelative:src\\pbs.erp.modules.subject\\controllers\\subjectcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\wwwroot\\js\\crud-grid-render.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\wwwroot\\js\\crud-grid-render.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\crud\\file.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -99,16 +239,8 @@
       "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\super\\alter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\alter.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\views\\entry\\grid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\views\\entry\\grid.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.survey\\views\\entry\\form.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -143,16 +275,8 @@
       "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\views\\survey\\designer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\super\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\super\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\super\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C079779-8A31-446F-84FC-C5CE134BCFE7}|src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.inventory\\pbs.erp.modules.inventory.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -169,14 +293,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.subject\\pbs.erp.modules.subject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{F18DB575-2CC1-4BB7-A2B2-6D3C55CEF7A7}|src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj|solutionrelative:src\\pbs.erp.modules.subject\\pbs.erp.modules.subject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\controllers\\authapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|solutionrelative:src\\pbs.erp.modules.api\\controllers\\authapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\pbs.erp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\pbs.erp.web.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -203,16 +319,8 @@
       "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\models\\errorpageviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.core\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{68E63F00-81EA-46FC-902F-DB2AA82BA6F0}|src\\PBS.ERP.Modules.Core\\PBS.ERP.Modules.Core.csproj|solutionrelative:src\\pbs.erp.modules.core\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -255,28 +363,12 @@
       "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\userrole\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\user\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\team\\member.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\views\\team\\member.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|solutionrelative:src\\pbs.erp.infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.infrastructure\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{970C07EE-00AB-41FB-8E28-CB0DE77676A4}|src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj|solutionrelative:src\\pbs.erp.infrastructure\\services\\tableservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9DD52388-64B8-419B-9A54-923B5C9D949C}|src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.api\\pbs.erp.modules.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -287,16 +379,8 @@
       "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.web\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{50E26FDE-31C7-416C-9D55-32CE5D15C8AB}|src\\PBS.ERP.Web\\PBS.ERP.Web.csproj|solutionrelative:src\\pbs.erp.web\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\survey.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|solutionrelative:src\\pbs.erp.modules.staff\\views\\staff\\survey.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3788900E-012E-4917-8387-5CD47C8C7DCF}|src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.staff\\views\\staff\\export.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -311,10 +395,6 @@
       "RelativeMoniker": "D:0:0:{C9222E41-96C6-45F2-921B-0CE028759A4C}|src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj|solutionrelative:src\\pbs.erp.modules.survey\\views\\survey\\all.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.shared\\models\\field.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|solutionrelative:src\\pbs.erp.shared\\models\\field.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BCB9A2EB-C2B8-4451-9000-AC5EE05A9C12}|src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.training\\pbs.erp.modules.training.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{BCB9A2EB-C2B8-4451-9000-AC5EE05A9C12}|src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj|solutionrelative:src\\pbs.erp.modules.training\\pbs.erp.modules.training.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -325,14 +405,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{66B710C3-BF1A-4B65-9A9D-BDD7EDDBE60B}|src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.monitoring\\pbs.erp.modules.monitoring.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{66B710C3-BF1A-4B65-9A9D-BDD7EDDBE60B}|src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj|solutionrelative:src\\pbs.erp.modules.monitoring\\pbs.erp.modules.monitoring.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6EA253C3-BDFA-438C-B8E0-F7CE118F4084}|src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.hr\\pbs.erp.modules.hr.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{6EA253C3-BDFA-438C-B8E0-F7CE118F4084}|src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj|solutionrelative:src\\pbs.erp.modules.hr\\pbs.erp.modules.hr.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{733643A5-43DD-42D0-9C44-93E115A5B7C7}|src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.frame\\pbs.erp.modules.frame.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{733643A5-43DD-42D0-9C44-93E115A5B7C7}|src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj|solutionrelative:src\\pbs.erp.modules.frame\\pbs.erp.modules.frame.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.shared\\auth\\usersessiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -355,20 +427,8 @@
       "RelativeMoniker": "D:0:0:{F8F5C6D4-3088-4252-BCAC-C3A9FD6C6CEF}|src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj|solutionrelative:src\\pbs.erp.shared\\auth\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\teamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\controllers\\erpcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|solutionrelative:src\\pbs.erp.modules.security\\controllers\\erpcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{117D90F8-8D4D-49AF-80CC-9A8F904B902D}|src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj|c:\\users\\lenovo\\source\\repos\\ss\\pbserp\\pbs.erp\\src\\pbs.erp.modules.security\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -410,7 +470,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -430,46 +490,551 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_AdminLayout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_AdminLayout.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\Shared\\_AdminLayout.cshtml",
-              "ViewState": "AgIAAI0BAAAAAAAAAAAAAJEBAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T17:01:41.21Z",
+              "DocumentIndex": 3,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Development.json",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-01T03:38:11.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GitHubDashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubDashboardController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubDashboardController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubDashboardController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubDashboardController.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAYwPIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T04:46:10.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GitHubStatsSyncService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubStatsSyncService.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubStatsSyncService.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubStatsSyncService.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubStatsSyncService.cs",
+              "ViewState": "AgIAAHkCAAAAAAAAAAAmwIECAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T05:55:47.101Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "_SurveyLayout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_SurveyLayout.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_SurveyLayout.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_SurveyLayout.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\Shared\\_SurveyLayout.cshtml",
-              "ViewState": "AgIAAN0AAAAAAAAAAAAAAOUAAAAZAAAAAAAAAA==",
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Views\\GitHub\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Views\\GitHub\\Dashboard.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Views\\GitHub\\Dashboard.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Views\\GitHub\\Dashboard.cshtml",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAI0AAAAGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-21T10:49:23.154Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-02T04:51:43.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GitHubModuleServiceExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Module\\GitHubModuleServiceExtensions.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Module\\GitHubModuleServiceExtensions.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Module\\GitHubModuleServiceExtensions.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Module\\GitHubModuleServiceExtensions.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAA6wBQAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T04:59:44.278Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "GitHubTestController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubTestController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubTestController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubTestController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubTestController.cs",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAAACsAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T05:02:57.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Program.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Program.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Program.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\Program.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAqwCYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-25T09:49:20.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GitHubAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubAuthService.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubAuthService.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubAuthService.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubAuthService.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAwwD8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T04:58:58.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GitHubOptions.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Models\\GitHubOptions.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Models\\GitHubOptions.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Models\\GitHubOptions.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Models\\GitHubOptions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAA+wBEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T05:00:17.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "GitHubApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubApiClient.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubApiClient.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Services\\GitHubApiClient.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Services\\GitHubApiClient.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAA+wHIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T05:01:48.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\appsettings.json",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.json",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-25T19:36:32.808Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "GitHubController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\Controllers\\GitHubController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T04:46:51.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PBS.ERP.Modules.GitHub.csproj",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-02T04:37:00.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Entity.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
+              "ViewState": "AQIAAGEBAAAAAAAAAMBAwIsBAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-26T10:34:11.688Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PBS.ERP.Modules.Portal.csproj",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\PBS.ERP.Modules.Portal.csproj",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAQwBQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-02T04:42:56.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ModuleMarker.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\ModuleMarker.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.GitHub\\ModuleMarker.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\ModuleMarker.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.GitHub\\ModuleMarker.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T04:46:12.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SuperApiController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAIA7wCEAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-20T10:33:35.905Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ISuperInterface.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Interfaces\\ISuperInterface.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Interfaces\\ISuperInterface.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Interfaces\\ISuperInterface.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Infrastructure\\Interfaces\\ISuperInterface.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T04:35:01.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "PBS.ERP.Web.csproj",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAABoAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-25T17:37:13.213Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAIBAwEoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T11:02:31.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PBS.ERP.Modules.Frame.csproj",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-19T10:33:03.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SurveyController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
+              "ViewState": "AQIAAGUDAAAAAAAAAAAAAHIDAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-26T10:35:00.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CrudApiController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
+              "ViewState": "AQIAADsGAAAAAAAAAAAcwFsGAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-27T07:11:02.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Entity.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Entity.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Entity.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Entity.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Entity.cshtml",
+              "ViewState": "AQIAAKkAAAAAAAAAAAAAAK8AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T07:58:07.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "save-data.js",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\save-data.js",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\save-data.js",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\save-data.js",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\wwwroot\\js\\save-data.js",
+              "ViewState": "AQIAAI0BAAAAAAAAAAA6wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-07-01T05:23:52.214Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Alter.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
+              "ViewState": "AQIAANgBAAAAAAAAAADgv+UBAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-26T06:54:40.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Unique.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Unique.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Unique.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Unique.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Unique.cshtml",
+              "ViewState": "AQIAAHAEAAAAAAAAAAA+wIEEAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-30T09:43:53.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAC0AAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-18T10:58:19.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Role\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Role\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Role\\Index.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\Role\\Index.cshtml",
+              "ViewState": "AQIAAIcAAAAAAAAAAADgv50AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-01T03:41:44.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "SuperController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
+              "ViewState": "AQIAAJgAAAAAAAAAAAAwwKYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T10:34:07.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "AuthApiController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEYAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-19T17:59:16.596Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
               "Title": "Form2.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form2.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form2.cshtml",
               "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form2.cshtml",
               "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form2.cshtml",
-              "ViewState": "AgIAAMUBAAAAAAAAAAAYwMkBAAAvAAAAAAAAAA==",
+              "ViewState": "AQIAAIwBAAAAAAAAAMBAwG4BAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-28T14:13:13.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-28T14:13:13.256Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 31,
+              "Title": "MyGeneric.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\MyGeneric.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Models\\MyGeneric.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\MyGeneric.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Shared\\Models\\MyGeneric.cs",
+              "ViewState": "AQIAAEkAAAAAAAAAAIA1wFQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T04:34:15.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "TableService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
+              "ViewState": "AQIAAEEJAAAAAAAAAAA+wEwJAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T10:25:09.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T11:37:40.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "RoleController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\RoleController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\RoleController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\RoleController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\RoleController.cs",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAIwKMAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-01T03:40:08.352Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "TeamController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF8AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T11:22:40.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Survey.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
+              "ViewState": "AQIAADMAAAAAAAAAAAA+wDsAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T07:23:34.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T07:23:19.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T07:23:27.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ERPController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-18T11:03:39.554Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
+              "ViewState": "AQIAAIAAAAAAAAAAAAA8wIwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T16:34:12.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
+              "ViewState": "AQIAAC0BAAAAAAAAAADwvz8BAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-20T10:48:08.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "crud-grid-render.js",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
+              "ViewState": "AQIAAGcAAAAAAAAAAAA8wGkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-25T14:14:16.866Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "Table.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Table.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Table.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Table.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Subject\\Views\\Subject\\Table.cshtml",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAAAFIAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T10:59:31.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
               "Title": "Form1.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form1.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form1.cshtml",
@@ -477,51 +1042,59 @@
               "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form1.cshtml",
               "ViewState": "AgIAABYBAAAAAAAAAAAYwCMBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-28T14:26:07.558Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-28T14:26:07.558Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "_Staff.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Staff.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_Staff.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Staff.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\Shared\\_Staff.cshtml",
-              "ViewState": "AgIAAF8BAAAAAAAAAAAYwGQBAAAWAAAAAAAAAA==",
+              "DocumentIndex": 44,
+              "Title": "PPIIController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Controllers\\PPIIController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Controllers\\PPIIController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Controllers\\PPIIController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\Controllers\\PPIIController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T03:53:24.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "SubjectController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAwAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-25T16:18:01.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Index.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Index.cshtml",
+              "ViewState": "AQIAAJwAAAAAAAAAAAAAAKIAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-28T14:36:37.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-29T05:08:11.281Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Home.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAYwKgAAAAvAAAAAAAAAA==",
+              "DocumentIndex": 49,
+              "Title": "Member.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAAAoAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T15:31:01.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-18T11:23:36.986Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAALMAAAAAAAAAAAAYwLkAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-28T14:33:22.652Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 51,
               "Title": "SurveyModel.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\SurveyModel.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Models\\SurveyModel.cs",
@@ -529,51 +1102,47 @@
               "RelativeToolTip": "src\\PBS.ERP.Shared\\Models\\SurveyModel.cs",
               "ViewState": "AgIAAGQAAAAAAAAAAAAiwGgAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-28T16:02:00.345Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-28T16:02:00.345Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "appsettings.Production.json",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Production.json",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\appsettings.Production.json",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Production.json",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\appsettings.Production.json",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABgAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-06-26T08:34:09.972Z",
-              "EditorCaption": ""
+              "DocumentIndex": 52,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAALMAAAAAAAAAAAAYwLkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-28T14:33:22.652Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.json",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\appsettings.json",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.json",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\appsettings.json",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAUwBAAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-06-25T19:36:32.808Z",
-              "EditorCaption": ""
+              "DocumentIndex": 50,
+              "Title": "Home.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Home.cshtml",
+              "ViewState": "AgIAANwAAAAAAAAAAAAYwOEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-25T15:31:01.015Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\appsettings.Development.json",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\appsettings.Development.json",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\appsettings.Development.json",
-              "ViewState": "AgIAABYAAAAAAAAAAAAUwBkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-06-28T14:27:07.647Z",
-              "EditorCaption": ""
+              "DocumentIndex": 48,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\_ViewStart.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T05:26:12.699Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 54,
               "Title": "crud-operations.js",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-operations.js",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-operations.js",
@@ -585,43 +1154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CrudApiController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\CrudApiController.cs",
-              "ViewState": "AgIAAMYCAAAAAAAAAAAYwNMCAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-27T07:11:02.378Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Entity.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Entity.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-26T10:34:11.688Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "SuperController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Controllers\\SuperController.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAewBEAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T17:56:55.462Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 55,
               "Title": "Table.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Crud\\Table.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Crud\\Table.cshtml",
@@ -633,43 +1166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "SuperApiController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\SuperApiController.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAAAGcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-20T10:33:35.905Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Program.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Program.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Program.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAArwBUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-25T09:49:20.363Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CrudController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\CrudController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Controllers\\CrudController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Controllers\\CrudController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Controllers\\CrudController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-27T05:43:38.076Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 56,
               "Title": "field_metadata.js",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\field_metadata.js",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\field_metadata.js",
@@ -681,7 +1178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 58,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Create.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Create.cshtml",
@@ -693,7 +1190,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 59,
               "Title": "Grid.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Grid.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Grid.cshtml",
@@ -705,19 +1202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "SubjectController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Subject\\Controllers\\SubjectController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAQwCQAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-25T16:18:01.53Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 62,
               "Title": "Repeat.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Repeat.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Repeat.cshtml",
@@ -729,7 +1214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 57,
               "Title": "File.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Crud\\File.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Crud\\File.cshtml",
@@ -741,7 +1226,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 61,
               "Title": "List.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Entry\\List.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Entry\\List.cshtml",
@@ -753,31 +1238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "SurveyController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Survey\\Controllers\\SurveyController.cs",
-              "ViewState": "AgIAAMUBAAAAAAAAAAArwM8BAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-26T10:35:00.435Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "crud-grid-render.js",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-grid-render.js",
-              "ViewState": "AgIAADoBAAAAAAAAAAAYwEEBAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-06-25T14:14:16.866Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 60,
               "Title": "Form.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Form.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Entry\\Form.cshtml",
@@ -789,7 +1250,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 63,
               "Title": "EntryController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Controllers\\EntryController.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Controllers\\EntryController.cs",
@@ -801,19 +1262,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "Alter.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Alter.cshtml",
-              "ViewState": "AgIAACcCAAAAAAAAAAAewCsCAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-26T06:54:40.607Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 64,
               "Title": "PBS.ERP.Modules.Survey.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\PBS.ERP.Modules.Survey.csproj",
@@ -825,7 +1274,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 65,
               "Title": "Questionnaire.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Questionnaire.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Questionnaire.cshtml",
@@ -837,7 +1286,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 66,
               "Title": "Mode.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Mode.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Mode.cshtml",
@@ -849,7 +1298,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 67,
               "Title": "Designer.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Designer.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Designer.cshtml",
@@ -861,19 +1310,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "Order.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Order.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Order.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Order.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Order.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-26T06:51:51.67Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 68,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Super\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Super\\Index.cshtml",
@@ -885,31 +1322,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAAAHoAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-20T10:48:08.525Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "AuthApiController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Api\\Controllers\\AuthApiController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAIwCcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-19T17:59:16.596Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 71,
               "Title": "PBS.ERP.Infrastructure.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\PBS.ERP.Infrastructure.csproj",
@@ -921,7 +1334,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 69,
               "Title": "PBS.ERP.Modules.Inventory.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Inventory\\PBS.ERP.Modules.Inventory.csproj",
@@ -933,7 +1346,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 70,
               "Title": "PBS.ERP.Shared.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\PBS.ERP.Shared.csproj",
@@ -945,7 +1358,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 72,
               "Title": "PBS.ERP.Modules.Subject.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Subject\\PBS.ERP.Modules.Subject.csproj",
@@ -957,19 +1370,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "PBS.ERP.Web.csproj",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\PBS.ERP.Web.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-25T17:37:13.213Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 73,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Data\\ApplicationDbContext.cs",
@@ -981,7 +1382,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 74,
               "Title": "AccessDenied.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\AccessDenied.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Account\\AccessDenied.cshtml",
@@ -993,7 +1394,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 75,
               "Title": "Error.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Error\\Error.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Error\\Error.cshtml",
@@ -1005,7 +1406,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 76,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Home\\Index.cshtml",
@@ -1017,7 +1418,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 77,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Home\\Privacy.cshtml",
@@ -1029,7 +1430,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 78,
               "Title": "ErrorPageViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Models\\ErrorPageViewModel.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Models\\ErrorPageViewModel.cs",
@@ -1041,19 +1442,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Web\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-18T09:29:18.626Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 79,
               "Title": "Error.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\Error.cshtml",
@@ -1065,19 +1454,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Core\\Views\\Account\\Register.cshtml",
-              "ViewState": "AgIAAHcAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T16:34:12.256Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 84,
               "Title": "crud-format-export.js",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\wwwroot\\js\\crud-format-export.js",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\wwwroot\\js\\crud-format-export.js",
@@ -1089,7 +1466,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 82,
               "Title": "Form3.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form3.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Portal\\Views\\PPII\\Form3.cshtml",
@@ -1101,7 +1478,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 81,
               "Title": "PBS.ERP.Modules.Staff.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\PBS.ERP.Modules.Staff.csproj",
@@ -1113,7 +1490,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 80,
               "Title": "StaffController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Controllers\\StaffController.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Controllers\\StaffController.cs",
@@ -1125,7 +1502,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 83,
               "Title": "_PartialCrud.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_PartialCrud.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_PartialCrud.cshtml",
@@ -1137,7 +1514,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 85,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Database\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Database\\Index.cshtml",
@@ -1149,19 +1526,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
-              "Title": "Member.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\Team\\Member.cshtml",
-              "ViewState": "AgIAAFYBAAAAAAAAAAAYwCwBAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-18T11:23:36.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 88,
               "Title": "SurveyDatabasePlan.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\SurveyDatabasePlan.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Models\\SurveyDatabasePlan.cs",
@@ -1173,7 +1538,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 87,
               "Title": "DatabaseController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\DatabaseController.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\DatabaseController.cs",
@@ -1185,7 +1550,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 86,
               "Title": "Files.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Database\\Files.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Database\\Files.cshtml",
@@ -1197,7 +1562,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 89,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\UserRole\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\UserRole\\Index.cshtml",
@@ -1209,19 +1574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Views\\User\\Index.cshtml",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAADwAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-18T10:58:19.787Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 92,
               "Title": "PBS.ERP.Modules.Api.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Api\\PBS.ERP.Modules.Api.csproj",
@@ -1233,7 +1586,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 90,
               "Title": "Dashboard.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Dashboard.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Dashboard.cshtml",
@@ -1245,31 +1598,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
-              "Title": "Profile.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Profile.cshtml",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAYwEwAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T07:23:27.48Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 68,
-              "Title": "TableService.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Infrastructure\\Services\\TableService.cs",
-              "ViewState": "AgIAALQGAAAAAAAAAAAtwEgHAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-21T10:16:37.697Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 91,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Services\\AuthService.cs",
@@ -1281,7 +1610,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 93,
               "Title": "About.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\About.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\About.cshtml",
@@ -1293,7 +1622,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 95,
               "Title": "Export.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Export.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Export.cshtml",
@@ -1305,31 +1634,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
-              "Title": "Survey.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Survey.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T07:23:34.243Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 71,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Staff\\Views\\Staff\\Index.cshtml",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-25T07:23:19.621Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 94,
               "Title": "_Layout.cshtml.css",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml.css",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Views\\Shared\\_Layout.cshtml.css",
@@ -1341,7 +1646,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 96,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\Index.cshtml",
@@ -1353,7 +1658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 97,
               "Title": "All.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Survey\\Views\\Survey\\All.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Survey\\Views\\Survey\\All.cshtml",
@@ -1365,19 +1670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
-              "Title": "Field.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\Field.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Models\\Field.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Models\\Field.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Shared\\Models\\Field.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-20T08:15:59.269Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 98,
+              "DocumentIndex": 113,
               "Title": "20260619151148_AddUserRefreshTokenTable.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Migrations\\20260619151148_AddUserRefreshTokenTable.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Migrations\\20260619151148_AddUserRefreshTokenTable.cs",
@@ -1389,7 +1682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 99,
+              "DocumentIndex": 114,
               "Title": "20260619150510_BaselineExistingDatabase.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Migrations\\20260619150510_BaselineExistingDatabase.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Migrations\\20260619150510_BaselineExistingDatabase.cs",
@@ -1401,7 +1694,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 98,
               "Title": "PBS.ERP.Modules.Training.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Training\\PBS.ERP.Modules.Training.csproj",
@@ -1413,7 +1706,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 100,
               "Title": "PBS.ERP.Modules.Monitoring.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Monitoring\\PBS.ERP.Modules.Monitoring.csproj",
@@ -1425,7 +1718,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 99,
               "Title": "PBS.ERP.Modules.Security.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\PBS.ERP.Modules.Security.csproj",
@@ -1437,31 +1730,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
-              "Title": "PBS.ERP.Modules.HR.csproj",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-19T10:30:57.483Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 82,
-              "Title": "PBS.ERP.Modules.Frame.csproj",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-06-19T10:33:03.864Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 101,
               "Title": "UserSessionDto.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Auth\\UserSessionDto.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Auth\\UserSessionDto.cs",
@@ -1473,7 +1742,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 102,
               "Title": "AuthResult.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Auth\\AuthResult.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Auth\\AuthResult.cs",
@@ -1485,7 +1754,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 103,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Web\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Web\\Controllers\\HomeController.cs",
@@ -1497,7 +1766,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 104,
               "Title": "RegisterRequest.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Auth\\RegisterRequest.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Auth\\RegisterRequest.cs",
@@ -1509,7 +1778,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 105,
               "Title": "LoginRequest.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Auth\\LoginRequest.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Auth\\LoginRequest.cs",
@@ -1521,7 +1790,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 107,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Views\\Admin\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Views\\Admin\\Index.cshtml",
@@ -1533,19 +1802,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAowEwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T11:02:31.169Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 106,
               "Title": "AdminController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\AdminController.cs",
@@ -1557,31 +1814,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
-              "Title": "TeamController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\TeamController.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAowAkAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T11:22:40.189Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 91,
-              "Title": "ERPController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
-              "RelativeDocumentMoniker": "src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
-              "RelativeToolTip": "src\\PBS.ERP.Modules.Security\\Controllers\\ERPController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T11:03:39.554Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 108,
               "Title": "SecurityLogService.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Infrastructure\\Services\\SecurityLogService.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Infrastructure\\Services\\SecurityLogService.cs",
@@ -1593,7 +1826,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 109,
               "Title": "AuditLog.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Identity\\AuditLog.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Identity\\AuditLog.cs",
@@ -1605,7 +1838,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 110,
               "Title": "ApplicationUserRole.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Identity\\ApplicationUserRole.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Identity\\ApplicationUserRole.cs",
@@ -1617,7 +1850,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 111,
               "Title": "GeographyScope.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Enum\\GeographyScope.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Enum\\GeographyScope.cs",
@@ -1629,7 +1862,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 112,
               "Title": "RoleNames.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\SS\\pbserp\\PBS.ERP\\src\\PBS.ERP.Shared\\Identity\\RoleNames.cs",
               "RelativeDocumentMoniker": "src\\PBS.ERP.Shared\\Identity\\RoleNames.cs",

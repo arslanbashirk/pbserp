@@ -9,71 +9,71 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PBS.ERP.Web
 build_property.RootNamespace = PBS.ERP.Web
-build_property.ProjectDir = C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\
+build_property.ProjectDir = C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web
+build_property.MSBuildProjectDirectory = C:\Users\Lenovo\source\repos\SS\pbserp\PBS.ERP\src\PBS.ERP.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Error/Error.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Error/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Error/NotFound.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Error/NotFound.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcTm90Rm91bmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Anonymous.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Anonymous.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBbm9ueW1vdXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Index.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Privacy.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/Error.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_PartialCrud.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_PartialCrud.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXJ0aWFsQ3J1ZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_Staff.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_Staff.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdGFmZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_SurveyLayout.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_SurveyLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdXJ2ZXlMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/_ViewImports.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/_ViewStart.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/PBS/source/repos/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_Layout.cshtml]
+[C:/Users/Lenovo/source/repos/SS/pbserp/PBS.ERP/src/PBS.ERP.Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-9b6961sd1t
