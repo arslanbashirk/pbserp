@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bwHPItDDm6dOEdhR2HyzbkTVvY2G0cw+YT/Am/3CcNQ=",
+  "Hash": "buxMuAmRDLXjPxbhWaDXGGpc8r10k0brQlqU2YAenqA=",
   "Source": "PBS.ERP.Web",
   "BasePath": "_content/PBS.ERP.Web",
   "Mode": "Default",
@@ -21,6 +21,17 @@
       "Identity": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj",
       "Version": 2,
       "Source": "PBS.ERP.Modules.Frame",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    },
+    {
+      "Identity": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj",
+      "Version": 2,
+      "Source": "PBS.ERP.Modules.GitHub",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
       "AdditionalPublishProperties": "Configuration=Release;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",

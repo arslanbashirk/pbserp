@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PBS.ERP.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46305ce11ec788a732f358c2b55f209aa291849f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae3c3d6a07145637d212b8543be3e4f19a1fa212")]
 [assembly: System.Reflection.AssemblyProductAttribute("PBS.ERP.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PBS.ERP.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

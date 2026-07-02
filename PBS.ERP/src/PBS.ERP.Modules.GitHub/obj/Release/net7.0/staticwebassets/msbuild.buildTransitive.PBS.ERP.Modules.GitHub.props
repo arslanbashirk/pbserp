@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\PBS.ERP.Modules.GitHub.props" />
+</Project>

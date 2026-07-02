@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "BlSpYXs8vcQ4G98yzLJRWo51qGluiEUx/j8uHbQh9JA=",
+  "Source": "PBS.ERP.Modules.GitHub",
+  "BasePath": "_content/PBS.ERP.Modules.GitHub",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

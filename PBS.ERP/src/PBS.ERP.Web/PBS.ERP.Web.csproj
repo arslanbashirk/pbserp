@@ -24,6 +24,7 @@
     <ProjectReference Include="..\PBS.ERP.Modules.Staff\PBS.ERP.Modules.Staff.csproj" />
     <ProjectReference Include="..\PBS.ERP.Modules.Subject\PBS.ERP.Modules.Subject.csproj" />
     <ProjectReference Include="..\PBS.ERP.Modules.Api\PBS.ERP.Modules.Api.csproj" />
+    <ProjectReference Include="..\PBS.ERP.Modules.GitHub\PBS.ERP.Modules.GitHub.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "GitHub Analytics Dashboard";
+}
+
+<div class="container-fluid mt-3">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="mb-0">GitHub Analytics Dashboard</h2>
+            <div class="text-muted">
+                Repository activity, developer contribution, pull requests and workflow health.
+            </div>
+        </div>
+
+        <button type="button" id="btnSyncGitHub" class="btn btn-primary">
+            Sync GitHub
+        </button>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="text-muted small">Repositories</div>
+                    <h3 id="kpiRepos">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="text-muted small">Commits</div>
+                    <h3 id="kpiCommits">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="text-muted small">PRs Merged</div>
+                    <h3 id="kpiPrMerged">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="text-muted small">Workflow Failures</div>
+                    <h3 id="kpiFailures">0</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    Daily Activity Trend
+                </div>
+                <div class="card-body">
+                    <canvas id="dailyTrendChart" height="110"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    Repository Summary
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <span class="text-muted">PRs Opened:</span>
+                        <strong id="kpiPrOpened">0</strong>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-muted">Workflow Runs:</span>
+                        <strong id="kpiWorkflowRuns">0</strong>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-muted">Views:</span>
+                        <strong id="kpiViews">0</strong>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-muted">Clones:</span>
+                        <strong id="kpiClones">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    Top Developers
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-sm table-hover align-middle" id="tblDevelopers">
+                        <thead>
+                            <tr>
+                                <th>Developer</th>
+                                <th>Commits</th>
+                                <th>PR Opened</th>
+                                <th>PR Merged</th>
+                                <th>Failures</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    Repositories
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-sm table-hover align-middle" id="tblRepos">
+                        <thead>
+                            <tr>
+                                <th>Repository</th>
+                                <th>Branch</th>
+                                <th>Language</th>
+                                <th>Commits</th>
+                                <th>Failures</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

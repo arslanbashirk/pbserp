@@ -41,6 +41,7 @@
           "PBS.ERP.Modules.Api": "1.0.0",
           "PBS.ERP.Modules.Core": "1.0.0",
           "PBS.ERP.Modules.Frame": "1.0.0",
+          "PBS.ERP.Modules.GitHub": "1.0.0",
           "PBS.ERP.Modules.HR": "1.0.0",
           "PBS.ERP.Modules.Inventory": "1.0.0",
           "PBS.ERP.Modules.Monitoring": "1.0.0",
@@ -2091,6 +2092,19 @@
         },
         "compile": {
           "PBS.ERP.Modules.Frame.dll": {}
+        }
+      },
+      "PBS.ERP.Modules.GitHub/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.3.11",
+          "PBS.ERP.Infrastructure": "1.0.0",
+          "PBS.ERP.Shared": "1.0.0"
+        },
+        "runtime": {
+          "PBS.ERP.Modules.GitHub.dll": {}
+        },
+        "compile": {
+          "PBS.ERP.Modules.GitHub.dll": {}
         }
       },
       "PBS.ERP.Modules.HR/1.0.0": {
@@ -4892,6 +4906,11 @@
       "sha512": ""
     },
     "PBS.ERP.Modules.Frame/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PBS.ERP.Modules.GitHub/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

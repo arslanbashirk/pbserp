@@ -8,6 +8,7 @@ using System.Data;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using PBS.ERP.Modules.GitHub.Module;
 using PBS.ERP.Infrastructure;
 using PBS.ERP.Infrastructure.Services;
 using PBS.ERP.Shared.Identity;
@@ -33,7 +34,7 @@ namespace PBS.ERP
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
+            builder.Services.AddGitHubModule(builder.Configuration);
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             // =====================================================
@@ -61,6 +62,7 @@ namespace PBS.ERP
                 .AddApplicationPart(typeof(Modules.Training.ModuleMarker).Assembly)
                 .AddApplicationPart(typeof(Modules.Monitoring.ModuleMarker).Assembly)
                 .AddApplicationPart(typeof(Modules.Frame.ModuleMarker).Assembly)
+                .AddApplicationPart(typeof(Modules.GitHub.ModuleMarker).Assembly)
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;

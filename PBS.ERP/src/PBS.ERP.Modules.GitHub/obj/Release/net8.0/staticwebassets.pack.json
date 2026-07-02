@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\PBS.ERP.Modules.GitHub.bundle.scp.css",
+      "PackagePath": "staticwebassets\\PBS.ERP.Modules.GitHub.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\wwwroot\\background.png",
+      "PackagePath": "staticwebassets\\background.png"
+    },
+    {
+      "Id": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\wwwroot\\exampleJsInterop.js",
+      "PackagePath": "staticwebassets\\exampleJsInterop.js"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.PBS.ERP.Modules.GitHub.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.PBS.ERP.Modules.GitHub.props",
+      "PackagePath": "build\\PBS.ERP.Modules.GitHub.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PBS.ERP.Modules.GitHub.props",
+      "PackagePath": "buildMultiTargeting\\PBS.ERP.Modules.GitHub.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.PBS.ERP.Modules.GitHub.props",
+      "PackagePath": "buildTransitive\\PBS.ERP.Modules.GitHub.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

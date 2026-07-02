@@ -2665,6 +2665,21 @@
           "bin/placeholder/PBS.ERP.Modules.Frame.dll": {}
         }
       },
+      "PBS.ERP.Modules.GitHub/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.3.11",
+          "PBS.ERP.Infrastructure": "1.0.0",
+          "PBS.ERP.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PBS.ERP.Modules.GitHub.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PBS.ERP.Modules.GitHub.dll": {}
+        }
+      },
       "PBS.ERP.Modules.HR/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -6826,6 +6841,11 @@
       "path": "../PBS.ERP.Modules.Frame/PBS.ERP.Modules.Frame.csproj",
       "msbuildProject": "../PBS.ERP.Modules.Frame/PBS.ERP.Modules.Frame.csproj"
     },
+    "PBS.ERP.Modules.GitHub/1.0.0": {
+      "type": "project",
+      "path": "../PBS.ERP.Modules.GitHub/PBS.ERP.Modules.GitHub.csproj",
+      "msbuildProject": "../PBS.ERP.Modules.GitHub/PBS.ERP.Modules.GitHub.csproj"
+    },
     "PBS.ERP.Modules.HR/1.0.0": {
       "type": "project",
       "path": "../PBS.ERP.Modules.HR/PBS.ERP.Modules.HR.csproj",
@@ -6885,6 +6905,7 @@
       "PBS.ERP.Modules.Api >= 1.0.0",
       "PBS.ERP.Modules.Core >= 1.0.0",
       "PBS.ERP.Modules.Frame >= 1.0.0",
+      "PBS.ERP.Modules.GitHub >= 1.0.0",
       "PBS.ERP.Modules.HR >= 1.0.0",
       "PBS.ERP.Modules.Inventory >= 1.0.0",
       "PBS.ERP.Modules.Monitoring >= 1.0.0",
@@ -6937,6 +6958,9 @@
             },
             "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj": {
               "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.Frame\\PBS.ERP.Modules.Frame.csproj"
+            },
+            "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj": {
+              "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.GitHub\\PBS.ERP.Modules.GitHub.csproj"
             },
             "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj": {
               "projectPath": "C:\\Users\\PBS\\source\\repos\\pbserp\\PBS.ERP\\src\\PBS.ERP.Modules.HR\\PBS.ERP.Modules.HR.csproj"

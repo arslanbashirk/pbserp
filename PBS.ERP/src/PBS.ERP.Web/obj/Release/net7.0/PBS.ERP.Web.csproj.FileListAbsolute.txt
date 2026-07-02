@@ -884,6 +884,7 @@ C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Api.dll
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Core.dll
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Frame.dll
+C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.GitHub.dll
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.HR.dll
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Inventory.dll
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Monitoring.dll
@@ -908,6 +909,7 @@ C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Staff.pdb
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Subject.pdb
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.Api.pdb
+C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\bin\Release\net7.0\PBS.ERP.Modules.GitHub.pdb
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.csproj.AssemblyReference.cache
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\PBS\source\repos\pbserp\PBS.ERP\src\PBS.ERP.Web\obj\Release\net7.0\PBS.ERP.Web.AssemblyInfoInputs.cache
